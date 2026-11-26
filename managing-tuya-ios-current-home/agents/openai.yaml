@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Current Home Manager"
+  short_description: "Manage global home context and switching for iOS"
+  default_prompt: "Use $managing-tuya-ios-current-home to build the current home management middleware (home switching, delegate registration, invitation handling) for an iOS Tuya app."

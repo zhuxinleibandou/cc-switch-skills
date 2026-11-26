@@ -1,0 +1,4 @@
+interface:
+  display_name: "Integrate Tuya Android SDK"
+  short_description: "Guide Tuya SDK setup for Android apps"
+  default_prompt: "Use $integrating-tuya-android-sdk to guide Tuya Smart App SDK integration in a new Android project."

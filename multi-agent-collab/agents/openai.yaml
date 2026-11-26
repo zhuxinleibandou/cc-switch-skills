@@ -1,0 +1,4 @@
+interface:
+  display_name: "多 Agent 协作"
+  short_description: "为任意项目初始化 Codex / Claude Code 轮流协作的共用规则、任务和交接文档,并按协议开始与结束任务"
+  default_prompt: "请使用 $multi-agent-collab 为当前项目初始化多 Agent 协作文档,或按交接协议开始/结束本次任务。"

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BottomSheet 底部弹窗 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+:root{--app-B1:#fff;--app-B1-N1:#1f2329;--app-B3:#f6f7fb;--app-B4:#fff;--app-B4-N1:#1f2329;--app-B4-N3:#646566;--app-B4-N7:#ebedf0;--app-M1:#3678e3;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--app-B3);color:var(--app-B1-N1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.demo-page{width:min(100%,760px);margin:0 auto;padding:24px 16px 48px}.demo-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.demo-header h1{margin:0;font-size:24px;line-height:32px}.demo-header a{color:#3678e3;text-decoration:none;font-size:14px}.demo-block{margin:0 0 24px}.demo-block h2{margin:0 0 12px 16px;color:#646566;font-size:14px;font-weight:500;line-height:20px}.demo-block__content{min-width:0}.demo-block--padding .demo-block__content{padding:0 16px}.demo-block__content>smart-cell,.demo-block__content>smart-button,.demo-block__content>smart-popup,.demo-block__content>smart-overlay,.demo-block__content>smart-progress,.demo-block__content>smart-notice-bar{margin-bottom:12px}.row,.line{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.contain{width:100%}img{max-width:100%}[hidden]{display:none!important}
+.content {
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  background: var(--app-B1, #f6f7fb);
+  color: var(--app-B4-N1, #3d3d3d);
+}
+
+.footer {
+  margin: 16px 0;
+}
+
+.demo-header {
+  padding: 10px 39px;
+}
+
+.demo-text {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 46px;
+}
+
+.demo-slider {
+  margin: 23px 0;
+  min-height: 45px;
+}
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <main class="demo-page">
+    <header class="demo-header"><h1>BottomSheet 底部弹窗</h1><a href="./home.html">Home</a></header>
+<section class="demo-block demo-block--padding"><h2>基础用法</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet1">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    title="Title"
+    show="false" data-bind-show="show1"
+    bind:close="toggleActionSheet1"></smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>自定义</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet2">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    show="false" data-bind-show="show2"
+    title="Title"
+    bind:close="toggleActionSheet2"
+   
+  >
+    <div class="content" />
+    <div class="footer">
+      <smart-button type="info" block>完成</smart-button>
+    </div>
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>最大高度限制</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet3">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    show="false" data-bind-show="show3"
+    title="Title"
+    bind:close="toggleActionSheet3"
+   
+  >
+    <div style="background-color: red; height: 100px;" />
+    <div style="background-color: blue; height: 100px;" />
+    <div style="background-color: black; height: 100px;" />
+    <div style="background-color: yellow; height: 100px;" />
+    <div style="background-color: pink; height: 100px;" />
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>固定高度</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet4">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    show="false" data-bind-show="show4"
+    title="Title"
+    bind:close="toggleActionSheet4"
+    content-height="500px"
+   
+  >
+  <div scroll-y style="height: 300px">
+    <div style="background-color: red; height: 100px;" />
+    <div style="background-color: blue; height: 100px;" />
+    <div style="background-color: black; height: 100px;" />
+    <div style="background-color: yellow; height: 100px;" />
+    <div style="background-color: pink; height: 100px;" />
+  </div>
+  <div style="background-color: white; height: 100px;" />
+  <div style="background-color: orange; height: 100px;" />
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>使用插槽插入标题</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet5">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    show="false" data-bind-show="show5"
+    bind:close="toggleActionSheet5"
+   
+  >
+  <div slot="title">title</div>
+  <div style="background-color: orange; height: 100px;" />
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>可拖拽</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet6">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    show="false" data-bind-show="show6"
+    bind:close="toggleActionSheet6"
+    draggable
+   
+    close-drag-height="0" data-bind-close-drag-height="closeDragHeight"
+    mid-drag-height="300"
+  >
+    <div style="background-color: red; height: 300px;" />
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>设置拖拽的范围</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet7">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    show="false" data-bind-show="show7"
+    draggable
+   
+    mid-drag-height="300"
+    min-drag-height="300"
+    max-drag-height="300"
+    close-drag-height="300"
+    bind:close="toggleActionSheet7"
+  >
+    <div style="background-color: red; height: 300px;" />
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>可拖拽带标题</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet8">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    title="可拖拽带标题"
+    show="false" data-bind-show="show8"
+    draggable
+   
+    mid-drag-height="300"
+    min-drag-height="300"
+    max-drag-height="300"
+    close-drag-height="300"
+    bind:close="toggleActionSheet8"
+  >
+    <div style="background-color: red; height: 300px;" />
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>监听拖拽位置</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet9">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    show="false" data-bind-show="show9"
+    bind:close="toggleActionSheet9"
+    draggable
+   
+    mid-drag-height="300"
+    min-drag-height="100"
+    max-drag-height="600"
+    bind:drag-position="onDragPosition"
+  >
+    <div style="margin-top: 16px; padding: 12px; background-color: #f0f0f0; border-radius: 4px;">
+      <span>当前面板位置: </span>
+    </div>
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>锁定最大拖拽高度</h2><div class="demo-block__content">
+  <smart-button type="primary" bind:click="toggleActionSheet10">弹出菜单</smart-button>
+  <smart-bottom-sheet
+    show="false" data-bind-show="show10"
+    bind:close="toggleActionSheet10"
+    draggable
+   
+    mid-drag-height="300"
+    min-drag-height="100"
+    max-drag-height="400"
+    lock-max-drag
+    close-drag-height="0" data-bind-close-drag-height="closeDragHeight"
+  >
+    <div scroll-y style="height: 400px;">
+      <div style="background-color: red; height: 100px;" />
+      <div style="background-color: blue; height: 100px;" />
+      <div style="background-color: black; height: 100px;" />
+      <div style="background-color: red; height: 100px;" />
+      <div style="background-color: blue; height: 100px;" />
+      <div style="background-color: black; height: 100px;" />
+    </div>
+  </smart-bottom-sheet>
+</div></section>
+  </main>
+<script>window.__demoState={
+  "show1": false,
+  "show2": false,
+  "show3": false,
+  "show4": false,
+  "show5": false,
+  "show6": false,
+  "show7": false,
+  "show8": false,
+  "show9": false,
+  "show10": false,
+  "closeDragHeight": 0,
+  "dragPosition": "mid",
+  "dragPositionText": ""
+};window.__handlerMaps={
+  "toggle": {
+    "toggle": "show1",
+    "toggleActionSheet2": "show2",
+    "toggleActionSheet3": "show3",
+    "toggleActionSheet4": "show4",
+    "toggleActionSheet5": "show5",
+    "toggleActionSheet6": "show6",
+    "toggleActionSheet7": "show7",
+    "toggleActionSheet8": "show8",
+    "toggleActionSheet9": "show9",
+    "toggleActionSheet10": "show10"
+  },
+  "setTrue": {},
+  "setFalse": {}
+};function __evalDemo(expr){try{return Function('state','computed','with(state){return ('+expr+')}')(window.__demoState,{pad:n=>String(n).padStart(2,'0'),formatDate(v){const d=new Date(Array.isArray(v)?v[0]:v);return Number.isNaN(d.getTime())?'':d.getFullYear()+'-'+this.pad(d.getMonth()+1)+'-'+this.pad(d.getDate())},formatFullDate(v){return this.formatDate(v)},formatRange(v){return Array.isArray(v)?v.map(x=>this.formatDate(x)).filter(Boolean).join(' ~ '):this.formatDate(v)}})}catch(e){return''}}function __attrValue(v){return v==null?'':typeof v==='object'?JSON.stringify(v):String(v)}function __applyBindings(){document.querySelectorAll('*').forEach(el=>{Array.from(el.attributes).forEach(a=>{if(!a.name.startsWith('data-bind-'))return;const real=a.name.slice(10),v=__evalDemo(a.value); if(typeof v==='boolean')el.setAttribute(real,String(v)); else if(v==null||v==='')el.removeAttribute(real); else el.setAttribute(real,__attrValue(v)); if(typeof v==='function'||Array.isArray(v)||(v!=null&&Object.getPrototypeOf(v)===Object.prototype)){const prop=real.replace(/-([a-z])/g,(_,c)=>c.toUpperCase());try{if(prop in el)el[prop]=v}catch(e){}}})})}function __path(p){if(!p)return null;const parts=String(p).split('.');let o=window.__demoState;for(let i=0;i<parts.length-1;i++){if(!o[parts[i]])o[parts[i]]={};o=o[parts[i]]}return [o,parts[parts.length-1]]}function __set(p,v){const r=__path(p);if(!r)return false;r[0][r[1]]=v;__applyBindings();return true}function __toggle(p){const r=__path(p);if(!r)return false;r[0][r[1]]=!r[0][r[1]];__applyBindings();return true}function __handle(h,e,el){const m=window.__handlerMaps||{toggle:{},setTrue:{},setFalse:{}};if(m.toggle&&m.toggle[h])return __toggle(m.toggle[h]);if(h==='onClick'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',true);if(h==='onClose'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',false);if(m.setTrue&&m.setTrue[h])return __set(m.setTrue[h],true);if(m.setFalse&&m.setFalse[h])return __set(m.setFalse[h],false);if(/toggle|show|open|close/i.test(h)){const s=el.closest('.demo-block')||document,t=s.querySelector('[data-bind-show]')||el.closest('[data-bind-show]');if(t)return __toggle(t.getAttribute('data-bind-show'))}if(/confirm|cancel|close/i.test(h)){const t=el.closest('[data-bind-show]')||el;if(t&&t.getAttribute('data-bind-show'))return __set(t.getAttribute('data-bind-show'),false)}if(/change|input/i.test(h)&&e&&e.detail!=null){const t=el.getAttribute('data-bind-value')||el.getAttribute('data-bind-checked')||el.getAttribute('data-bind-active-index');if(t)return __set(t,e.detail&&e.detail.value!==undefined?e.detail.value:e.detail)}return false}document.addEventListener('DOMContentLoaded', __applyBindings);</script>
+</body>
+</html>

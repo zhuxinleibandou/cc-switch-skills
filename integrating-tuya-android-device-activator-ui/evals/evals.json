@@ -1,0 +1,45 @@
+{
+  "skill": "integrating-tuya-android-device-activator-ui",
+  "cases": [
+    {
+      "id": "integrating-tuya-android-device-activator-ui-case-1",
+      "description": "业务场景：配置 Gradle 依赖、混",
+      "prompt": "我要在 App 里加设备配网功能，支持 Wi-Fi、蓝牙、扫码配网。帮我配置 Gradle 依赖、混淆规则，以及调用 ThingDeviceActivatorManager 打开配网页面的代码。",
+      "expected_output": "应在 app/build.gradle.kts 中添加 thingsmart-bizbundle-device_activator（必选）和 thingsmart-bizbundle-qrcode_mlkit（强烈建议）依赖，版本由 BOM 管理不手动指定；检查 proguard-rules.pro 是否包含 FastJSON、RxJava、Fresco、ThingClips 的 keep 规则；注册 ThingDeviceActivatorManager.addListener 处理配网回调；使用 ThingDeviceActivatorManager.startDeviceActiveAction(activity) 打开配网页面；ScanManager.INSTANCE.openScan(activity) 打开扫码配网；提醒 Wi-Fi 配网需 ACCESS_FINE_LOCATION 权限，蓝牙需 BLUETOOTH_SCAN 和 BLUETOOTH_CONNECT 权限。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingDeviceActivatorManager"
+        },
+        {
+          "type": "contains",
+          "value": "ScanManager"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-device-activator-ui-case-2",
+      "description": "排错：Kotlin 里调用 ThingDevi",
+      "prompt": "Kotlin 里调用 ThingDeviceActivatorManager.INSTANCE.startDeviceActiveAction(activity) 编译报错 Unresolved reference 'INSTANCE'。另外配网页面打开后选择 Wi-Fi 配网一直失败。",
+      "expected_output": "应指出 ThingDeviceActivatorManager 在 Kotlin 中应直接调用 ThingDeviceActivatorManager.startDeviceActiveAction(activity)，不要使用 .INSTANCE（那是 Java 调用 Kotlin object 的方式）；Wi-Fi 配网失败需检查是否已申请 ACCESS_FINE_LOCATION 定位权限，以及 BizBundleFamilyServiceImpl 是否已注册且 shiftCurrentFamily 是否已调用。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingDeviceActivatorManager"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-device-activator-ui-case-3",
+      "description": "场景：，但 Debug 包没问题。",
+      "prompt": "Release 包里配网功能异常，但 Debug 包没问题。我用了 R8 混淆。另外 device_activator 和 qrcode_mlkit 我手动指定了不同版本号，构建报冲突。",
+      "expected_output": "应指出 Release 包配网异常首先检查 proguard-rules.pro 是否包含完整的 keep 规则（FastJSON、RxJava、Fresco、ThingClips）；device_activator 和 qrcode_mlkit 的版本必须由同一 BOM（thingsmart-BizBundlesBom）统一管理，不要手动指定版本号，删除手动版本号让 BOM 统一管理即可解决冲突。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应指出 Release 包配网异常首先检查 proguard"
+        }
+      ]
+    }
+  ]
+}

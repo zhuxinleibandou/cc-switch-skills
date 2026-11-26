@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ConfigProvider 全局配置 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f6f7fb;
+      color: #1f2329;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .demo-page {
+      width: min(100%, 596px);
+      min-height: 100vh;
+      padding: 36px 0 40px;
+    }
+
+    .demo-block {
+      margin: 0 0 34px;
+    }
+
+    .demo-block h2 {
+      margin: 0 0 16px;
+      padding: 0 30px;
+      color: #5f6368;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 30px;
+    }
+
+    .demo-block h2::after {
+      content: "(点击聚焦文档)";
+      margin-left: 2px;
+      color: #8a8f99;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .demo-contain {
+      padding: 0 24px;
+    }
+
+    .demo-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      margin-bottom: 24px;
+    }
+
+    .theme-text {
+      flex: 1;
+      color: #5f6368;
+      font-size: 14px;
+      line-height: 48px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .provider-preview {
+      display: block;
+    }
+
+    .demo-home-link {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #3678e3;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 34px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(31, 35, 41, 0.12);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <a class="demo-home-link" href="./home.html" aria-label="返回 Home">Home</a>
+  <main class="demo-page">
+    <section class="demo-block">
+      <h2>全局配置样式</h2>
+      <div class="demo-contain">
+        <div class="demo-buttons">
+          <smart-button type="primary" color="red" data-color="red">设置颜色</smart-button>
+          <smart-button type="primary" color="green" data-color="green">设置颜色</smart-button>
+          <smart-button type="primary" color="blue" data-color="blue">设置颜色</smart-button>
+        </div>
+        <smart-config-provider id="colorProvider" class="provider-preview">
+          <smart-button type="primary">主要按钮</smart-button>
+        </smart-config-provider>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>主题切换</h2>
+      <div class="demo-contain">
+        <div class="demo-buttons">
+          <smart-button type="primary" data-theme-value="light">浅色主题</smart-button>
+          <span id="themeText" class="theme-text">当前主题：light</span>
+          <smart-button type="primary" data-theme-value="dark">深色主题</smart-button>
+        </div>
+        <smart-config-provider id="themeProvider" theme="light" class="provider-preview">
+          <smart-cell-group>
+            <smart-cell title="title" value="content"></smart-cell>
+            <smart-cell title="title" value="content" label="detail information" is-link></smart-cell>
+          </smart-cell-group>
+        </smart-config-provider>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const colorProvider = document.getElementById("colorProvider");
+    const themeProvider = document.getElementById("themeProvider");
+    const themeText = document.getElementById("themeText");
+
+    function setThemeColor(color) {
+      colorProvider.themeVars = {
+        buttonPrimaryBorderColor: color,
+        buttonPrimaryBackgroundColor: color
+      };
+    }
+
+    function setTheme(theme) {
+      themeProvider.theme = theme;
+      themeText.textContent = `当前主题：${theme}`;
+    }
+
+    setThemeColor("red");
+    setTheme("light");
+
+    document.querySelectorAll("[data-color]").forEach((button) => {
+      button.addEventListener("click", () => setThemeColor(button.getAttribute("data-color")));
+    });
+
+    document.querySelectorAll("[data-theme-value]").forEach((button) => {
+      button.addEventListener("click", () => setTheme(button.getAttribute("data-theme-value")));
+    });
+  </script>
+</body>
+</html>

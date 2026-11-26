@@ -1,0 +1,41 @@
+{
+  "skill": "managing-tuya-ios-device-list",
+  "cases": [
+    {
+      "id": "managing-tuya-ios-device-list-case-1",
+      "description": "业务场景：需要在首页用 UITableVie",
+      "prompt": "我需要在首页用 UITableView 展示当前家庭的设备列表，家庭设备和共享设备要分开显示。请帮我设计数据源和 section 结构。",
+      "expected_output": "应说明从 getHomeDataWithSuccess:failure: 获取 homeModel.deviceList 后，按 ThingSmartDeviceModel.isShare 属性分拣到 myDevices 和 sharedDevices 两个数组。UITableView 使用两个 Section：Section 0 展示家庭设备，Section 1 展示共享设备（sharedDevices.count > 0 时才显示 section header）。需实现 updateEmptyState 控制空状态视图。监听 CurrentHomeDidChangeNotification，家庭切换时先清空两个数组再重新拉取数据。设置 home.delegate = self 并强引用 self.currentHome（ThingSmartHome 使用 weak delegate）。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "getHomeDataWithSuccess"
+        }
+      ]
+    },
+    {
+      "id": "managing-tuya-ios-device-list-case-2",
+      "description": "场景：我要给设备列表加侧滑删除功能。共享设备和",
+      "prompt": "我要给设备列表加侧滑删除功能。共享设备和自己的设备删除逻辑一样吗？",
+      "expected_output": "应明确说明两者删除逻辑不同：家庭设备（isShare == NO）调用 [smartDevice remove:failure:]，这是真正的设备移除，需要二次确认弹窗；共享设备（isShare == YES）只能取消接收共享，调用 removeReceiveDeviceShareWithDevId:success:failure:，不能对共享设备调用 remove:failure: 否则会报错。侧滑使用 UISwipeActionsConfiguration（iOS 11+）。同时提及设备移除和恢复出厂不可撤销，务必在 UI 层添加确认弹窗。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "removeReceiveDeviceShareWithDevId"
+        }
+      ]
+    },
+    {
+      "id": "managing-tuya-ios-device-list-case-3",
+      "description": "场景：实现了 ThingSmart",
+      "prompt": "我实现了 ThingSmartHomeDelegate 的 didAddDevice 和 didRemoveDevice 回调来监听设备增删，但回调从来不触发。在线状态变化的 deviceInfoUpdate: 倒是正常的。问题出在哪里？",
+      "expected_output": "应指出 ThingSmartHomeDelegate 中设备增删回调的方法名是 didAddDeivice: 和 didRemoveDeivice:（Deivice 不是 Device），这是 SDK 固定拼写。写成 didAddDevice/didRemoveDevice 方法签名不匹配所以回调不触发。同时提醒：家庭切换时要注销旧 home 的 delegate（home.delegate = nil）再设置新 home 的 delegate，避免收到旧家庭的回调；updateName:success:failure: 成功后需手动赋值 device.name = newName 再刷新 UI，SDK 不会自动刷新。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应指出 ThingSmartHomeDelegate 中设备"
+        }
+      ]
+    }
+  ]
+}

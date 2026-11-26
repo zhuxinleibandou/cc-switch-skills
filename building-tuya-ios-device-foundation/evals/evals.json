@@ -1,0 +1,45 @@
+{
+  "skill": "building-tuya-ios-device-foundation",
+  "cases": [
+    {
+      "id": "building-tuya-ios-device-foundation-case-1",
+      "description": "业务场景：怎么实现设备 DP 监听？",
+      "prompt": "我想在设备详情页实时显示设备的 DP 数据变化，比如温度传感器的温度值更新。请问用 ObjC 怎么实现设备 DP 监听？",
+      "expected_output": "应说明通过 [ThingSmartDevice deviceWithDeviceId:devId] 创建设备操作实例，设置 device.delegate = self 实现 ThingSmartDeviceDelegate。在 dpsUpdate 回调中接收 DP 数据变化（iOS 的 dpsUpdate 参数直接是 NSDictionary，与 Android 不同无需解析 JSON 字符串）。初始 DP 数据从 ThingSmartDeviceModel.dps 属性直接读取。强调在 ViewController dealloc 前必须将 device.delegate = nil 避免野指针。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应说明通过 [ThingSmartDevice device"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-ios-device-foundation-case-2",
+      "description": "场景：实现 ThingSmartH",
+      "prompt": "我在实现 ThingSmartHomeDelegate 的 didAddDevice: 方法，但回调一直不触发，设备明明已经添加成功了。代码有什么问题？",
+      "expected_output": "应指出 ThingSmartHomeDelegate 中设备增删回调的方法名拼写是 didAddDeivice: 和 didRemoveDeivice:（注意是 Deivice 不是 Device），这是 SDK 固定拼写不是笔误。如果写成 didAddDevice: 则方法签名不匹配，回调不会触发。必须严格按照 SDK 的拼写来实现 delegate 方法。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应指出 ThingSmartHomeDelegate 中设备"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-ios-device-foundation-case-3",
+      "description": "业务场景：需要把设备共享给其他用户，最多能共",
+      "prompt": "我需要把设备共享给其他用户，最多能共享给多少人？共享和取消共享分别调用什么 API？",
+      "expected_output": "应说明设备共享上限是 20 个用户，超过限制 API 会报错，需提前校验。共享操作：填写 ThingSmartDeviceShareRequestModel 后调用 [ThingSmartHomeDeviceShare addDeviceShareWithRequestModel:success:failure:]。取消共享分两种：作为分享者移除用 removeDeviceShareWithMemberId:devId:，作为接收者取消接收用 removeReceiveDeviceShareWithDevId:success:failure:。查询共享成员列表用 getShareMemberListWithSpaceId: 和 getReceiveMemberListWithSuccess:。也可通过邀请方式共享：inviteShareWithCountryCode:userAccount:devId: 加 confirmInviteShareWithShareId:。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "addDeviceShareWithRequestModel"
+        },
+        {
+          "type": "contains",
+          "value": "removeDeviceShareWithMemberId"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Home Foundation"
+  short_description: "Implement home, room, and member management for Android"
+  default_prompt: "Use $building-tuya-android-home-foundation to implement home creation, room management, and member management for an Android Tuya app."

@@ -1,0 +1,10 @@
+
+# Local dependencies, caches and secrets
+.DS_Store
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+.env
+.env.local
+*-key.pem

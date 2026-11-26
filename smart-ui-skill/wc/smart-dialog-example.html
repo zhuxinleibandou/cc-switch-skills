@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dialog 弹出框 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+:root{--app-B1:#fff;--app-B1-N1:#1f2329;--app-B3:#f6f7fb;--app-B4:#fff;--app-B4-N1:#1f2329;--app-B4-N3:#646566;--app-B4-N7:#ebedf0;--app-M1:#3678e3;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--app-B3);color:var(--app-B1-N1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.demo-page{width:min(100%,760px);margin:0 auto;padding:24px 16px 48px}.demo-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.demo-header h1{margin:0;font-size:24px;line-height:32px}.demo-header a{color:#3678e3;text-decoration:none;font-size:14px}.demo-block{margin:0 0 24px}.demo-block h2{margin:0 0 12px 16px;color:#646566;font-size:14px;font-weight:500;line-height:20px}.demo-block__content{min-width:0}.demo-block--padding .demo-block__content{padding:0 16px}.demo-block__content>smart-cell,.demo-block__content>smart-button,.demo-block__content>smart-popup,.demo-block__content>smart-overlay,.demo-block__content>smart-progress,.demo-block__content>smart-notice-bar{margin-bottom:12px}.row,.line{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.contain{width:100%}img{max-width:100%}[hidden]{display:none!important}
+.demo-imageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 279px;
+  height: 180px;
+  background: var(--app-B1, #f6f7fb);
+}
+
+.demo-image {
+  width: 88px;
+  height: 88px;
+}
+
+.demo-text {
+  padding: 8px 0 24px;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: center;
+  color: var(--app-B4-N3, rgba(0, 0, 0, 0.5));
+}
+
+:root[data-a11y='true'] {
+  .demo-text {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 27px;
+    color: rgba(0, 0, 0, 0.7);
+  }
+}
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <main class="demo-page">
+    <header class="demo-header"><h1>Dialog 弹出框</h1><a href="./home.html">Home</a></header>
+<section class="demo-block demo-block--padding"><h2>提示弹窗</h2><div class="demo-block__content">
+  <smart-cell title="提示弹窗" bind:click="onClickAlert" is-link ></smart-cell>
+  <smart-cell title="提示弹窗（无标题）" bind:click="onClickAlert2" is-link ></smart-cell>
+  <smart-cell title="确认弹窗" bind:click="onClickConfirm" is-link ></smart-cell>
+  <smart-cell title="警告确认弹窗" bind:click="onClickConfirmIcon" is-link ></smart-cell>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>圆角按钮样式</h2><div class="demo-block__content">
+  <smart-cell title="提示弹窗" bind:click="onClickThemeAlert" is-link ></smart-cell>
+  <smart-cell title="提示弹窗（无标题）" bind:click="onClickThemeAlert2" is-link ></smart-cell>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>异步关闭</h2><div class="demo-block__content">
+  <smart-cell title="异步关闭" bind:click="onClickAsyncClose" ></smart-cell>
+  <smart-cell title="输入确认弹窗" bind:click="onClickInput" ></smart-cell>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>自定义图标</h2><div class="demo-block__content">
+  <smart-cell title="图片提示弹窗" bind:click="onClickCustomIcon" ></smart-cell>
+</div></section>
+
+<section class="demo-block demo-block--padding"><h2>组件调用</h2><div class="demo-block__content">
+  <smart-cell title="图片提示弹窗" bind:click="showCustomDialog" ></smart-cell>
+</div></section>
+
+
+<smart-dialog
+  use-slot
+  title="Title"
+  show="false" data-bind-show="show"
+  show-cancel-button
+  bind:close="onClose"
+  confirm-button-open-type="getUserInfo"
+  bind:getuserinfo="getUserInfo"
+>
+  <div class="demo-imageWrapper">
+    <img
+      class="demo-image"
+      src="https://static1.tuyacn.com/static/tuya-miniapp-doc/_next/static/images/logo-small.png"
+    />
+  </div>
+  <div class="demo-text">
+    <span>Body</span>
+  </div>
+</smart-dialog>
+
+<smart-dialog id="smart-dialog" ></smart-dialog>
+
+  </main>
+<script>window.__demoState={
+  "show": false,
+  "inputValue": ""
+};window.__handlerMaps={
+  "toggle": {},
+  "setTrue": {
+    "SmartComponent": "show"
+  },
+  "setFalse": {
+    "onClose": "show"
+  }
+};function __openDialogDemo(handler){
+  if (handler === 'showCustomDialog') {
+    return __set('show', true);
+  }
+  const dialog = document.getElementById('smart-dialog');
+  if (!dialog) return false;
+  const configs = {
+    onClickAlert: { title: '标题', message: '弹窗内容' },
+    onClickAlert2: { title: '', message: '弹窗内容' },
+    onClickConfirm: { title: '标题', message: '弹窗内容', cancel: true },
+    onClickConfirmIcon: { title: '标题', message: '弹窗内容', cancel: true, icon: 'warning' },
+    onClickThemeAlert: { title: '标题', message: '弹窗内容', theme: 'round-button' },
+    onClickThemeAlert2: { title: '', message: '弹窗内容', theme: 'round-button' },
+    onClickAsyncClose: { title: '标题', message: '弹窗内容', cancel: true },
+    onClickInput: { title: '标题', message: '', cancel: true, input: true, placeholder: '请输入内容' },
+    onClickCustomIcon: { title: '标题', message: '弹窗内容', icon: 'warning' }
+  };
+  const cfg = configs[handler];
+  if (!cfg) return false;
+  ['title','message','theme','icon','placeholder','value','show-cancel-button','use-slot','use-title-slot'].forEach(name => dialog.removeAttribute(name));
+  dialog.setAttribute('auto-close', 'true');
+  dialog.setAttribute('title', cfg.title || '');
+  if (cfg.message) dialog.setAttribute('message', cfg.message);
+  if (cfg.theme) dialog.setAttribute('theme', cfg.theme);
+  if (cfg.cancel) dialog.setAttribute('show-cancel-button', '');
+  if (cfg.icon) dialog.setAttribute('icon', cfg.icon);
+  if (cfg.input) {
+    dialog.setAttribute('value', '');
+    dialog.setAttribute('placeholder', cfg.placeholder || '');
+  }
+  dialog.setAttribute('show', '');
+  return true;
+}
+function __evalDemo(expr){try{return Function('state','computed','with(state){return ('+expr+')}')(window.__demoState,{pad:n=>String(n).padStart(2,'0'),formatDate(v){const d=new Date(Array.isArray(v)?v[0]:v);return Number.isNaN(d.getTime())?'':d.getFullYear()+'-'+this.pad(d.getMonth()+1)+'-'+this.pad(d.getDate())},formatFullDate(v){return this.formatDate(v)},formatRange(v){return Array.isArray(v)?v.map(x=>this.formatDate(x)).filter(Boolean).join(' ~ '):this.formatDate(v)}})}catch(e){return''}}function __attrValue(v){return v==null?'':typeof v==='object'?JSON.stringify(v):String(v)}function __applyBindings(){document.querySelectorAll('*').forEach(el=>{Array.from(el.attributes).forEach(a=>{if(!a.name.startsWith('data-bind-'))return;const real=a.name.slice(10),v=__evalDemo(a.value); if(typeof v==='boolean')el.setAttribute(real,String(v)); else if(v==null||v==='')el.removeAttribute(real); else el.setAttribute(real,__attrValue(v)); if(typeof v==='function'||Array.isArray(v)||(v!=null&&Object.getPrototypeOf(v)===Object.prototype)){const prop=real.replace(/-([a-z])/g,(_,c)=>c.toUpperCase());try{if(prop in el)el[prop]=v}catch(e){}}})})}function __path(p){if(!p)return null;const parts=String(p).split('.');let o=window.__demoState;for(let i=0;i<parts.length-1;i++){if(!o[parts[i]])o[parts[i]]={};o=o[parts[i]]}return [o,parts[parts.length-1]]}function __set(p,v){const r=__path(p);if(!r)return false;r[0][r[1]]=v;__applyBindings();return true}function __toggle(p){const r=__path(p);if(!r)return false;r[0][r[1]]=!r[0][r[1]];__applyBindings();return true}function __handle(h,e,el){if(__openDialogDemo(h))return true;const m=window.__handlerMaps||{toggle:{},setTrue:{},setFalse:{}};if(m.toggle&&m.toggle[h])return __toggle(m.toggle[h]);if(h==='onClick'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',true);if(h==='onClose'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',false);if(m.setTrue&&m.setTrue[h])return __set(m.setTrue[h],true);if(m.setFalse&&m.setFalse[h])return __set(m.setFalse[h],false);if(/toggle|show|open|close/i.test(h)){const s=el.closest('.demo-block')||document,t=s.querySelector('[data-bind-show]')||el.closest('[data-bind-show]');if(t)return __toggle(t.getAttribute('data-bind-show'))}if(/confirm|cancel|close/i.test(h)){const t=el.closest('[data-bind-show]')||el;if(t&&t.getAttribute('data-bind-show'))return __set(t.getAttribute('data-bind-show'),false)}if(/change|input/i.test(h)&&e&&e.detail!=null){const t=el.getAttribute('data-bind-value')||el.getAttribute('data-bind-checked')||el.getAttribute('data-bind-active-index');if(t)return __set(t,e.detail&&e.detail.value!==undefined?e.detail.value:e.detail)}return false}document.addEventListener('DOMContentLoaded', __applyBindings);</script>
+</body>
+</html>

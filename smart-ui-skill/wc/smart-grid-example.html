@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grid 宫格 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <link rel="stylesheet" href="./smart-common.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; background: var(--app-B1); color: var(--app-B1-N1); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    .demo-page { width: min(100%, 760px); margin: 0 auto; padding: 24px 16px 48px; }
+    .demo-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .demo-header h1 { margin: 0; font-size: 24px; line-height: 32px; }
+    .demo-header a { color: #3678e3; text-decoration: none; }
+    .demo-block { margin-bottom: 24px; }
+    .demo-block h2 { margin: 0 0 12px 16px; color: #646566; font-size: 14px; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <main class="demo-page">
+    <header class="demo-header"><h1>Grid 宫格</h1><a href="./home.html">Home</a></header>
+
+    <section class="demo-block"><h2>基础用法</h2>
+      <smart-grid>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+      </smart-grid>
+    </section>
+
+    <section class="demo-block"><h2>自定义列数</h2>
+      <smart-grid column-num="3">
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+      </smart-grid>
+    </section>
+
+    <section class="demo-block"><h2>自定义内容</h2>
+      <smart-grid column-num="3" border="false">
+        <smart-grid-item use-slot><img style="width:90px;height:90px" src="https://static1.tuyacn.com/static/tuya-miniapp-doc/_next/static/images/logo-small.png" alt=""></smart-grid-item>
+        <smart-grid-item use-slot><img style="width:90px;height:90px" src="https://static1.tuyacn.com/static/tuya-miniapp-doc/_next/static/images/logo-small.png" alt=""></smart-grid-item>
+        <smart-grid-item use-slot><img style="width:90px;height:90px" src="https://static1.tuyacn.com/static/tuya-miniapp-doc/_next/static/images/logo-small.png" alt=""></smart-grid-item>
+      </smart-grid>
+    </section>
+
+    <section class="demo-block"><h2>正方形格子</h2>
+      <smart-grid square>
+        <smart-grid-item icon="photo-o" text="文字"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文字"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文字"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文字"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文字"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文字"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文字"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文字"></smart-grid-item>
+      </smart-grid>
+    </section>
+
+    <section class="demo-block"><h2>格子间距</h2>
+      <smart-grid gutter="10">
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+      </smart-grid>
+    </section>
+
+    <section class="demo-block"><h2>内容横排</h2>
+      <smart-grid direction="horizontal" column-num="3">
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+        <smart-grid-item icon="photo-o" text="文本"></smart-grid-item>
+      </smart-grid>
+    </section>
+
+    <section class="demo-block"><h2>页面跳转</h2>
+      <smart-grid clickable column-num="2">
+        <smart-grid-item icon="home-o" link-type="navigateTo" url="/pages/dashboard/index" text="Navigate 跳转"></smart-grid-item>
+        <smart-grid-item icon="search" link-type="reLaunch" url="/pages/dashboard/index" text="ReLaunch 跳转"></smart-grid-item>
+      </smart-grid>
+    </section>
+
+    <section class="demo-block"><h2>徽标提示</h2>
+      <smart-grid column-num="2">
+        <smart-grid-item icon="home-o" text="文本" dot></smart-grid-item>
+        <smart-grid-item icon="search" text="文本" badge="99+"></smart-grid-item>
+      </smart-grid>
+    </section>
+  </main>
+  <script>
+    const svgIcon = source => `data:image/svg+xml,${encodeURIComponent(source).replace(/'/g, '%27')}`;
+    const photoIcon = svgIcon("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M4 3h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm0 2v14h16V5H4zm3 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM4.5 18h15l-4.6-5.5-3.3 4-2.1-2.3L4.5 18z'/></svg>");
+    const homeIcon = svgIcon("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M12 3 2 11h3v10h6v-6h2v6h6V11h3L12 3zm0 2.6 5 4V19h-2v-6H9v6H7V9.6l5-4z'/></svg>");
+    const searchIcon = svgIcon("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M10.5 3a7.5 7.5 0 1 1-4.7 13.3L2.1 20 4 21.9l3.7-3.7A7.5 7.5 0 0 1 10.5 3zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11z'/></svg>");
+    document.querySelectorAll('smart-grid-item[icon]').forEach(item => {
+      const icon = item.getAttribute('icon');
+      item.setAttribute('icon', icon === 'home-o' ? homeIcon : icon === 'search' ? searchIcon : photoIcon);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+{
+  "skill": "integrating-tuya-android-device-detail-ui",
+  "cases": [
+    {
+      "id": "integrating-tuya-android-device-detail-ui-case-1",
+      "description": "业务场景：集成好了，现在要加设备详情/",
+      "prompt": "设备控制面板已经集成好了，现在要加设备详情/设置页面，包含设备信息编辑、FAQ、OTA 升级功能。帮我配置 Gradle 依赖、assets 配置文件、以及跳转代码。",
+      "expected_output": "应在 app/build.gradle.kts 添加 thingsmart-bizbundle-panelmore（必选）和 thingsmart-bizbundle-family，排除 thingsmart-modularCampAnno，按需添加 feedback/ota 可选依赖；在 app/src/main/assets/ 下创建三个 JSON 配置文件（deviceDetail.json、deviceEditConfigList.json、thingarchercell_config.json）；跳转使用 UrlBuilder + UrlRouter，路由名称为 panelMore，传入 extra_panel_dev_id、extra_panel_name、extra_panel_group_id（非群组传 0L）。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应在 app/build.gradle.kts 添加 thi"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-device-detail-ui-case-2",
+      "description": "排错：点击设备详情入口完全没反应，logcat",
+      "prompt": "点击设备详情入口完全没反应，logcat 报 ClassNotFoundException: DeviceDetailModuleApp。另外 thingarchercell_config.json 里我漏掉了 clazz 字段，Activity 启动就崩溃报 NullPointerException: archerGroupInfoBean.clazz must not be null。",
+      "expected_output": "应指出 ClassNotFoundException 是因为未引入 thingsmart-bizbundle-panelmore 依赖，这是最容易遗漏的必选依赖；thingarchercell_config.json 中 archerGroup 每个条目必须包含 clazz 字段，建议直接从参考文档复制完整默认配置而非手动编写。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "包含 clazz 字段"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-device-detail-ui-case-3",
+      "description": "排错：，页面没打开也没报错。",
+      "prompt": "我把跳转路由名写成了 deviceDetail，页面没打开也没报错。另外非群组设备我传了 extra_panel_group_id = null，结果崩溃了报 NPE。还有个问题，我保留了 scene 的 cellType 但没引入 scene 依赖，对应功能项点击后闪退。",
+      "expected_output": "应指出三个问题：1) 路由名称必须是 panelMore 而不是 deviceDetail 或 panel_more，写错不会报错但页面不打开；2) 非群组设备的 extra_panel_group_id 必须传 0L 而不是 null，Bundle 取值时会抛 NPE；3) cellType 与依赖必须匹配，保留了某 cellType 但未引入对应可选依赖（如 scene）会导致该功能项点击崩溃，应移除不需要的 cellType 或引入对应依赖。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "传 0L 而不是 null"
+        }
+      ]
+    }
+  ]
+}

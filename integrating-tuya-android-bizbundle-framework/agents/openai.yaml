@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android BizBundle Framework"
+  short_description: "Set up BizBundle framework layer for Android apps"
+  default_prompt: "Use $integrating-tuya-android-bizbundle-framework to initialize the BizBundle framework, configure themes, and register family services for an Android Tuya app."

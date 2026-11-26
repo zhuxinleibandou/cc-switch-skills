@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Device Activator UI"
+  short_description: "Integrate device pairing and provisioning UI for iOS"
+  default_prompt: "Use $integrating-tuya-ios-device-activator-ui to integrate the device pairing and Wi-Fi/BLE/Matter provisioning UI for an iOS Tuya app."

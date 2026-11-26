@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Tuya Android Account Flow"
+  short_description: "Guide Tuya Android XML account flows"
+  default_prompt: "Use $building-tuya-android-account-foundation to guide minimal Tuya Android account registration, login, tourist conversion, and profile flows."

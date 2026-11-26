@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Device Control UI"
+  short_description: "Integrate device control panel UI for Android"
+  default_prompt: "Use $integrating-tuya-android-device-control-ui to integrate the React-Native-based device control panel UI for an Android Tuya app."

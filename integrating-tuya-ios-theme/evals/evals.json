@@ -1,0 +1,45 @@
+{
+  "skill": "integrating-tuya-ios-theme",
+  "cases": [
+    {
+      "id": "integrating-tuya-ios-theme-case-1",
+      "description": "业务场景：需要让涂鸦 BizBundle 的",
+      "prompt": "我们 App 的品牌主色是 #FF6A00，需要让涂鸦 BizBundle 的所有页面都用这个颜色。请告诉我怎么配置 thing_custom_config.json 的主题色。",
+      "expected_output": "应指导在 thing_custom_config.json 中配置 colors 节点的 themeColor 字段为 #FF6A00，说明 colors 是浅色主题配置。提及深色主题需在 blackColors 节点配置（注意字段名是 blackColors 不是 darkColors）。推荐只修改 themeColor，其余使用默认值。需先在 Podfile 添加 ThingSmartThemeManagerBizBundle 依赖并 pod update。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingSmartThemeManagerBizBundle"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-theme-case-2",
+      "description": "场景：设置涂鸦业务包的主题色，在 ",
+      "prompt": "我想在代码里动态设置涂鸦业务包的主题色，在 AppDelegate 的 didFinishLaunchingWithOptions 里调用 configNormalModuleWithThemeColor 可以吗？",
+      "expected_output": "应明确指出不能在 AppDelegate 的 didFinishLaunchingWithOptions: 中调用 configNormalModuleWithThemeColor:，因为 iOS 13+ Scene-based 架构中此时 UIWindow 尚未创建，会导致 EXC_BAD_ACCESS。必须在 SceneDelegate 的 makeKeyAndVisible 之后调用。同时说明需通过 ThingSmartBizCore 获取 ThingThemeManagerProtocol 服务，且必须在业务包打开之前调用才能生效。如果 ThingSmartThemeManagerBizBundle pod 缺失，serviceOfProtocol: 返回 nil，调用会静默失败。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingThemeManagerProtocol"
+        },
+        {
+          "type": "contains",
+          "value": "ThingSmartThemeManagerBizBundle"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-theme-case-3",
+      "description": "排错：配置了 darkColors",
+      "prompt": "我在 thing_custom_config.json 里配置了 darkColors 来设置深色模式的颜色，但切换到深色模式后颜色没变化，还是用的浅色主题颜色，为什么？",
+      "expected_output": "应指出 iOS 端深色模式配置的字段名是 blackColors 而不是 darkColors。写成 darkColors 会被静默忽略，不会报错但不生效。需将字段名改为 blackColors。同时提及切换深色模式需通过 ThingThemeManagerProtocol 的 changeThemeStyle: 方法。另外注意 iOS 端部分字段名与 Android 有差异，如 tipsColor（Android 是 tipColor）、tabBarSelectedColor（Android 是 tabBarSelectColor）。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingThemeManagerProtocol"
+        }
+      ]
+    }
+  ]
+}

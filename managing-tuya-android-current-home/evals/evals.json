@@ -1,0 +1,53 @@
+{
+  "skill": "managing-tuya-android-current-home",
+  "cases": [
+    {
+      "id": "managing-tuya-android-current-home-case-1",
+      "description": "业务场景：需要 homeId，但各模块各自管",
+      "prompt": "我的 App 有多个家庭，设备控制、场景等模块都需要 homeId，但各模块各自管理状态经常不一致。帮我设计一个 CurrentHomeManager 中间层模块，要求支持 StateFlow 订阅、家庭切换、持久化存储。",
+      "expected_output": "应设计 CurrentHomeManager 接口（含 currentHomeId、currentHomeIdFlow: StateFlow<Long?>、switchHome、suspend initialize）；initialize 时验证持久化 homeId 是否在用户家庭列表中，无效则回退到列表第一个；switchHome 时同步写入持久化存储（key 包含 userId 以支持多账号）；切换后调用 getHomeDetail 预热 SDK 缓存；初始化流程：登录成功 -> queryHomeList -> 检查持久化 homeId -> getHomeDetail 预热 -> 发射 StateFlow。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "CurrentHomeManager"
+        },
+        {
+          "type": "contains",
+          "value": "getHomeDetail"
+        }
+      ]
+    },
+    {
+      "id": "managing-tuya-android-current-home-case-2",
+      "description": "场景：，然后退出登录换成 B 账号登录，",
+      "prompt": "用户在 App A 账号下切换到了家庭 2，然后退出登录换成 B 账号登录，结果显示的还是 A 账号的家庭 2 的数据。另外切换家庭后 ThingHomeSdk.getDataInstance() 返回的还是旧家庭的数据。",
+      "expected_output": "应指出两个问题：1) 持久化 homeId 必须按 userId 隔离（存储 key 包含 userId），切换账号后需重新初始化 CurrentHomeManager，退出登录时必须清除持久化 homeId 和内存状态；2) 切换家庭后必须调用 getHomeDetail 来刷新 SDK 缓存，否则 ThingHomeSdk.getDataInstance() 仍返回旧家庭数据。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "CurrentHomeManager"
+        },
+        {
+          "type": "contains",
+          "value": "ThingHomeSdk"
+        }
+      ]
+    },
+    {
+      "id": "managing-tuya-android-current-home-case-3",
+      "description": "业务场景：怎么处理。",
+      "prompt": "收到 onHomeRemoved 回调说当前家庭被解散了，同时用户正好在手动切换家庭，出现了并发问题导致 crash。家庭邀请回调 onHomeInvite 我也不知道怎么处理。",
+      "expected_output": "应说明 onHomeRemoved 和手动切换可能同时发生，需注意线程安全（如使用 Mutex 或 synchronized）；onHomeRemoved 时若是当前家庭应切换到其他可用家庭，若无家庭则引导创建；onHomeInvite 应弹出邀请确认弹窗，用户接受时调用 processInvitation(homeId, true)；其他回调如 onHomeAdded 轻量提示、onServerConnectSuccess 刷新当前家庭详情等处理策略。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "onHomeRemoved"
+        },
+        {
+          "type": "contains",
+          "value": "onHomeInvite"
+        }
+      ]
+    }
+  ]
+}

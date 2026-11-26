@@ -1,0 +1,49 @@
+{
+  "skill": "integrating-tuya-android-bizbundle-framework",
+  "cases": [
+    {
+      "id": "integrating-tuya-android-bizbundle-framework-case-1",
+      "description": "业务场景：搭建 BizBundle 框",
+      "prompt": "SDK 和主题色都配好了，现在要搭建 BizBundle 框架层。帮我完成 Application 初始化、BizBundleFamilyServiceImpl 实现、Base_BizBundle_Theme 主题配置、还有登录退出的生命周期回调。",
+      "expected_output": "应按固定顺序指导：1) 在 app/build.gradle.kts 中添加 thingsmart-bizbundle-basekit、thingsmart-bizbundle-bizkit、thingsmart-bizbundle-family 依赖（BOM 版本与 SDK 一致）；2) Application.onCreate 中用 BizBundleInitializer.init() 替代 ThingHomeSdk.init()，紧接着调用 BizBundleInitializer.registerService(AbsBizBundleFamilyService::class.java, BizBundleFamilyServiceImpl())；3) 实现 BizBundleFamilyServiceImpl 继承 AbsBizBundleFamilyService，实现 getCurrentHomeId() 和 shiftCurrentFamily()；4) 创建 Base_BizBundle_Theme 主题和 bg_text_bts.xml drawable；5) AndroidManifest 使用 Base_BizBundle_Theme 并在 tools:replace 加 android:theme；6) 登录后调用 BizBundleInitializer.onLogin()，退出后调用 BizBundleInitializer.onLogout(context)；7) lint { abortOnError = false } 配置。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingHomeSdk"
+        },
+        {
+          "type": "contains",
+          "value": "onCreate"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-bizbundle-framework-case-2",
+      "description": "排错：，因为想先把框架层搞好再弄主题。",
+      "prompt": "业务包 UI 打开就崩溃了，日志里有 thing_theme_color_b1 找不到的错误。我确认 thingOpenTheme 插件还没配，因为想先把框架层搞好再弄主题。这样可以吗？",
+      "expected_output": "应明确指出 integrating-tuya-android-theme 必须在 bizbundle-framework 之前完成，thing_theme_color_b*/m* 颜色由 thingOpenTheme 插件生成，未配置时这些颜色资源不存在；临时方案可在 compat_colors.xml 中手动声明硬编码兜底值，但 UI 主题色会失效；正确做法是先完成主题配置再搭建框架层。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应明确指出 integrating-tuya-android"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-bizbundle-framework-case-3",
+      "description": "排错：我在 Application 里先调用了",
+      "prompt": "我在 Application 里先调用了 registerService 注册 FamilyService，然后才调用 BizBundleInitializer.init()，结果业务包内部获取不到 homeId。另外构建时 lint 报了一堆多语言资源缺失导致构建失败。",
+      "expected_output": "应指出两个问题：1) 初始化顺序错误，必须先 BizBundleInitializer.init() 再 registerService(FamilyService)，顺序颠倒会导致业务包内部无法获取 homeId；2) BizBundle 内部资源缺少多语言兜底值，需要在 app/build.gradle.kts 的 android {} 块中加 lint { abortOnError = false } 来避免构建失败。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "BizBundle"
+        },
+        {
+          "type": "contains",
+          "value": "registerService"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Integrate Tuya iOS SDK"
+  short_description: "Guide Tuya SDK setup for iOS apps"
+  default_prompt: "Use $integrating-tuya-ios-sdk to guide Tuya Smart App SDK integration in a new iOS project."

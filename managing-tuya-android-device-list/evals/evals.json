@@ -1,0 +1,53 @@
+{
+  "skill": "managing-tuya-android-device-list",
+  "cases": [
+    {
+      "id": "managing-tuya-android-device-list-case-1",
+      "description": "业务场景：需要展示当前家庭的所有设备和别人共",
+      "prompt": "我要在首页做设备列表页面，需要展示当前家庭的所有设备和别人共享给我的设备，支持下拉刷新、设备在线状态实时更新。用 RecyclerView + ViewModel 帮我设计数据流。",
+      "expected_output": "应指导 collect CurrentHomeManager.currentHomeIdFlow 感知家庭切换，切换时先清空旧列表再调用 getHomeDetail 获取 HomeBean.deviceList；用 StateFlow<List<DeviceBean>> 持有数据；注册 IThingHomeStatusListener（5 个方法含 onMeshAdded）监听设备增删；共享设备通过 onSharedDeviceList 回调获取（DeviceBean.isShare 为 true）；下拉刷新用 SwipeRefreshLayout + 重新 getHomeDetail；设备在线状态仅为可见设备注册 IDevListener，通过 RecyclerView 的 onViewAttachedToWindow/onViewDetachedFromWindow 管理。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "CurrentHomeManager"
+        },
+        {
+          "type": "contains",
+          "value": "HomeBean"
+        }
+      ]
+    },
+    {
+      "id": "managing-tuya-android-device-list-case-2",
+      "description": "排错：实现 IThingHomeS",
+      "prompt": "实现 IThingHomeStatusListener 的时候编译报错 Class is not abstract and does not implement abstract member，我明明实现了 onDeviceAdded、onDeviceRemoved、onGroupAdded、onGroupRemoved 四个方法了。",
+      "expected_output": "应指出 IThingHomeStatusListener 有 5 个抽象方法，遗漏了 onMeshAdded(meshId: String)，必须全部实现才能通过编译。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "IThingHomeStatusListener"
+        },
+        {
+          "type": "contains",
+          "value": "onMeshAdded"
+        }
+      ]
+    },
+    {
+      "id": "managing-tuya-android-device-list-case-3",
+      "description": "排错：用户侧滑删除了一个别人共享给他的设备，调",
+      "prompt": "用户侧滑删除了一个别人共享给他的设备，调用 removeDevice 后报错了。另外设备列表用 deviceBean.isOnline 判断在线状态也报类型错误。",
+      "expected_output": "应指出共享设备（DeviceBean.isShare 为 true）不能调用 removeDevice 删除，共享设备只能取消接收共享，应使用 removeReceivedDevShare(devId, callback)；DeviceBean.getIsOnline() 返回 Boolean?（可空），必须用 getIsOnline() == true 安全判断。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "DeviceBean"
+        },
+        {
+          "type": "contains",
+          "value": "removeDevice"
+        }
+      ]
+    }
+  ]
+}

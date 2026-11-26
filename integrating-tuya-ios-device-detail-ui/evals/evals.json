@@ -1,0 +1,49 @@
+{
+  "skill": "integrating-tuya-ios-device-detail-ui",
+  "cases": [
+    {
+      "id": "integrating-tuya-ios-device-detail-ui-case-1",
+      "description": "业务场景：怎么集成设备详情业务包？",
+      "prompt": "我已经集成了设备控制面板，现在想从面板右上角跳转到设备详情/设置页面。请问怎么集成设备详情业务包？",
+      "expected_output": "应包含：1) Podfile 添加 ThingSmartDeviceDetailBizBundle；2) Info.plist 配置相册和相机权限；3) 在 App 主 Bundle 中创建 deviceDetailConfig.json 定义详情页的分组和菜单项（此文件缺失是最常见的陷阱，会导致面板右上角按钮点击完全无响应且不报错）；4) 注册 ThingSmartHomeDataProtocol 服务实现 getCurrentHome（注意这里用的是 ThingSmartHomeDataProtocol 不是 ThingFamilyProtocol，两者不同不可混用）；5) 通过 ThingDeviceDetailProtocol 调用 gotoDeviceDetailDetailViewControllerWithDevice:group: 打开详情页。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingSmartDeviceDetailBizBundle"
+        },
+        {
+          "type": "contains",
+          "value": "ThingSmartHomeDataProtocol"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-device-detail-ui-case-2",
+      "description": "排错：设置按钮点了没反应，不报错也",
+      "prompt": "设备控制面板右上角的设置按钮点了没反应，不报错也不跳转，我已经添加了 ThingSmartDeviceDetailBizBundle pod。是哪里配置有遗漏？",
+      "expected_output": "应指出最可能的原因是缺少 deviceDetailConfig.json 文件。此文件必须在 App 主 Bundle 中（如 FlyIoTDemo/ 目录下）创建，定义原生设备详情页的分组和菜单项。缺少此文件时 ThingSmartDeviceDetailBizBundle 无法构建详情页 VC，点击按钮完全无响应也不报错。这是该业务包最常见的陷阱。同时检查是否注册了 ThingSmartHomeDataProtocol（不是 ThingFamilyProtocol）。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingSmartDeviceDetailBizBundle"
+        },
+        {
+          "type": "contains",
+          "value": "ThingSmartHomeDataProtocol"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-device-detail-ui-case-3",
+      "description": "业务场景：怎么实现？",
+      "prompt": "我想在设备详情页里加一个自定义的「固件日志」菜单项，用户点击后跳转到我自己写的页面。请问怎么实现？",
+      "expected_output": "应说明通过 ThingDeviceDetailProtocol 的自定义菜单项扩展功能：1) 调用 insertDevMenuItem:customType: 插入同步菜单项或 insertDevMenuItemAsync:customType: 插入异步菜单项；2) customType 必须以 c_ 开头（如 c_firmware_log），不以 c_ 开头会被识别为内置类型导致查找失败；3) 通过 clickMenuItem: 注册点击事件处理，在回调中跳转自定义页面；4) 在 ViewController 每次 viewWillAppear 或重新注册菜单项前先调用 clearInsertItem 清除旧项，否则多次进入会重复插入；5) insertDevMenuItemAsync: 的 complete 回调必须在主线程调用，否则 UI 更新会崩溃。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingDeviceDetailProtocol"
+        }
+      ]
+    }
+  ]
+}

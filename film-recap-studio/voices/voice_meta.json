@@ -1,0 +1,10 @@
+{
+  "name": "my_voice",
+  "ref_audio": "my_voice_read.wav",
+  "ref_text_file": "my_voice_read.txt",
+  "source_recording": "/Users/zhuxinlei/Downloads/音色/我的音色-朗读.m4a",
+  "source_slice_seconds": [15.20, 21.38],
+  "default_speed": 1.25,
+  "language": "zh",
+  "approved_on": "2026-11-23"
+}

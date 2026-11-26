@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DatetimePicker 时间选择 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+:root{--app-B1:#fff;--app-B1-N1:#1f2329;--app-B3:#f6f7fb;--app-B4:#fff;--app-B4-N1:#1f2329;--app-B4-N3:#646566;--app-B4-N7:#ebedf0;--app-M1:#3678e3;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--app-B3);color:var(--app-B1-N1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.demo-page{width:min(100%,760px);margin:0 auto;padding:24px 16px 48px}.demo-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.demo-header h1{margin:0;font-size:24px;line-height:32px}.demo-header a{color:#3678e3;text-decoration:none;font-size:14px}.demo-block{margin:0 0 24px}.demo-block h2{margin:0 0 12px 16px;color:#646566;font-size:14px;font-weight:500;line-height:20px}.demo-block__content{min-width:0}.demo-block--padding .demo-block__content{padding:0 16px}.demo-block__content>smart-cell,.demo-block__content>smart-button,.demo-block__content>smart-popup,.demo-block__content>smart-overlay,.demo-block__content>smart-progress,.demo-block__content>smart-notice-bar{margin-bottom:12px}.row,.line{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.contain{width:100%}img{max-width:100%}[hidden]{display:none!important}
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <main class="demo-page">
+    <header class="demo-header"><h1>DatetimePicker 时间选择</h1><a href="./home.html">Home</a></header>
+<section class="demo-block"><h2>选择完整时间</h2><div class="demo-block__content">
+  <smart-datetime-picker
+    show-toolbar="false" data-bind-show-toolbar="false"
+    type="datetime"
+    data-type="datetime"
+    loading="false" data-bind-loading="loading"
+    value="1522425600000" data-bind-value="currentDate1"
+    min-date="1514736000000" data-bind-min-date="minDate"
+    locale="{&quot;year&quot;:&quot;年&quot;,&quot;month&quot;:&quot;月&quot;,&quot;day&quot;:&quot;日&quot;,&quot;hour&quot;:&quot;时&quot;,&quot;minute&quot;:&quot;分&quot;,&quot;second&quot;:&quot;秒&quot;}" data-bind-locale="locale"
+    bind:input="onInput"
+    bind:animation-start="animationStart"
+    bind:animation-end="animationEnd"
+  ></smart-datetime-picker>
+</div></section>
+
+<section class="demo-block"><h2>选择日期（年月日）</h2><div class="demo-block__content">
+  <smart-datetime-picker
+    type="date"
+    data-type="date"
+    value="" data-bind-value="currentDate2"
+    columns-order="[3,2,1]" data-bind-columns-order="columnsOrder"
+    min-date="1514736000000" data-bind-min-date="minDate"
+    bind:input="onInput"
+    font-styles="{&quot;year&quot;:&quot;font-family: \&quot;Manrope\&quot;, sans-serif;&quot;,&quot;day&quot;:&quot;font-family: \&quot;Manrope\&quot;, sans-serif;&quot;}" data-bind-font-styles="fontStylesTwo"
+    formatter-map="{&amp;quot;year&amp;quot;:&amp;quot;年&amp;quot;,&amp;quot;month&amp;quot;:{&amp;quot;10&amp;quot;:&amp;quot;October&amp;quot;,&amp;quot;11&amp;quot;:&amp;quot;November&amp;quot;,&amp;quot;12&amp;quot;:&amp;quot;December&amp;quot;,&amp;quot;01&amp;quot;:&amp;quot;January&amp;quot;,&amp;quot;02&amp;quot;:&amp;quot;February&amp;quot;,&amp;quot;03&amp;quot;:&amp;quot;March&amp;quot;,&amp;quot;04&amp;quot;:&amp;quot;April&amp;quot;,&amp;quot;05&amp;quot;:&amp;quot;May&amp;quot;,&amp;quot;06&amp;quot;:&amp;quot;June&amp;quot;,&amp;quot;07&amp;quot;:&amp;quot;July&amp;quot;,&amp;quot;08&amp;quot;:&amp;quot;August&amp;quot;,&amp;quot;09&amp;quot;:&amp;quot;September&amp;quot;},&amp;quot;day&amp;quot;:&amp;quot;日&amp;quot;}" data-bind-formatter-map="formatterMap"
+  ></smart-datetime-picker>
+</div></section>
+
+<section class="demo-block"><h2>选择日期（年月）</h2><div class="demo-block__content">
+  <smart-datetime-picker
+    type="year-month"
+    data-type="year-month"
+    value="1514736000000" data-bind-value="currentDate3"
+    min-date="1514736000000" data-bind-min-date="minDate"
+    bind:input="onInput"
+  ></smart-datetime-picker>
+</div></section>
+
+<section class="demo-block"><h2>选择时间</h2><div class="demo-block__content">
+  <smart-datetime-picker
+    type="time"
+    data-type="time"
+    value="12:00" data-bind-value="currentDate4"
+    min-hour="10" data-bind-min-hour="minHour"
+    max-hour="20" data-bind-max-hour="maxHour"
+    bind:input="onInput"
+  ></smart-datetime-picker>
+</div></section>
+
+<section class="demo-block"><h2>选择12小时时间</h2><div class="demo-block__content">
+  <smart-datetime-picker
+    type="time"
+    data-type="time"
+    is-12-hour-clock
+    value="11:00" data-bind-value="currentDate5"
+    font-styles="{&quot;month&quot;:&quot;color: rgb(23, 138, 237);&quot;,&quot;12HourClock&quot;:&quot;color: var(--app-B6-N1,#000);&quot;}" data-bind-font-styles="fontStyles"
+    bind:input="onInputChange"
+  ></smart-datetime-picker>
+</div></section>
+
+<section class="demo-block"><h2>关闭值改变动画</h2><div class="demo-block__content">
+  <smart-datetime-picker
+    type="time"
+    data-type="time"
+    value="11:00" data-bind-value="currentDate5"
+    change-animation="false" data-bind-change-animation="false"
+    bind:input="onInput"
+  ></smart-datetime-picker>
+</div></section>
+
+<section class="demo-block"><h2>选项过滤器</h2><div class="demo-block__content">
+  <smart-datetime-picker
+    type="time"
+    value="12:00" data-bind-value="currentDate4"
+    filter="filter(type, options) {
+      if (type === 'minute') {
+        return options.filter(option =&gt; option % 5 === 0);
+      }
+
+      return options;
+    }" data-bind-filter="filter"
+  ></smart-datetime-picker>
+</div></section>
+
+<section class="demo-block"><h2>样式风格</h2><div class="demo-block__content">
+  <smart-datetime-picker
+    show-toolbar="false" data-bind-show-toolbar="false"
+    type="datetime"
+    data-type="datetime"
+    value="1522425600000" data-bind-value="currentDate1"
+    active-style="color: rgb(235, 87, 41);" data-bind-active-style="activeStyle"
+    column-styles="{&quot;year&quot;:&quot;background: rgba(0, 0, 0, 0.1)&quot;}" data-bind-column-styles="columnStyles"
+    font-styles="{&quot;month&quot;:&quot;color: rgb(23, 138, 237);&quot;,&quot;12HourClock&quot;:&quot;color: var(--app-B6-N1,#000);&quot;}" data-bind-font-styles="fontStyles"
+    bind:input="onInput"
+  ></smart-datetime-picker>
+</div></section>
+
+<smart-toast id="smart-toast-datetime-picker"></smart-toast>
+
+  </main>
+<script>window.__demoState={
+  "minHour": 10,
+  "maxHour": 20,
+  "columnsOrder": [
+    3,
+    2,
+    1
+  ],
+  "minDate": 1514736000000,
+  "maxDate": 1572537600000,
+  "currentDate1": 1522425600000,
+  "currentDate2": null,
+  "currentDate3": 1514736000000,
+  "currentDate4": "12:00",
+  "currentDate5": "11:00",
+  "loading": false,
+  "formatterMap": {
+    "year": "{{year}}年",
+    "month": {
+      "10": "October",
+      "11": "November",
+      "12": "December",
+      "01": "January",
+      "02": "February",
+      "03": "March",
+      "04": "April",
+      "05": "May",
+      "06": "June",
+      "07": "July",
+      "08": "August",
+      "09": "September"
+    },
+    "day": "{{day}}日"
+  },
+  "fontStylesTwo": {
+    "year": "font-family: \"Manrope\", sans-serif;",
+    "day": "font-family: \"Manrope\", sans-serif;"
+  },
+  "locale": {
+    "year": "年",
+    "month": "月",
+    "day": "日",
+    "hour": "时",
+    "minute": "分",
+    "second": "秒"
+  },
+  "columnStyles": {
+    "year": "background: rgba(0, 0, 0, 0.1)"
+  },
+  "fontStyles": {
+    "month": "color: rgb(23, 138, 237);",
+    "12HourClock": "color: var(--app-B6-N1,#000);"
+  },
+  "activeStyle": "color: rgb(235, 87, 41);"
+};window.__handlerMaps={
+  "toggle": {},
+  "setTrue": {},
+  "setFalse": {}
+};function __evalDemo(expr){try{return Function('state','computed','with(state){return ('+expr+')}')(window.__demoState,{pad:n=>String(n).padStart(2,'0'),formatDate(v){const d=new Date(Array.isArray(v)?v[0]:v);return Number.isNaN(d.getTime())?'':d.getFullYear()+'-'+this.pad(d.getMonth()+1)+'-'+this.pad(d.getDate())},formatFullDate(v){return this.formatDate(v)},formatRange(v){return Array.isArray(v)?v.map(x=>this.formatDate(x)).filter(Boolean).join(' ~ '):this.formatDate(v)}})}catch(e){return''}}function __attrValue(v){return v==null?'':typeof v==='object'?JSON.stringify(v):String(v)}function __applyBindings(){document.querySelectorAll('*').forEach(el=>{Array.from(el.attributes).forEach(a=>{if(!a.name.startsWith('data-bind-'))return;const real=a.name.slice(10),v=__evalDemo(a.value); if(typeof v==='boolean')el.setAttribute(real,String(v)); else if(v==null||v==='')el.removeAttribute(real); else el.setAttribute(real,__attrValue(v)); if(typeof v==='function'||Array.isArray(v)||(v!=null&&Object.getPrototypeOf(v)===Object.prototype)){const prop=real.replace(/-([a-z])/g,(_,c)=>c.toUpperCase());try{if(prop in el)el[prop]=v}catch(e){}}})})}function __path(p){if(!p)return null;const parts=String(p).split('.');let o=window.__demoState;for(let i=0;i<parts.length-1;i++){if(!o[parts[i]])o[parts[i]]={};o=o[parts[i]]}return [o,parts[parts.length-1]]}function __set(p,v){const r=__path(p);if(!r)return false;r[0][r[1]]=v;__applyBindings();return true}function __toggle(p){const r=__path(p);if(!r)return false;r[0][r[1]]=!r[0][r[1]];__applyBindings();return true}function __handle(h,e,el){const m=window.__handlerMaps||{toggle:{},setTrue:{},setFalse:{}};if(m.toggle&&m.toggle[h])return __toggle(m.toggle[h]);if(h==='onClick'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',true);if(h==='onClose'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',false);if(m.setTrue&&m.setTrue[h])return __set(m.setTrue[h],true);if(m.setFalse&&m.setFalse[h])return __set(m.setFalse[h],false);if(/toggle|show|open|close/i.test(h)){const s=el.closest('.demo-block')||document,t=s.querySelector('[data-bind-show]')||el.closest('[data-bind-show]');if(t)return __toggle(t.getAttribute('data-bind-show'))}if(/confirm|cancel|close/i.test(h)){const t=el.closest('[data-bind-show]')||el;if(t&&t.getAttribute('data-bind-show'))return __set(t.getAttribute('data-bind-show'),false)}if(/change|input/i.test(h)&&e&&e.detail!=null){const t=el.getAttribute('data-bind-value')||el.getAttribute('data-bind-checked')||el.getAttribute('data-bind-active-index');if(t)return __set(t,e.detail&&e.detail.value!==undefined?e.detail.value:e.detail)}return false}document.addEventListener('DOMContentLoaded', __applyBindings);</script>
+<script>
+(function(){
+  window.__demoState.filter = function(type, options) {
+    if (type === 'minute') return options.filter(option => Number(option) % 5 === 0);
+    return options;
+  };
+  const baseHandle = window.__handle;
+  window.__handle = function(handlerName, event, element) {
+    if (handlerName === 'onInputChange') {
+      window.__demoState.currentDate5 = event && event.detail;
+      __applyBindings();
+      return true;
+    }
+    if (handlerName === 'onInput') return true;
+    if (handlerName === 'animationStart' || handlerName === 'animationEnd') return true;
+    return baseHandle(handlerName, event, element);
+  };
+  __applyBindings();
+})();
+</script>
+</body>
+</html>

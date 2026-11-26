@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Device Detail UI"
+  short_description: "Integrate device settings and detail UI for Android"
+  default_prompt: "Use $integrating-tuya-android-device-detail-ui to integrate the device detail and settings UI (OTA, groups, custom menus) for an Android Tuya app."

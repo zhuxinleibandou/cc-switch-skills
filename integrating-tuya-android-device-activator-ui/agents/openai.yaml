@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Device Activator UI"
+  short_description: "Integrate device pairing and provisioning UI for Android"
+  default_prompt: "Use $integrating-tuya-android-device-activator-ui to integrate the device pairing and Wi-Fi/BLE/Matter provisioning UI for an Android Tuya app."

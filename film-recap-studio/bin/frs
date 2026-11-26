@@ -1,0 +1,11 @@
+#!/bin/zsh
+# film-recap-studio 命令入口：frs <prep|peek|lint|tts|voice|render|cover|qc|audit> [参数]
+# 用独立的 Python 3.12 临时环境（uv），依赖：pillow、edge-tts；转写用 uvx mlx-whisper。
+DIR="${0:A:h:h}"
+UV="$(command -v uv || echo $HOME/.local/bin/uv)"
+cmd="$1"; shift
+case "$cmd" in
+  prep|peek|lint|tts|voice|render|cover|qc|audit) ;;
+  *) echo "用法: frs <prep|peek|lint|tts|voice|render|cover|qc|audit> --work <工作目录> ..."; exit 2;;
+esac
+exec "$UV" run --quiet --no-project --python 3.12 --with pillow --with edge-tts python "$DIR/scripts/$cmd.py" "$@"

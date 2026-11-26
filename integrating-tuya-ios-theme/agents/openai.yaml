@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Theme Config"
+  short_description: "Configure brand colors and theming for iOS BizBundles"
+  default_prompt: "Use $integrating-tuya-ios-theme to configure the BizBundle theme color system and appearance for an iOS Tuya app."

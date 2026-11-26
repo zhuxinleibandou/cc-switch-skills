@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calendar 日历 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+:root{--app-B1:#fff;--app-B1-N1:#1f2329;--app-B3:#f6f7fb;--app-B4:#fff;--app-B4-N1:#1f2329;--app-B4-N3:#646566;--app-B4-N7:#ebedf0;--app-M1:#3678e3;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--app-B3);color:var(--app-B1-N1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.demo-page{width:min(100%,760px);margin:0 auto;padding:24px 16px 48px}.demo-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.demo-header h1{margin:0;font-size:24px;line-height:32px}.demo-header a{color:#3678e3;text-decoration:none;font-size:14px}.demo-block{margin:0 0 24px}.demo-block h2{margin:0 0 12px 16px;color:#646566;font-size:14px;font-weight:500;line-height:20px}.demo-block__content{min-width:0}.demo-block--padding .demo-block__content{padding:0 16px}.demo-block__content>smart-cell,.demo-block__content>smart-button,.demo-block__content>smart-popup,.demo-block__content>smart-overlay,.demo-block__content>smart-progress,.demo-block__content>smart-notice-bar{margin-bottom:12px}.row,.line{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.contain{width:100%}img{max-width:100%}[hidden]{display:none!important}
+.contain {
+  padding: 0 24px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.controls_item {
+  width: 30%;
+  height: 32px;
+  line-height: 32px;
+  background-color: var(--app-B3);
+  color: var(--app-B1-N1);
+  text-align: center;
+  border-radius: 4px;
+  &:nth-child(n + 2) {
+    margin-left: 8px;
+  }
+}
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <main class="demo-page">
+    <header class="demo-header"><h1>Calendar 日历</h1><a href="./home.html">Home</a></header>
+
+
+<div class="contain">
+  <section class="demo-block"><h2>选择某天，当前选中的日期是: 2024-02-01</h2><div class="demo-block__content">
+    <smart-calendar
+      title="Calendar 日历"
+      locale="{&quot;shortWeekDays&quot;:[&quot;日&quot;,&quot;一&quot;,&quot;二&quot;,&quot;三&quot;,&quot;四&quot;,&quot;五&quot;,&quot;六&quot;],&quot;subFormatter&quot;:&quot;YYYY年MM月&quot;}" data-bind-locale="locale"
+      min-date="1672761600000" data-bind-min-date="minDayDate"
+      max-date="1713542400000" data-bind-max-date="maxDayDate"
+      default-date="1706716800000" data-bind-default-date="curDayDate"
+      bind:select="setCurDay"></smart-calendar>
+  </div></section>
+
+  <section class="demo-block"><h2>自定义日期样式: 2024-02-01</h2><div class="demo-block__content">
+    <smart-calendar
+      title="Calendar 日历"
+      locale="{&quot;shortWeekDays&quot;:[&quot;日&quot;,&quot;一&quot;,&quot;二&quot;,&quot;三&quot;,&quot;四&quot;,&quot;五&quot;,&quot;六&quot;],&quot;subFormatter&quot;:&quot;YYYY年MM月&quot;}" data-bind-locale="locale"
+      min-date="1672761600000" data-bind-min-date="minDayDate"
+      max-date="1713542400000" data-bind-max-date="maxDayDate"
+      default-date="1706716800000" data-bind-default-date="curDayDate"
+      bind:select="setCurDay"
+      day-class-map="{&quot;2024-01-17&quot;:&quot;calendar-disabled&quot;}" data-bind-day-class-map="dayClassMap"></smart-calendar>
+  </div></section>
+
+  <section class="demo-block"><h2>选择周，当前选中的日期是: 2024-01-15 ~ 2024-01-21</h2><div class="demo-block__content">
+    <smart-calendar
+      title="Calendar 日历"
+      locale="{&quot;shortWeekDays&quot;:[&quot;日&quot;,&quot;一&quot;,&quot;二&quot;,&quot;三&quot;,&quot;四&quot;,&quot;五&quot;,&quot;六&quot;],&quot;subFormatter&quot;:&quot;YYYY年MM月&quot;}" data-bind-locale="locale"
+      type="week"
+      min-date="1704297600000" data-bind-min-date="minWeekDayDate"
+      max-date="1708358400000" data-bind-max-date="maxWeekDayDate"
+      default-date="[1705248000000,1705766400000]" data-bind-default-date="curWeekDayDate"
+      bind:select="setWeekCurDay"
+      first-day-of-select-week="1"></smart-calendar>
+  </div></section>
+
+  <section class="demo-block"><h2>选择时间范围，当前选中的日期是: 2024-01-10 ~ 2024-01-20</h2><div class="demo-block__content">
+    <smart-calendar
+      title="Calendar 日历"
+      locale="{&quot;shortWeekDays&quot;:[&quot;日&quot;,&quot;一&quot;,&quot;二&quot;,&quot;三&quot;,&quot;四&quot;,&quot;五&quot;,&quot;六&quot;],&quot;subFormatter&quot;:&quot;YYYY年MM月&quot;}" data-bind-locale="locale"
+      type="range"
+      min-date="1704297600000" data-bind-min-date="minRangeDayDate"
+      max-date="1708358400000" data-bind-max-date="maxRangeDayDate"
+      default-date="[1704816000000,1705680000000]" data-bind-default-date="curRangeDayDate"
+      bind:select="setRangeCurDay"></smart-calendar>
+  </div></section>
+
+
+
+<section class="demo-block"><h2>选择月份，当前选中的日期是: 2024-07-01</h2><div class="demo-block__content">
+  <smart-calendar
+    title="Calendar 日历"
+    locale="{&quot;subFormatter&quot;:&quot;YYYY年&quot;,&quot;monthsFormatter&quot;:[&quot;1月&quot;,&quot;2月&quot;,&quot;3月&quot;,&quot;4月&quot;,&quot;5月&quot;,&quot;6月&quot;,&quot;7月&quot;,&quot;8月&quot;,&quot;9月&quot;,&quot;10月&quot;,&quot;11月&quot;,&quot;12月&quot;]}" data-bind-locale="locale2"
+    type="month"
+    show-confirm="false" data-bind-show-confirm="false"
+    min-date="1709222400000" data-bind-min-date="minMonthDate"
+    max-date="1761840000000" data-bind-max-date="maxMonthDate"
+    default-date="1719763200000" data-bind-default-date="curMonthDate"
+    bind:select="setCurMonth"></smart-calendar>
+</div></section>
+
+
+<section class="demo-block"><h2>选择年份，当前选中的日期是: 2025-01-23</h2><div class="demo-block__content">
+  <smart-calendar
+    title="Calendar 日历"
+    type="year"
+    min-date="1731340800000" data-bind-min-date="minYearDate"
+    max-date="1890748800000" data-bind-max-date="maxYearDate"
+    default-date="1737561600000" data-bind-default-date="curYearDate"
+    bind:select="setCurYear"></smart-calendar>
+</div></section>
+
+<section class="demo-block"><h2>弹窗模式选择某天，当前选中的日期是: 2024-02-01</h2><div class="demo-block__content">
+  <div class="controls">
+    <div class="controls_item" data-type="single" bind:click="changeType" style="color: #3678e3">天</div>
+    <div class="controls_item" data-type="month" bind:click="changeType" style="color: ">月</div>
+    <div class="controls_item" data-type="year" bind:click="changeType" style="color: ">年</div>
+  </div>
+  <smart-cell
+    is-link
+    title="日"
+    value="2024-02-01"
+    bind:click="onShowDayPicker"></smart-cell>
+  <smart-calendar
+    title="Calendar 日历"
+    poppable="true" data-bind-poppable="true"
+    type="single" data-bind-type="type"
+    show="false" data-bind-show="showDayPicker"
+    default-date="1706716800000" data-bind-default-date="curDayDate"
+    bind:confirm="setCurDay"
+    show-confirm="true" data-bind-show-confirm="true"
+    confirm-text="确认"
+    bind:close="onCloseDayPicker"
+    bind:select="selectDate"></smart-calendar>
+</div></section>
+
+</div>
+
+  </main>
+<script>window.__demoState={
+  "curDayDate": 1706716800000,
+  "minDayDate": 1672761600000,
+  "maxDayDate": 1713542400000,
+  "curWeekDayDate": [
+    1705248000000,
+    1705766400000
+  ],
+  "minWeekDayDate": 1704297600000,
+  "maxWeekDayDate": 1708358400000,
+  "curRangeDayDate": [
+    1704816000000,
+    1705680000000
+  ],
+  "minRangeDayDate": 1704297600000,
+  "maxRangeDayDate": 1708358400000,
+  "curMonthDate": 1719763200000,
+  "minMonthDate": 1709222400000,
+  "maxMonthDate": 1761840000000,
+  "curYearDate": 1737561600000,
+  "minYearDate": 1731340800000,
+  "maxYearDate": 1890748800000,
+  "confirmText": "确认",
+  "confirmDisabledText": "确认",
+  "firstDayOfWeek": 0,
+  "locale": {
+    "shortWeekDays": [
+      "日",
+      "一",
+      "二",
+      "三",
+      "四",
+      "五",
+      "六"
+    ],
+    "subFormatter": "YYYY年MM月"
+  },
+  "locale2": {
+    "subFormatter": "YYYY年",
+    "monthsFormatter": [
+      "1月",
+      "2月",
+      "3月",
+      "4月",
+      "5月",
+      "6月",
+      "7月",
+      "8月",
+      "9月",
+      "10月",
+      "11月",
+      "12月"
+    ]
+  },
+  "showDayPicker": false,
+  "dayClassMap": {
+    "2024-01-17": "calendar-disabled"
+  },
+  "type": "single"
+};window.__handlerMaps={
+  "toggle": {
+    "setRangeCurDay": "showDayPicker"
+  },
+  "setTrue": {},
+  "setFalse": {
+    "setCurDay": "showDayPicker"
+  }
+};function __evalDemo(expr){try{return Function('state','computed','with(state){return ('+expr+')}')(window.__demoState,{pad:n=>String(n).padStart(2,'0'),formatDate(v){const d=new Date(Array.isArray(v)?v[0]:v);return Number.isNaN(d.getTime())?'':d.getFullYear()+'-'+this.pad(d.getMonth()+1)+'-'+this.pad(d.getDate())},formatFullDate(v){return this.formatDate(v)},formatRange(v){return Array.isArray(v)?v.map(x=>this.formatDate(x)).filter(Boolean).join(' ~ '):this.formatDate(v)}})}catch(e){return''}}function __attrValue(v){return v==null?'':typeof v==='object'?JSON.stringify(v):String(v)}function __applyBindings(){document.querySelectorAll('*').forEach(el=>{Array.from(el.attributes).forEach(a=>{if(!a.name.startsWith('data-bind-'))return;const real=a.name.slice(10),v=__evalDemo(a.value); if(typeof v==='boolean')el.setAttribute(real,String(v)); else if(v==null||v==='')el.removeAttribute(real); else el.setAttribute(real,__attrValue(v)); if(typeof v==='function'||Array.isArray(v)||(v!=null&&Object.getPrototypeOf(v)===Object.prototype)){const prop=real.replace(/-([a-z])/g,(_,c)=>c.toUpperCase());try{if(prop in el)el[prop]=v}catch(e){}}})})}function __path(p){if(!p)return null;const parts=String(p).split('.');let o=window.__demoState;for(let i=0;i<parts.length-1;i++){if(!o[parts[i]])o[parts[i]]={};o=o[parts[i]]}return [o,parts[parts.length-1]]}function __set(p,v){const r=__path(p);if(!r)return false;r[0][r[1]]=v;__applyBindings();return true}function __toggle(p){const r=__path(p);if(!r)return false;r[0][r[1]]=!r[0][r[1]];__applyBindings();return true}function __handle(h,e,el){const detail=e&&e.detail;const toTime=v=>v instanceof Date?v.getTime():Number(v);if(h==='setCurDay'&&detail){window.__demoState.curDayDate=toTime(detail);window.__demoState.showDayPicker=false;__applyBindings();return true}if(h==='setWeekCurDay'&&Array.isArray(detail)){window.__demoState.curWeekDayDate=[toTime(detail[0]),toTime(detail[1])];__applyBindings();return true}if(h==='setRangeCurDay'&&Array.isArray(detail)){window.__demoState.curRangeDayDate=[detail[0]?toTime(detail[0]):null,detail[1]?toTime(detail[1]):null];__applyBindings();return true}if(h==='setCurMonth'&&detail){window.__demoState.curMonthDate=toTime(detail);__applyBindings();return true}if(h==='setCurYear'&&detail){window.__demoState.curYearDate=toTime(detail);__applyBindings();return true}if(h==='onShowDayPicker'){window.__demoState.showDayPicker=!window.__demoState.showDayPicker;__applyBindings();return true}if(h==='changeType'){window.__demoState.type=el&&el.dataset&&el.dataset.type||window.__demoState.type;__applyBindings();return true}const m=window.__handlerMaps||{toggle:{},setTrue:{},setFalse:{}};if(m.toggle&&m.toggle[h])return __toggle(m.toggle[h]);if(h==='onClick'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',true);if(h==='onClose'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',false);if(m.setTrue&&m.setTrue[h])return __set(m.setTrue[h],true);if(m.setFalse&&m.setFalse[h])return __set(m.setFalse[h],false);if(/toggle|show|open|close/i.test(h)){const s=el.closest('.demo-block')||document,t=s.querySelector('[data-bind-show]')||el.closest('[data-bind-show]');if(t)return __toggle(t.getAttribute('data-bind-show'))}if(/confirm|cancel|close/i.test(h)){const t=el.closest('[data-bind-show]')||el;if(t&&t.getAttribute('data-bind-show'))return __set(t.getAttribute('data-bind-show'),false)}if(/change|input/i.test(h)&&e&&e.detail!=null){const t=el.getAttribute('data-bind-value')||el.getAttribute('data-bind-checked')||el.getAttribute('data-bind-active-index');if(t)return __set(t,e.detail&&e.detail.value!==undefined?e.detail.value:e.detail)}return false}document.addEventListener('DOMContentLoaded', __applyBindings);</script>
+<script>
+(function(){
+  const baseHandle = window.__handle;
+  window.__handle = function(handlerName, event, element) {
+    if (handlerName === 'onShowDayPicker') return __set('showDayPicker', true);
+    if (handlerName === 'onCloseDayPicker') return __set('showDayPicker', false);
+    return baseHandle(handlerName, event, element);
+  };
+})();
+</script>
+</body>
+</html>

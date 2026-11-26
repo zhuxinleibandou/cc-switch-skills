@@ -1,0 +1,49 @@
+{
+  "skill": "building-tuya-android-device-foundation",
+  "cases": [
+    {
+      "id": "building-tuya-android-device-foundation-case-1",
+      "description": "业务场景：怎么获取设备列表、监听单个设备的 ",
+      "prompt": "家庭管理已经做好了，现在要实现设备管理基础能力。帮我梳理一下怎么获取设备列表、监听单个设备的 DP 变化和在线状态，以及设备重命名和移除的流程。",
+      "expected_output": "应说明先通过 getHomeDetail 后从 HomeBean.getDeviceList() 获取设备列表；通过 ThingHomeSdk.newDeviceInstance(devId) 创建 IThingDevice 实例；注册 IDevListener 监听 onDpUpdate（dpStr 是 JSON 字符串需解析为 Map）、onRemoved、onStatusChanged、onNetworkStatusChanged、onDevInfoUpdate 五个回调；renameDevice 和 removeDevice 的调用方式；提醒 ViewModel.onCleared() 中须调用 unRegisterDevListener() 和 onDestroy() 释放资源。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "HomeBean"
+        },
+        {
+          "type": "contains",
+          "value": "ThingHomeSdk"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-android-device-foundation-case-2",
+      "description": "排错：，说类型不匹配。",
+      "prompt": "我在 Kotlin 里判断设备在线状态写的是 if (deviceBean.isOnline) 但编译报错了，说类型不匹配。另外我调用 addShare 共享设备给朋友后发现之前已有的共享用户被覆盖了。",
+      "expected_output": "应解释 DeviceBean.getIsOnline() 返回 Boolean?（可空类型），必须使用 getIsOnline() == true 进行安全判断，不能直接当 Boolean 属性访问；addShare 是覆盖式的会清除已有共享，如果要追加共享用户应使用 addShareWithMemberId；共享设备上限 20 人，超过会报错。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "DeviceBean"
+        },
+        {
+          "type": "contains",
+          "value": "getIsOnline"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-android-device-foundation-case-3",
+      "description": "排错：设置的功能用户点了一下设备就",
+      "prompt": "我想做批量导出设备信息功能，一次性导出 30 个设备，调用 exportUserDeviceListInfo 报错了。另外恢复出厂设置的功能用户点了一下设备就没了，没有任何确认提示。",
+      "expected_output": "应指出导出设备信息有频率限制：单次最多 10 个设备，两次调用间隔至少 1 分钟，30 个设备需分批导出；恢复出厂设置（resetFactory）和移除设备（removeDevice）都是不可撤销操作，必须在 UI 层添加二次确认弹窗，避免用户误操作。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "removeDevice"
+        }
+      ]
+    }
+  ]
+}

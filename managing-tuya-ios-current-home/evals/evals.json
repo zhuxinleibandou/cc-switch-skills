@@ -1,0 +1,49 @@
+{
+  "skill": "managing-tuya-ios-current-home",
+  "cases": [
+    {
+      "id": "managing-tuya-ios-current-home-case-1",
+      "description": "业务场景：需要一个全局的当前家庭管理模块，支",
+      "prompt": "我的 App 有多个家庭，需要一个全局的当前家庭管理模块，支持切换家庭并通知其他页面刷新。请帮我设计 CurrentHomeManager 单例的接口和核心实现。",
+      "expected_output": "应设计 CurrentHomeManager 单例，包含 currentHomeId 只读属性、switchHomeWithHomeId: 切换方法、initializeWithCompletion: 初始化方法。实现要点：1) initializeWithCompletion: 从 NSUserDefaults 读取 homeId 并验证是否在 getHomeListWithSuccess: 返回的列表中，无效则回退到 homes[0]；2) NSUserDefaults key 需包含 userId 以支持多账号隔离；3) 切换后调用 getHomeDataWithSuccess:failure: 预热 SDK 缓存；4) 通过 NSNotificationCenter 广播 CurrentHomeDidChangeNotification。初始化流程：登录成功 -> initializeWithCompletion: -> 获取家庭列表 -> 预热缓存 -> 发送通知。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "CurrentHomeManager"
+        },
+        {
+          "type": "contains",
+          "value": "getHomeListWithSuccess"
+        }
+      ]
+    },
+    {
+      "id": "managing-tuya-ios-current-home-case-2",
+      "description": "业务场景：怎么处理？",
+      "prompt": "用户在另一台手机上把当前这个家庭解散了，我这边的 App 应该怎么处理？",
+      "expected_output": "应说明在 CurrentHomeManager 中持有 ThingSmartHomeManager 实例并设置 ThingSmartHomeManagerDelegate。在 homeManager:didRemoveHome: 回调中判断被移除的是否是当前家庭，如果是则提示用户并自动切换到其他可用家庭（调用 getHomeListWithSuccess: 获取最新列表），若无家庭则引导创建新家庭。同时处理 serviceConnectedSuccess 回调刷新当前家庭详情，确保离线期间的变更同步。退出登录时需清除 NSUserDefaults 中的 homeId 和内存状态，homeManager.delegate = nil。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "CurrentHomeManager"
+        },
+        {
+          "type": "contains",
+          "value": "ThingSmartHomeManager"
+        }
+      ]
+    },
+    {
+      "id": "managing-tuya-ios-current-home-case-3",
+      "description": "业务场景：需要做什么？",
+      "prompt": "切换家庭后设备列表显示的还是旧家庭的设备数据，我在 switchHomeWithHomeId: 里只更新了 NSUserDefaults 里的 homeId，还需要做什么？",
+      "expected_output": "应指出切换家庭后必须调用 getHomeDataWithSuccess:failure: 预热 SDK 缓存，否则 SDK 内部缓存为空，设备列表等数据不可用。完整流程：1) 更新 NSUserDefaults 中的 homeId；2) 调用 [ThingSmartHome homeWithHomeId:newHomeId] 获取新家庭实例；3) 调用 getHomeDataWithSuccess:failure: 加载家庭详情；4) 通过 NSNotificationCenter 发送 CurrentHomeDidChangeNotification 通知上层业务模块（如设备列表）刷新。不要跳过 getHomeDataWithSuccess: 这一步。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "getHomeDataWithSuccess"
+        }
+      ]
+    }
+  ]
+}

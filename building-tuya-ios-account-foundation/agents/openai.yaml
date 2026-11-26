@@ -1,0 +1,4 @@
+interface:
+  display_name: "Build Tuya iOS Account Flow"
+  short_description: "Guide Tuya iOS Swift account flows"
+  default_prompt: "Use $building-tuya-ios-account-foundation to guide minimal Tuya iOS account registration, login, anonymous conversion, and profile flows."

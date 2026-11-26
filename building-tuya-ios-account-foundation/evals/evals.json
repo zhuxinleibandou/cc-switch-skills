@@ -1,0 +1,41 @@
+{
+  "skill": "building-tuya-ios-account-foundation",
+  "cases": [
+    {
+      "id": "building-tuya-ios-account-foundation-case-1",
+      "description": "业务场景：实现一个手机号验证码登录的流",
+      "prompt": "帮我用 ObjC 实现一个手机号验证码登录的流程，包括发送验证码和登录两步。我的工程已经集成了 ThingSmartHomeKit。",
+      "expected_output": "应基于 ThingSmartUser.sharedInstance() 实现两步流程：1) 发送验证码调用对应的发送验证码方法，注意传入 countryCode 和手机号，验证码 type 参数在注册、登录、重置密码场景下各不相同；2) 登录调用手机号+验证码登录方法。代码使用 UIKit + UIViewController 结构，包含 success 和 failure 回调处理。提及验证码 type 不同场景值不同，不要混用。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "UIKit"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-ios-account-foundation-case-2",
+      "description": "业务场景：需要支持游客模式，用户可以先不注册",
+      "prompt": "我的 App 需要支持游客模式，用户可以先不注册直接体验，等想用完整功能时再绑定手机号。请问涂鸦 SDK 怎么实现？",
+      "expected_output": "应介绍匿名登录与转正流程：1) 匿名登录使用 ThingSmartUser 的匿名登录方法；2) 转正（绑定手机号/邮箱）时需要先发送验证码，再调用对应的绑定方法，注意 bindEmail 需要当前用户的 sId；3) 匿名用户退出时应走 deleteAnonymousAccountWithSuccess:failure: 而非普通退出方法，两者不能混用。应提及匿名登录和普通账号退出逻辑不同。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "先发送验证码"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-ios-account-foundation-case-3",
+      "description": "业务场景：怎么处理比较好？",
+      "prompt": "用户反馈在使用过程中突然被踢回登录页，但我的代码里只在「个人中心」退出按钮做了跳转处理，其他地方没管 Session 过期。这种情况怎么处理比较好？",
+      "expected_output": "应指出需要在 AppDelegate 级别统一监听 ThingSmartUserNotificationUserSessionInvalid 通知来处理 Session 失效，不要把处理逻辑分散在各个页面。在通知回调中弹出提示并跳转到登录页。建议用布尔标志防止重复跳转（避免多个通知同时触发导致多次 push 登录页）。这是账号体系的标准实践，不能只依赖个别页面的退出按钮。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应指出需要在 AppDelegate 级别统一监听 Thin"
+        }
+      ]
+    }
+  ]
+}

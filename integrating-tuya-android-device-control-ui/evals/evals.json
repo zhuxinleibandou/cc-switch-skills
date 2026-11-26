@@ -1,0 +1,45 @@
+{
+  "skill": "integrating-tuya-android-device-control-ui",
+  "cases": [
+    {
+      "id": "integrating-tuya-android-device-control-ui-case-1",
+      "description": "业务场景：实现点击设备列表项跳转到设备",
+      "prompt": "BizBundle 框架层已就绪，我要实现点击设备列表项跳转到设备控制面板。帮我配置 Gradle 依赖、packaging 冲突处理、以及用 AbsPanelCallerService 跳转面板的代码。",
+      "expected_output": "应在 app/build.gradle.kts 添加必选依赖（thingsmart-bizbundle-devicepanel 等），thingsmart-bizbundle-basekit 需 exclude thingplugin-annotation；packaging 除 libc++_shared.so 外还需 pickFirst libv8android.so、libbytehook.so 等；proguard 加 RN、地图、ThingClips keep 规则；跳转代码使用 MicroContext.getServiceManager().findServiceByInterface(AbsPanelCallerService::class.java.name) 获取面板服务，调用 panelService.goPanelWithCheckAndTip(activity, devId)；提醒跳转前必须先调用 shiftCurrentFamily(homeId, homeName)。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "getServiceManager"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-device-control-ui-case-2",
+      "description": "场景：构建时报 Duplicate files",
+      "prompt": "构建时报 Duplicate files libc++_shared.so 和 libv8android.so 的冲突。我只在 packaging 里加了 libc++_shared.so 的 pickFirst。另外 thingsmart-bizbundle-basekit 编译报注解处理器冲突。",
+      "expected_output": "应指出 packaging pickFirst 不完整，除 libc++_shared.so 外还需要加 libv8android.so、libbytehook.so 等多个 so 文件的 pickFirst 配置；thingsmart-bizbundle-basekit 需要 exclude group: \"com.thingclips.smart\", module: \"thingplugin-annotation\"，漏掉会导致编译冲突。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应指出 packaging pickFirst 不完整，除 "
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-device-control-ui-case-3",
+      "description": "场景：BLE 设备的控制面板打开后报 code",
+      "prompt": "BLE 设备的控制面板打开后报 code=1003 app not support BLE device。另外有个小程序面板类型（SMART_MINIPG）的设备点击后没反应，logcat 里有 ClassNotFoundException: MiniAppRouter。",
+      "expected_output": "应指出 BLE 设备面板需要在 AppConfig 中声明 is_need_ble_support = true（AppConfig 至少应包含 is_darkMode_support、is_need_ble_support、is_need_blemesh_support、is_scan_support）；Mini Program 面板需要额外引入 thingsmart-bizbundle-miniapp 和 miniapp_smart 依赖，同时必须在 Application.onCreate() 最前面（BizBundleInitializer.init() 之前）加入 SoLoader.init(this, false)，否则 miniapp 启动会因找不到 GZLMiniAppSDK 而崩溃。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "GZLMiniAppSDK"
+        },
+        {
+          "type": "contains",
+          "value": "onCreate"
+        }
+      ]
+    }
+  ]
+}

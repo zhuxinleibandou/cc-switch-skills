@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Device Detail UI"
+  short_description: "Integrate device settings and detail UI for iOS"
+  default_prompt: "Use $integrating-tuya-ios-device-detail-ui to integrate the device detail and settings UI (OTA, custom menus) for an iOS Tuya app."

@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Icon 图标 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f6f7fb;
+      color: #1f2329;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .demo-page {
+      width: min(100%, 596px);
+      min-height: 100vh;
+      padding: 0 0 40px;
+    }
+
+    .tabs {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      display: flex;
+      height: 48px;
+      background: #fff;
+      box-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    .tab {
+      position: relative;
+      flex: 1;
+      border: 0;
+      background: transparent;
+      color: #646566;
+      font: inherit;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: #1989fa;
+      font-weight: 600;
+    }
+
+    .tab.active::after {
+      position: absolute;
+      right: 32%;
+      bottom: 0;
+      left: 32%;
+      height: 3px;
+      border-radius: 999px;
+      background: #1989fa;
+      content: "";
+    }
+
+    .pane {
+      display: none;
+      padding-top: 20px;
+      background: #f6f7fb;
+    }
+
+    .pane.active {
+      display: block;
+    }
+
+    .demo-block {
+      margin: 0 0 28px;
+      padding: 0 20px;
+    }
+
+    .demo-block h2 {
+      margin: 0 0 12px 10px;
+      color: #5f6368;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 30px;
+    }
+
+    .demo-block h2::after {
+      content: "(点击聚焦文档)";
+      margin-left: 2px;
+      color: #8a8f99;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      background: #fff;
+    }
+
+    .icon-cell {
+      min-height: 92px;
+      padding: 10px 4px 6px;
+      text-align: center;
+    }
+
+    .icon {
+      margin: 12px 0;
+      color: #323233;
+    }
+
+    .text {
+      display: block;
+      height: 36px;
+      margin: -4px 0 4px;
+      padding: 0 5px;
+      overflow: hidden;
+      color: #646566;
+      font-size: 12px;
+      line-height: 18px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .demo-home-link {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #3678e3;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 34px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(31, 35, 41, 0.12);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <a class="demo-home-link" href="./home.html" aria-label="返回 Home">Home</a>
+  <main class="demo-page">
+    <nav class="tabs" aria-label="Icon demo tabs">
+      <button class="tab active" type="button" data-pane="svg">Svg 图标</button>
+      <button class="tab" type="button" data-pane="all">所有图标</button>
+    </nav>
+
+    <section id="pane-svg" class="pane active">
+      <section class="demo-block">
+        <h2>基础用法</h2>
+        <div class="icon-grid">
+          <div class="icon-cell">
+            <smart-icon custom-class="icon" data-demo-icon="warning" size="36px"></smart-icon>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-block">
+        <h2>提示信息</h2>
+        <div class="icon-grid">
+          <div class="icon-cell">
+            <smart-icon custom-class="icon" data-demo-icon="warning" size="36px" dot></smart-icon>
+          </div>
+          <div class="icon-cell">
+            <smart-icon custom-class="icon" data-demo-icon="warning" size="36px" info="9"></smart-icon>
+          </div>
+          <div class="icon-cell">
+            <smart-icon custom-class="icon" data-demo-icon="warning" size="36px" info="99+"></smart-icon>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-block">
+        <h2>图标颜色</h2>
+        <div class="icon-grid">
+          <div class="icon-cell">
+            <smart-icon custom-class="icon" data-demo-icon="alarm" size="36px" color="#1989fa"></smart-icon>
+          </div>
+          <div class="icon-cell">
+            <smart-icon custom-class="icon" data-demo-icon="warning" size="36px" color="#07c160"></smart-icon>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-block">
+        <h2>图标大小</h2>
+        <div class="icon-grid">
+          <div class="icon-cell">
+            <smart-icon custom-class="icon" data-demo-icon="warning" size="36" color="#1989fa"></smart-icon>
+          </div>
+          <div class="icon-cell">
+            <smart-icon custom-class="icon" data-demo-icon="warning" size="48" color="#1989fa"></smart-icon>
+          </div>
+        </div>
+      </section>
+
+      <section class="demo-block">
+        <h2>Svg Path</h2>
+        <div class="icon-grid">
+          <div class="icon-cell">
+            <smart-icon
+              custom-class="icon"
+              name="M192 448C192 624.736 335.264 768 512 768s320-143.264 320-320a319.872 319.872 0 0 0-160-277.184V160a64 64 0 0 0-64-64h-192a64 64 0 0 0-64 64v10.816A319.872 319.872 0 0 0 192 448z m224-384h192a32 32 0 0 0 0-64h-192a32 32 0 0 0 0 64z"
+              size="36"
+              color="#1989fa"
+            ></smart-icon>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="pane-all" class="pane">
+      <section class="demo-block">
+        <h2>基础用法</h2>
+        <div id="allIcons" class="icon-grid"></div>
+      </section>
+    </section>
+  </main>
+
+  <script src="./icon-demo-data.js"></script>
+  <script>
+    const svg = {
+      warning: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M12 2 1.6 20h20.8L12 2zm0 5.1 6 10.4H6L12 7.1zm-1 3.4h2v4.4h-2v-4.4zm0 5.6h2v2h-2v-2z'/></svg>",
+      alarm: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M7.9 2.2 3.5 5.9l1.4 1.7 4.4-3.7-1.4-1.7zm8.2 0-1.4 1.7 4.4 3.7 1.4-1.7-4.4-3.7zM12 5a7.5 7.5 0 1 0 0 15 7.5 7.5 0 0 0 0-15zm0 2.2a5.3 5.3 0 1 1 0 10.6 5.3 5.3 0 0 1 0-10.6zm-.9 1.8h1.8v4.1l2.8 1.7-.9 1.5-3.7-2.2V9z'/></svg>",
+      airplane: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M21.5 3.3 2.6 10.7c-.8.3-.8 1.5.1 1.8l7.1 2.2 2.2 7.1c.3.9 1.5.9 1.8.1l7.4-18.9c.3-.8-.5-1.6-1.3-1.3zM6.1 11.6l10.8-4.2-6.3 6.3-4.5-1.4zm6.4 6.4-1.4-4.5 6.3-6.3-4.2 10.8z'/></svg>",
+      arrow: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M13.2 5.3 20 12l-6.8 6.7-1.4-1.4 4.3-4.3H4v-2h12.1l-4.3-4.3 1.4-1.4z'/></svg>",
+      bell: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M12 22a2.6 2.6 0 0 0 2.5-2h-5a2.6 2.6 0 0 0 2.5 2zM5 18h14l-1.7-2.2V11a5.3 5.3 0 0 0-4.1-5.2V4a1.2 1.2 0 1 0-2.4 0v1.8A5.3 5.3 0 0 0 6.7 11v4.8L5 18zm3.8-6.9a3.2 3.2 0 0 1 6.4 0v5H8.8v-5z'/></svg>",
+      check: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='m9.2 16.4-4.1-4.1-1.5 1.5 5.6 5.6L20.5 8.1 19 6.6 9.2 16.4z'/></svg>",
+      close: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4 6.4 5z'/></svg>",
+      cloud: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M8.8 19h8.4a4.8 4.8 0 0 0 .3-9.6A6.2 6.2 0 0 0 5.6 11 4.1 4.1 0 0 0 8.8 19zm0-2a2.1 2.1 0 0 1-.5-4.2l1-.2.3-1a4.2 4.2 0 0 1 8.1.5l.2 1.2h1.2a2.8 2.8 0 0 1 0 5.7H8.8z'/></svg>",
+      connect: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M8.5 7a4.5 4.5 0 0 1 0 9H6a4 4 0 0 1 0-8h1.2v2H6a2 2 0 0 0 0 4h2.5a2.5 2.5 0 0 0 0-5h-1V7h1zm7 0H18a4 4 0 0 1 0 8h-1.2v-2H18a2 2 0 0 0 0-4h-2.5a2.5 2.5 0 0 0 0 5h1v2h-1a4.5 4.5 0 0 1 0-9zM8 11h8v2H8v-2z'/></svg>",
+      home: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M3 10.8 12 3l9 7.8-1.4 1.6-1.1-1V21h-5.2v-6h-2.6v6H5.5v-9.6l-1.1 1L3 10.8zm4.5-1.1V19h1.2v-6h6.6v6h1.2V9.7L12 5.8 7.5 9.7z'/></svg>",
+      search: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M10.7 4a6.7 6.7 0 1 0 4.2 11.9l3.6 3.6 1.4-1.4-3.6-3.6A6.7 6.7 0 0 0 10.7 4zm0 2a4.7 4.7 0 1 1 0 9.4 4.7 4.7 0 0 1 0-9.4z'/></svg>",
+      setting: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='m19.4 13.5 1.9 1.5-2 3.4-2.3-.9a7.6 7.6 0 0 1-1.7 1l-.3 2.5h-4l-.4-2.5a7.6 7.6 0 0 1-1.6-1l-2.3.9-2-3.4 1.9-1.5a7.9 7.9 0 0 1 0-2l-1.9-1.5 2-3.4 2.3.9a7.6 7.6 0 0 1 1.6-1L11 4h4l.3 2.5a7.6 7.6 0 0 1 1.7 1l2.3-.9 2 3.4-1.9 1.5a7.9 7.9 0 0 1 0 2zM13 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z'/></svg>",
+      plus: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6V5z'/></svg>",
+      minus: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M5 11h14v2H5v-2z'/></svg>",
+      play: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M8 5v14l11-7L8 5z'/></svg>",
+      pause: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M7 5h4v14H7V5zm6 0h4v14h-4V5z'/></svg>",
+      refresh: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M17.7 6.3A8 8 0 1 0 20 12h-2a6 6 0 1 1-1.8-4.2L13 11h8V3l-3.3 3.3z'/></svg>",
+      timer: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M10.8 2h2.4v3h-2.4V2zm1.2 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 2.3a5.7 5.7 0 1 0 0 11.4 5.7 5.7 0 0 0 0-11.4zm.9 2.2v3.2l2.4 1.4-1 1.7-3.1-1.9v-4.4h1.7z'/></svg>",
+      snow: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M11 2h2v4.1l2.7-2.7 1.4 1.4L13 8.9v2l1.8-1 5.1-3 1 1.8-3.6 2.1 3.6 2.1-1 1.8-5.1-3-1.8-1v2l4.1 4.1-1.4 1.4L13 15.9V22h-2v-6.1l-2.7 2.7-1.4-1.4 4.1-4.1v-2l-1.8 1-5.1 3-1-1.8 3.6-2.1-3.6-2.1 1-1.8 5.1 3 1.8 1v-2L6.9 4.8l1.4-1.4L11 6.1V2z'/></svg>",
+      sun: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M11 2h2v3h-2V2zm0 17h2v3h-2v-3zM2 11h3v2H2v-2zm17 0h3v2h-3v-2zM4.2 5.6l1.4-1.4 2.1 2.1-1.4 1.4-2.1-2.1zm12.1 12.1 1.4-1.4 2.1 2.1-1.4 1.4-2.1-2.1zM18.4 4.2l1.4 1.4-2.1 2.1-1.4-1.4 2.1-2.1zM6.3 16.3l1.4 1.4-2.1 2.1-1.4-1.4 2.1-2.1zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z'/></svg>",
+      right: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='m9 5 7 7-7 7-1.4-1.4 5.6-5.6-5.6-5.6L9 5z'/></svg>"
+    };
+
+    const iconNames = [
+      "warning", "alarm", "airplane", "arrow", "bell", "check", "close", "cloud",
+      "connect", "home", "search", "setting", "plus", "minus", "play", "pause",
+      "refresh", "timer", "snow", "sun", "right"
+    ];
+
+    const toSvgDataUri = (source) => `data:image/svg+xml;base64,${btoa(source)}`;
+
+    const officialIcons = window.__SMART_ICON_DEMO_ICONS__ || [];
+    const officialIconMap = new Map(officialIcons.map(icon => [icon.name, icon.value]));
+
+    document.querySelectorAll("[data-demo-icon]").forEach((icon) => {
+      icon.name = officialIconMap.get(icon.dataset.demoIcon) || officialIconMap.get("warning");
+    });
+
+    const allIcons = document.getElementById("allIcons");
+    allIcons.innerHTML = officialIcons.map(({ name }) => `
+      <div class="icon-cell">
+        <smart-icon custom-class="icon" data-grid-icon="${name}" size="36px"></smart-icon>
+        <span class="text">${name}</span>
+      </div>
+    `).join("");
+    allIcons.querySelectorAll("[data-grid-icon]").forEach((icon) => {
+      icon.name = officialIconMap.get(icon.dataset.gridIcon);
+    });
+
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const pane = tab.getAttribute("data-pane");
+        document.querySelectorAll(".tab").forEach((item) => item.classList.toggle("active", item === tab));
+        document.querySelectorAll(".pane").forEach((item) => item.classList.toggle("active", item.id === `pane-${pane}`));
+      });
+    });
+  </script>
+</body>
+</html>

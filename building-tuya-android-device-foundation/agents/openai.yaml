@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Device Foundation"
+  short_description: "Manage Tuya device operations and sharing for Android"
+  default_prompt: "Use $building-tuya-android-device-foundation to implement device info queries, status monitoring, and device sharing for an Android Tuya app."

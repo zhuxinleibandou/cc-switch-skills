@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CountDown 倒计时 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <link rel="stylesheet" href="./smart-common.css">
+  <style>
+    :root {
+      --app-B1-N1: #1f2329;
+      --app-B3: #f6f7fb;
+      --app-B6: #fff;
+      color-scheme: light;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--app-B3);
+      color: var(--app-B1-N1);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .demo-page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+    }
+
+    .demo-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .demo-header h1 { margin: 0; font-size: 24px; line-height: 32px; }
+    .demo-header a { color: #3678e3; font-size: 14px; text-decoration: none; }
+    .demo-block { margin-bottom: 24px; }
+    .demo-block h2 { margin: 0 0 12px 16px; color: #646566; font-size: 14px; font-weight: 500; line-height: 20px; }
+    smart-count-down { margin: 0 16px 10px; }
+
+    .item {
+      display: inline-block;
+      width: 22px;
+      margin-right: 5px;
+      border-radius: 2px;
+      color: #fff;
+      background: #1989fa;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .control-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 8px;
+      background: #fff;
+    }
+
+    .control-grid button {
+      display: flex;
+      min-height: 80px;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      border: 0;
+      border-right: 1px solid #ebedf0;
+      color: #1f2329;
+      background: #fff;
+      font: inherit;
+    }
+
+    .control-grid button:last-child { border-right: 0; }
+    .control-grid button:active { background: #f2f3f5; }
+    .control-grid svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  </style>
+</head>
+<body>
+  <main class="demo-page">
+    <header class="demo-header">
+      <h1>CountDown 倒计时</h1>
+      <a href="./home.html">Home</a>
+    </header>
+
+    <section class="demo-block">
+      <h2>基础用法</h2>
+      <smart-count-down time="108000000"></smart-count-down>
+    </section>
+
+    <section class="demo-block">
+      <h2>自定义格式</h2>
+      <smart-count-down time="108000000" format="DD 天 HH 时 mm 分 ss 秒"></smart-count-down>
+    </section>
+
+    <section class="demo-block">
+      <h2>毫秒级渲染</h2>
+      <smart-count-down millisecond time="108000000" format="HH:mm:ss:SSS"></smart-count-down>
+    </section>
+
+    <section class="demo-block">
+      <h2>自定义样式</h2>
+      <smart-count-down id="slot-count-down" use-slot time="108000000" bind:change="onSlotCountDownChange">
+        <span class="item" data-unit="hours">0</span>
+        <span class="item" data-unit="minutes">0</span>
+        <span class="item" data-unit="seconds">0</span>
+      </smart-count-down>
+    </section>
+
+    <section class="demo-block">
+      <h2>手动控制</h2>
+      <smart-count-down
+        id="control-count-down"
+        millisecond
+        time="3000"
+        auto-start="false"
+        bind:finish="onControlCountDownFinish"
+        format="ss:SSS"
+      ></smart-count-down>
+      <div class="control-grid">
+        <button type="button" data-action="start" aria-label="开始">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z"></path></svg>
+          <span>开始</span>
+        </button>
+        <button type="button" data-action="pause" aria-label="暂停">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14"></path></svg>
+          <span>暂停</span>
+        </button>
+        <button type="button" data-action="reset" aria-label="重置">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.3-5.7L4 8.5"></path><path d="M4 4v4.5h4.5"></path></svg>
+          <span>重置</span>
+        </button>
+      </div>
+    </section>
+
+    <smart-toast id="smart-toast-count-down"></smart-toast>
+  </main>
+
+  <script>
+    const slotCountDown = document.querySelector('#slot-count-down');
+    function onSlotCountDownChange(detail) {
+      Object.entries(detail).forEach(([unit, value]) => {
+        const target = slotCountDown.querySelector(`[data-unit="${unit}"]`);
+        if (target) target.textContent = value;
+      });
+    }
+
+    const controlCountDown = document.querySelector('#control-count-down');
+    document.querySelector('.control-grid').addEventListener('click', event => {
+      const button = event.target.closest('button[data-action]');
+      if (button) controlCountDown[button.dataset.action]();
+    });
+    function onControlCountDownFinish() {
+      ToastInstance({ selector: '#smart-toast-count-down', message: '倒计时结束' });
+    }
+  </script>
+</body>
+</html>

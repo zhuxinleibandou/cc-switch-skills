@@ -1,0 +1,382 @@
+{
+  "captureMode": "captured-tree",
+  "slideCount": 10,
+  "textObjects": 201,
+  "shapeObjects": 64,
+  "imageObjects": 24,
+  "slideSummaries": [
+    {
+      "index": 1,
+      "key": "theme10_page002-1",
+      "capturedNodes": 25,
+      "maxDepth": 8,
+      "textNodes": 8,
+      "backgroundImages": 2,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 6,
+      "renderedTextObjects": 8,
+      "renderedShapeObjects": 4,
+      "renderedImageObjects": 2
+    },
+    {
+      "index": 2,
+      "key": "theme10_page053-2",
+      "capturedNodes": 11,
+      "maxDepth": 5,
+      "textNodes": 3,
+      "backgroundImages": 2,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 3,
+      "renderedTextObjects": 3,
+      "renderedShapeObjects": 1,
+      "renderedImageObjects": 2
+    },
+    {
+      "index": 3,
+      "key": "theme10_page091-3",
+      "capturedNodes": 56,
+      "maxDepth": 8,
+      "textNodes": 38,
+      "backgroundImages": 1,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 9,
+      "renderedTextObjects": 38,
+      "renderedShapeObjects": 1,
+      "renderedImageObjects": 8
+    },
+    {
+      "index": 4,
+      "key": "theme10_page018-4",
+      "capturedNodes": 61,
+      "maxDepth": 8,
+      "textNodes": 25,
+      "backgroundImages": 1,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 8,
+      "renderedTextObjects": 25,
+      "renderedShapeObjects": 5,
+      "renderedImageObjects": 3
+    },
+    {
+      "index": 5,
+      "key": "theme10_page056-5",
+      "capturedNodes": 44,
+      "maxDepth": 8,
+      "textNodes": 15,
+      "backgroundImages": 1,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 4,
+      "renderedTextObjects": 15,
+      "renderedShapeObjects": 4,
+      "renderedImageObjects": 1
+    },
+    {
+      "index": 6,
+      "key": "theme10_page019-6",
+      "capturedNodes": 88,
+      "maxDepth": 8,
+      "textNodes": 28,
+      "backgroundImages": 2,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 16,
+      "renderedTextObjects": 28,
+      "renderedShapeObjects": 18,
+      "renderedImageObjects": 2
+    },
+    {
+      "index": 7,
+      "key": "theme10_page055-7",
+      "capturedNodes": 55,
+      "maxDepth": 8,
+      "textNodes": 25,
+      "backgroundImages": 1,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 6,
+      "renderedTextObjects": 25,
+      "renderedShapeObjects": 10,
+      "renderedImageObjects": 1
+    },
+    {
+      "index": 8,
+      "key": "theme10_page033-8",
+      "capturedNodes": 55,
+      "maxDepth": 8,
+      "textNodes": 21,
+      "backgroundImages": 1,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 8,
+      "renderedTextObjects": 21,
+      "renderedShapeObjects": 4,
+      "renderedImageObjects": 1
+    },
+    {
+      "index": 9,
+      "key": "theme10_page086-9",
+      "capturedNodes": 43,
+      "maxDepth": 10,
+      "textNodes": 14,
+      "backgroundImages": 2,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 6,
+      "renderedTextObjects": 14,
+      "renderedShapeObjects": 4,
+      "renderedImageObjects": 3
+    },
+    {
+      "index": 10,
+      "key": "theme10_page071-10",
+      "capturedNodes": 73,
+      "maxDepth": 9,
+      "textNodes": 24,
+      "backgroundImages": 1,
+      "svgImages": 0,
+      "canvasImages": 0,
+      "imageNodes": 0,
+      "shapeCandidates": 8,
+      "renderedTextObjects": 24,
+      "renderedShapeObjects": 13,
+      "renderedImageObjects": 1
+    }
+  ],
+  "warnings": [
+    {
+      "slide": 1,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 2,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 36,
+      "sample": "结构改善 盈利持续性仍待验证 盈利持续性仍待验证 331.85 亿美元 亿美元 亿美元 净现金 589.63 亿美元 亿美元 亿美元 自由现金流 3.7% 债务／权益 债务／权益 债务／权益 低杠杆 7.8% 存货／营收 存货／营收 存货／营收 库存较低 +30.8% Q4营收环比 Q4营收环比 Q4营收环比 Q4营收"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 33,
+      "sample": "331.85 亿美元 亿美元 亿美元 净现金 589.63 亿美元 亿美元 亿美元 自由现金流 3.7% 债务／权益 债务／权益 债务／权益 低杠杆 7.8% 存货／营收 存货／营收 存货／营收 库存较低 +30.8% Q4营收环比 Q4营收环比 Q4营收环比 Q4营收环比 Q4营收环比 增长加速 86.8% Q4毛利"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 23,
+      "sample": "589.63 亿美元 亿美元 亿美元 自由现金流 3.7% 债务／权益 债务／权益 债务／权益 低杠杆 +30.8% Q4营收环比 Q4营收环比 Q4营收环比 Q4营收环比 Q4营收环比 增长加速 86.8% Q4毛利率 Q4毛利率 Q4毛利率 Q4毛利率 高盈利水平"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 11,
+      "sample": "3.7% 债务／权益 债务／权益 债务／权益 低杠杆 86.8% Q4毛利率 Q4毛利率 Q4毛利率 Q4毛利率 高盈利水平"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 18,
+      "sample": "7.8% 存货／营收 存货／营收 存货／营收 库存较低 +30.8% Q4营收环比 Q4营收环比 Q4营收环比 Q4营收环比 Q4营收环比 增长加速 86.8% Q4毛利率 Q4毛利率 Q4毛利率 Q4毛利率 高盈利水平"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 13,
+      "sample": "+30.8% Q4营收环比 Q4营收环比 Q4营收环比 Q4营收环比 Q4营收环比 增长加速 86.8% Q4毛利率 Q4毛利率 Q4毛利率 Q4毛利率 高盈利水平"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 6,
+      "sample": "86.8% Q4毛利率 Q4毛利率 Q4毛利率 Q4毛利率 高盈利水平"
+    },
+    {
+      "slide": 3,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 4,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 4,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 25,
+      "sample": "估值争论 · 原报告判断 A · 多头依据 低倍数依赖高盈利延续 低倍数依赖高盈利延续 11.8倍 P/E 盈利口径决定估值含义 采用FY2026峰值盈利 HBM有望抬高盈利底部 净现金支持经营韧性 低存货降低减值压力 B · 空头质疑 正常化盈利底部尚未证明 正常化盈利底部尚未证明 71–118倍 71–118倍 盈"
+    },
+    {
+      "slide": 4,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 4,
+      "type": "node-image-fallback-text-extracted",
+      "node": "masked-element",
+      "textCount": 25,
+      "sample": "估值争论 · 原报告判断 A · 多头依据 低倍数依赖高盈利延续 低倍数依赖高盈利延续 11.8倍 P/E 盈利口径决定估值含义 采用FY2026峰值盈利 HBM有望抬高盈利底部 净现金支持经营韧性 低存货降低减值压力 B · 空头质疑 正常化盈利底部尚未证明 正常化盈利底部尚未证明 71–118倍 71–118倍 盈"
+    },
+    {
+      "slide": 4,
+      "type": "node-image-fallback",
+      "node": "masked-element",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 6,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 6,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 7,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 8,
+      "type": "decorative-pseudo-border-skipped",
+      "count": 1
+    },
+    {
+      "slide": 8,
+      "type": "decorative-pseudo-border-skipped",
+      "count": 1
+    },
+    {
+      "slide": 8,
+      "type": "decorative-pseudo-border-skipped",
+      "count": 1
+    },
+    {
+      "slide": 8,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 9,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 9,
+      "type": "node-image-fallback-text-extracted",
+      "node": "blend-group",
+      "textCount": 12,
+      "sample": "分批恢复 价格与量能 数据与基本面 风险预算 价格与量能 收复982.73–986.70并回踩、量能确认，才考虑恢复1/3–1/2。 数据与基本面 澄清200日线；毛利率、存货、DSO与HBM合约需继续支持。 风险预算 止损1–1.5倍ATR；单笔风险0.5%–1%，保守0.25%–0.5%。 分批恢复 200日线澄清"
+    },
+    {
+      "slide": 9,
+      "type": "node-image-fallback",
+      "node": "blend-group",
+      "count": 1,
+      "source": "browser-visual-effect"
+    },
+    {
+      "slide": 9,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    },
+    {
+      "slide": 10,
+      "type": "node-image-fallback",
+      "node": "css-gradient-background",
+      "count": 1
+    }
+  ]
+}

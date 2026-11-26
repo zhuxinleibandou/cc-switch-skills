@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Picker 选择器 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+:root{--app-B1:#fff;--app-B1-N1:#1f2329;--app-B3:#f6f7fb;--app-B4:#fff;--app-B4-N1:#1f2329;--app-B4-N3:#646566;--app-B4-N7:#ebedf0;--app-M1:#3678e3;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--app-B3);color:var(--app-B1-N1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.demo-page{width:min(100%,760px);margin:0 auto;padding:24px 16px 48px}.demo-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.demo-header h1{margin:0;font-size:24px;line-height:32px}.demo-header a{color:#3678e3;text-decoration:none;font-size:14px}.demo-block{margin:0 0 24px}.demo-block h2{margin:0 0 12px 16px;color:#646566;font-size:14px;font-weight:500;line-height:20px}.demo-block__content{min-width:0}.demo-block--padding .demo-block__content{padding:0 16px}.demo-block__content>smart-cell,.demo-block__content>smart-button,.demo-block__content>smart-popup,.demo-block__content>smart-overlay,.demo-block__content>smart-progress,.demo-block__content>smart-notice-bar{margin-bottom:12px}.row,.line{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.contain{width:100%}img{max-width:100%}[hidden]{display:none!important}
+.picker5 {
+  position: relative;
+
+  .smart-picker__columns {
+    justify-content: center;
+  }
+  .smart-picker__column {
+    flex: 0;
+    width: auto;
+  }
+}
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <main class="demo-page">
+    <header class="demo-header"><h1>Picker 选择器</h1><a href="./home.html">Home</a></header>
+<section class="demo-block"><h2>基础用法</h2><div class="demo-block__content">
+  <smart-picker
+    item-height="44"
+    active-index="3" data-bind-active-index="activeIndex"
+    change-animation
+    columns="[&quot;杭州&quot;,&quot;宁波&quot;,&quot;温州&quot;,&quot;嘉兴&quot;,&quot;湖州&quot;]" data-bind-columns="column1"
+    bind:change="onChange1"></smart-picker>
+</div></section>
+
+<section class="demo-block"><h2>多列用法</h2><div class="demo-block__content">
+  <smart-picker
+    item-height="44"
+    columns="[{&quot;values&quot;:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99],&quot;style&quot;:&quot;flex: none;width: auto;min-width: 61px;&quot;,&quot;fontStyle&quot;:&quot;color: rgb(135, 180, 244);&quot;},{&quot;values&quot;:[&quot;.&quot;],&quot;disabled&quot;:true,&quot;style&quot;:&quot;flex: none;width: 8px;display:flex;justify-content: center;&quot;},{&quot;values&quot;:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],&quot;style&quot;:&quot;flex: none;width: auto;min-width: 61px;&quot;,&quot;unit&quot;:&quot;Kg&quot;,&quot;unitGap&quot;:&quot;10rpx&quot;}]" data-bind-columns="column5"
+    active-style="color: rgb(135, 180, 244);"
+    bind:change="onChange1"
+    custom-class="picker5"
+    bind:animation-start="animationStart"
+    bind:animation-end="animationEnd"></smart-picker>
+</div></section>
+
+<section class="demo-block"><h2>循环列表</h2><div class="demo-block__content">
+  <smart-picker
+    loop
+    item-height="44"
+    columns="[{&quot;values&quot;:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99]}]" data-bind-columns="column7"
+    bind:change="onChange1"></smart-picker>
+</div></section>
+
+<section class="demo-block"><h2>默认选中项</h2><div class="demo-block__content">
+  <smart-picker
+    columns="[&quot;杭州&quot;,&quot;宁波&quot;,&quot;温州&quot;,&quot;嘉兴&quot;,&quot;湖州&quot;]" data-bind-columns="column1"
+    item-height="44"
+    default-index="2"
+    bind:change="onChange1"></smart-picker>
+</div></section>
+
+<section class="demo-block"><h2>展示顶部栏</h2><div class="demo-block__content">
+  <smart-picker
+    show-toolbar
+    item-height="44"
+    title="标题"
+    columns="[&quot;杭州&quot;,&quot;宁波&quot;,&quot;温州&quot;,&quot;嘉兴&quot;,&quot;湖州&quot;]" data-bind-columns="column1"
+    bind:change="onChange1"
+    bind:confirm="onConfirm"
+    bind:cancel="onCancel"></smart-picker>
+</div></section>
+
+<section class="demo-block"><h2>多列联动</h2><div class="demo-block__content">
+  <smart-picker
+    item-height="44"
+    columns="[{&quot;values&quot;:[&quot;浙江&quot;,&quot;福建&quot;],&quot;className&quot;:&quot;column1&quot;,&quot;unit&quot;:&quot;省&quot;},{&quot;values&quot;:[&quot;杭州&quot;,&quot;宁波&quot;,&quot;温州&quot;,&quot;嘉兴&quot;,&quot;湖州&quot;],&quot;className&quot;:&quot;column2&quot;,&quot;defaultIndex&quot;:2,&quot;unit&quot;:&quot;市&quot;}]" data-bind-columns="column4"
+    bind:change="onChange2"></smart-picker>
+</div></section>
+
+<section class="demo-block"><h2>禁用选项</h2><div class="demo-block__content">
+  <smart-picker columns="[{&quot;text&quot;:&quot;杭州&quot;,&quot;disabled&quot;:true},{&quot;text&quot;:&quot;宁波&quot;},{&quot;text&quot;:&quot;温州&quot;}]" data-bind-columns="column2" item-height="44" bind:change="onChange1"></smart-picker>
+</div></section>
+
+<section class="demo-block"><h2>加载中</h2><div class="demo-block__content">
+  <smart-picker
+    loading
+    columns="[{&quot;values&quot;:[&quot;浙江&quot;,&quot;福建&quot;],&quot;className&quot;:&quot;column1&quot;,&quot;unit&quot;:&quot;省&quot;},{&quot;values&quot;:[&quot;杭州&quot;,&quot;宁波&quot;,&quot;温州&quot;,&quot;嘉兴&quot;,&quot;湖州&quot;],&quot;className&quot;:&quot;column2&quot;,&quot;defaultIndex&quot;:2,&quot;unit&quot;:&quot;市&quot;}]" data-bind-columns="column4"
+    item-height="44"></smart-picker>
+</div></section>
+
+<section class="demo-block"><h2>设置列的样式顺序</h2><div class="demo-block__content">
+  <smart-picker
+    item-height="44"
+    columns="[{&quot;values&quot;:[&quot;浙江&quot;,&quot;福建&quot;],&quot;order&quot;:2},{&quot;values&quot;:[&quot;杭州&quot;,&quot;宁波&quot;,&quot;温州&quot;,&quot;嘉兴&quot;,&quot;湖州&quot;],&quot;order&quot;:1}]" data-bind-columns="column6"></smart-picker>
+</div></section>
+
+
+<section class="demo-block"><h2>更多3D</h2><div class="demo-block__content">
+  <smart-picker
+    loop
+    fullHeight
+    item-height="44"
+    columns="[{&quot;values&quot;:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99]}]" data-bind-columns="column7"
+    bind:change="onChange1"></smart-picker>
+</div></section>
+
+<smart-toast id="smart-toast-picker"></smart-toast>
+
+  </main>
+<script>window.__demoState={
+  "isA11y": false,
+  "activeIndex": 3,
+  "column1": [
+    "杭州",
+    "宁波",
+    "温州",
+    "嘉兴",
+    "湖州"
+  ],
+  "column2": [
+    {
+      "text": "杭州",
+      "disabled": true
+    },
+    {
+      "text": "宁波"
+    },
+    {
+      "text": "温州"
+    }
+  ],
+  "column3": {
+    "浙江": [
+      "杭州",
+      "宁波",
+      "温州",
+      "嘉兴",
+      "湖州"
+    ],
+    "福建": [
+      "福州",
+      "厦门",
+      "莆田",
+      "三明",
+      "泉州"
+    ]
+  },
+  "column4": [
+    {
+      "values": [
+        "浙江",
+        "福建"
+      ],
+      "className": "column1",
+      "unit": "省"
+    },
+    {
+      "values": [
+        "杭州",
+        "宁波",
+        "温州",
+        "嘉兴",
+        "湖州"
+      ],
+      "className": "column2",
+      "defaultIndex": 2,
+      "unit": "市"
+    }
+  ],
+  "column5": [
+    {
+      "values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ],
+      "style": "flex: none;width: auto;min-width: 61px;",
+      "fontStyle": "color: rgb(135, 180, 244);"
+    },
+    {
+      "values": [
+        "."
+      ],
+      "disabled": true,
+      "style": "flex: none;width: 8px;display:flex;justify-content: center;"
+    },
+    {
+      "values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19
+      ],
+      "style": "flex: none;width: auto;min-width: 61px;",
+      "unit": "Kg",
+      "unitGap": "10rpx"
+    }
+  ],
+  "column6": [
+    {
+      "values": [
+        "浙江",
+        "福建"
+      ],
+      "order": 2
+    },
+    {
+      "values": [
+        "杭州",
+        "宁波",
+        "温州",
+        "嘉兴",
+        "湖州"
+      ],
+      "order": 1
+    }
+  ],
+  "column7": [
+    {
+      "values": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99
+      ]
+    }
+  ]
+};window.__handlerMaps={
+  "toggle": {},
+  "setTrue": {},
+  "setFalse": {}
+};function __evalDemo(expr){try{return Function('state','computed','with(state){return ('+expr+')}')(window.__demoState,{pad:n=>String(n).padStart(2,'0'),formatDate(v){const d=new Date(Array.isArray(v)?v[0]:v);return Number.isNaN(d.getTime())?'':d.getFullYear()+'-'+this.pad(d.getMonth()+1)+'-'+this.pad(d.getDate())},formatFullDate(v){return this.formatDate(v)},formatRange(v){return Array.isArray(v)?v.map(x=>this.formatDate(x)).filter(Boolean).join(' ~ '):this.formatDate(v)}})}catch(e){return''}}function __attrValue(v){return v==null?'':typeof v==='object'?JSON.stringify(v):String(v)}function __applyBindings(){document.querySelectorAll('*').forEach(el=>{Array.from(el.attributes).forEach(a=>{if(!a.name.startsWith('data-bind-'))return;const real=a.name.slice(10),v=__evalDemo(a.value); if(typeof v==='boolean')el.setAttribute(real,String(v)); else if(v==null||v==='')el.removeAttribute(real); else el.setAttribute(real,__attrValue(v)); if(typeof v==='function'||Array.isArray(v)||(v!=null&&Object.getPrototypeOf(v)===Object.prototype)){const prop=real.replace(/-([a-z])/g,(_,c)=>c.toUpperCase());try{if(prop in el)el[prop]=v}catch(e){}}})})}function __path(p){if(!p)return null;const parts=String(p).split('.');let o=window.__demoState;for(let i=0;i<parts.length-1;i++){if(!o[parts[i]])o[parts[i]]={};o=o[parts[i]]}return [o,parts[parts.length-1]]}function __set(p,v){const r=__path(p);if(!r)return false;r[0][r[1]]=v;__applyBindings();return true}function __toggle(p){const r=__path(p);if(!r)return false;r[0][r[1]]=!r[0][r[1]];__applyBindings();return true}function __handle(h,e,el){const m=window.__handlerMaps||{toggle:{},setTrue:{},setFalse:{}};if(m.toggle&&m.toggle[h])return __toggle(m.toggle[h]);if(h==='onClick'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',true);if(h==='onClose'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',false);if(m.setTrue&&m.setTrue[h])return __set(m.setTrue[h],true);if(m.setFalse&&m.setFalse[h])return __set(m.setFalse[h],false);if(/toggle|show|open|close/i.test(h)){const s=el.closest('.demo-block')||document,t=s.querySelector('[data-bind-show]')||el.closest('[data-bind-show]');if(t)return __toggle(t.getAttribute('data-bind-show'))}if(/confirm|cancel|close/i.test(h)){const t=el.closest('[data-bind-show]')||el;if(t&&t.getAttribute('data-bind-show'))return __set(t.getAttribute('data-bind-show'),false)}if(/change|input/i.test(h)&&e&&e.detail!=null){const t=el.getAttribute('data-bind-value')||el.getAttribute('data-bind-checked')||el.getAttribute('data-bind-active-index');if(t)return __set(t,e.detail&&e.detail.value!==undefined?e.detail.value:e.detail)}return false}document.addEventListener('DOMContentLoaded', __applyBindings);</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Device List Manager"
+  short_description: "Build device list UI with home and shared devices for iOS"
+  default_prompt: "Use $managing-tuya-ios-device-list to build the device list module (home devices, shared devices, swipe-to-delete, rename, sort) for an iOS Tuya app."

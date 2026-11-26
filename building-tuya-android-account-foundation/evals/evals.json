@@ -1,0 +1,49 @@
+{
+  "skill": "building-tuya-android-account-foundation",
+  "cases": [
+    {
+      "id": "building-tuya-android-account-foundation-case-1",
+      "description": "业务场景：需要支持手机号和邮箱两种方式注册登",
+      "prompt": "我的 Android 工程已经接好涂鸦 SDK 了，现在要做账号体系。我需要支持手机号和邮箱两种方式注册登录，用 XML/View + ViewModel 结构。帮我设计页面流程和核心 API 调用。",
+      "expected_output": "应设计认证入口分流页（未登录跳转）、手机号认证 Fragment、邮箱认证 Fragment、个人中心页（已登录跳转）的页面流；手机号流程涉及发送验证码（注意不同 type：注册/登录/重置密码）和登录/注册 API；邮箱流程类似；应提到 Session 失效处理需在 Application 级注册 ThingHomeSdk.setOnNeedLoginListener；建议不要把三种入口揉成一个超大页面。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingHomeSdk"
+        },
+        {
+          "type": "contains",
+          "value": "setOnNeedLoginListener"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-android-account-foundation-case-2",
+      "description": "业务场景：怎么转正为正式账号？游客退出登录用",
+      "prompt": "我想加个游客登录功能，让用户不注册也能体验 App。游客后续怎么转正为正式账号？游客退出登录用普通的退出 API 可以吗？",
+      "expected_output": "应说明游客登录的 API 调用方式；游客转正（绑定手机号或邮箱）的流程和 API；明确指出游客退出不能使用普通账号退出 API，必须使用 touristLogOut(...)；提醒游客转正时 bindEmail/changeUserName 需要当前用户 sid。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "说明游客登录的 API 调用方式"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-android-account-foundation-case-3",
+      "description": "业务场景：怎么处理？我现在只在登录页做了处理",
+      "prompt": "用户反馈说 App 用着用着突然跳回登录页了，但他没有点退出。这个 Session 失效怎么处理？我现在只在登录页做了处理。",
+      "expected_output": "应指出 Session 失效处理不能只在页面层做，需要在 Application 级统一注册 ThingHomeSdk.setOnNeedLoginListener，监听到 Session 过期后跳转到登录页并清理本地状态；这样无论用户在哪个页面，Session 失效都能被正确捕获和处理。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingHomeSdk"
+        },
+        {
+          "type": "contains",
+          "value": "setOnNeedLoginListener"
+        }
+      ]
+    }
+  ]
+}

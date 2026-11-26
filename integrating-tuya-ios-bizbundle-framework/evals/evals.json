@@ -1,0 +1,49 @@
+{
+  "skill": "integrating-tuya-ios-bizbundle-framework",
+  "cases": [
+    {
+      "id": "integrating-tuya-ios-bizbundle-framework-case-1",
+      "description": "业务场景：需要先做什么框架层的准备工作？",
+      "prompt": "我已经完成了涂鸦 SDK 基础集成，现在想接入设备控制面板业务包。请问我需要先做什么框架层的准备工作？",
+      "expected_output": "应说明所有 BizBundle 的共同前置条件是完成框架层初始化。步骤包括：1) Podfile 添加 ThingSmartBizCore 和 ThingModuleServices；2) 创建 thing_custom_config.json 配置文件（包含 appId、thingAppKey、appScheme、hotspotPrefixs、needBle 及主题色）；3) 在 SceneDelegate 的 scene:willConnectToSession:options: 中先调用 makeKeyAndVisible，再调用 [ThingSmartBusinessExtensionConfig setupConfig] 和 [[ThingSmartBizCore sharedInstance] registerRouteWithHandler:]；4) 用户登录后调用 [[ThingSmartBizCore sharedInstance] updateConfig]。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "BizBundle"
+        },
+        {
+          "type": "contains",
+          "value": "registerRouteWithHandler"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-bizbundle-framework-case-2",
+      "description": "排错：，有什么问题吗？",
+      "prompt": "App 启动时崩溃了，堆栈显示 EXC_BAD_ACCESS，我把 ThingSmartBizCore 的初始化代码放在 AppDelegate 的 didFinishLaunchingWithOptions 里，有什么问题吗？",
+      "expected_output": "应指出 BizBundle 初始化（setupConfig 和 registerRouteWithHandler:）必须在 makeKeyAndVisible 之后调用，不能放在 AppDelegate 中。原因是这些方法会启动后台线程并持有内部锁，若在 makeKeyAndVisible 之前调用，主线程会尝试获取同一把锁，造成死锁，表现为 EXC_BAD_ACCESS。正确做法是在 SceneDelegate 的 scene:willConnectToSession:options: 中先 makeKeyAndVisible，再做 BizBundle 初始化。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "BizBundle"
+        },
+        {
+          "type": "contains",
+          "value": "registerRouteWithHandler"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-bizbundle-framework-case-3",
+      "description": "场景：，但是业务包内部功能异常，",
+      "prompt": "用户登录成功后打开业务包页面，但是业务包内部功能异常，数据都是空的，SDK 初始化和 BizBundle 框架层初始化都已完成，可能是什么原因？",
+      "expected_output": "应指出最可能的原因是登录后未调用 [[ThingSmartBizCore sharedInstance] updateConfig]。ThingSmartBizCore 不替代 ThingSmartSDK 初始化，业务包有独立的配置缓存，需要登录完成后主动调用 updateConfig 刷新。另外检查 thing_custom_config.json 是否存在且内容完整，缺失该文件会导致业务包崩溃或功能不可用。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingSmartSDK"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Home BizBundle"
+  short_description: "Integrate pre-built home management UI for iOS"
+  default_prompt: "Use $integrating-tuya-ios-home-bizbundle to integrate the pre-built family management UI BizBundle for an iOS Tuya app."

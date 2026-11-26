@@ -1,0 +1,4 @@
+interface:
+  display_name: "米家法律文档 Word 转 Markdown"
+  short_description: "保留原文，将米家隐私政策和用户协议转为结构化 Markdown"
+  default_prompt: "使用 $miot-legal-docx-to-markdown 将这些米家法律 Word 文档转换为逐字保真的结构化 Markdown。"

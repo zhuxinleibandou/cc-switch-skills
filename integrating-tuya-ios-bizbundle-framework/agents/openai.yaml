@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS BizBundle Framework"
+  short_description: "Set up BizBundle framework layer for iOS apps"
+  default_prompt: "Use $integrating-tuya-ios-bizbundle-framework to initialize the BizBundle framework and register services for an iOS Tuya app."

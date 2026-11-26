@@ -1,0 +1,45 @@
+{
+  "skill": "integrating-tuya-ios-home-bizbundle",
+  "cases": [
+    {
+      "id": "integrating-tuya-ios-home-bizbundle-case-1",
+      "description": "业务场景：需要自己写 UI。请问怎么集成并跳",
+      "prompt": "我想用涂鸦提供的现成家庭管理页面，不需要自己写 UI。请问怎么集成并跳转到家庭管理页？",
+      "expected_output": "应说明步骤：1) 确保已完成 BizBundle 框架层初始化（ThingSmartBizCore 已初始化、updateConfig 已在登录后调用）；2) 在 thing_custom_config.json 中加入 is_support_home_manager: true；3) 通过 ThingSmartBizCore 获取 ThingFamilyProtocol 服务实例；4) 调用 updateCurrentFamilyId: 设置当前家庭 ID（必须在跳转前调用，homeId 为 0 时功能异常）；5) 调用 gotoFamilyManagement 跳转。即使无家庭也可跳转，业务包内部会引导创建。不支持自定义修改内部实现。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "BizBundle"
+        },
+        {
+          "type": "contains",
+          "value": "ThingFamilyProtocol"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-home-bizbundle-case-2",
+      "description": "场景：，我的导航栏变黑了，",
+      "prompt": "从涂鸦家庭管理页面返回后，我的导航栏变黑了，标题颜色也不对了，这是什么问题？",
+      "expected_output": "应说明 BizBundle 内部通过 UIAppearance 全局修改了 UINavigationBar 样式，pop/dismiss 返回宿主页后样式不会自动恢复。修复方式：在宿主 ViewController 的 viewWillAppear: 里显式重置 UINavigationBar 的 standardAppearance 和 scrollEdgeAppearance。这是已知问题，需要宿主 App 主动修复。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "BizBundle"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-home-bizbundle-case-3",
+      "description": "场景：，没有家庭列表也没有房间信息，",
+      "prompt": "跳转 gotoFamilyManagement 后页面打开了但里面数据是空的，没有家庭列表也没有房间信息，我确认用户是有家庭的。",
+      "expected_output": "应排查两个常见原因：1) 跳转前是否调用了 updateCurrentFamilyId: 设置当前家庭 ID，这是最常见的漏项，homeId 为 0 时业务包内部功能异常；2) 用户登录后是否调用了 [[ThingSmartBizCore sharedInstance] updateConfig]，漏调会导致业务包内部缓存的 familyId 为旧值。3) 检查 thing_custom_config.json 中是否有 is_support_home_manager: true 配置项，缺少该配置会导致家庭管理业务包功能不可用。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应排查两个常见原因：1) 跳转前是否调用了 updateCu"
+        }
+      ]
+    }
+  ]
+}

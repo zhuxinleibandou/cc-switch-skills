@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cascader 级联选择 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+:root{--app-B1:#fff;--app-B1-N1:#1f2329;--app-B3:#f6f7fb;--app-B4:#fff;--app-B4-N1:#1f2329;--app-B4-N3:#646566;--app-B4-N7:#ebedf0;--app-M1:#3678e3;color-scheme:light}*{box-sizing:border-box}body{margin:0;min-height:100vh;background:var(--app-B3);color:var(--app-B1-N1);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.demo-page{width:min(100%,760px);margin:0 auto;padding:24px 16px 48px}.demo-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px}.demo-header h1{margin:0;font-size:24px;line-height:32px}.demo-header a{color:#3678e3;text-decoration:none;font-size:14px}.demo-block{margin:0 0 24px}.demo-block h2{margin:0 0 12px 16px;color:#646566;font-size:14px;font-weight:500;line-height:20px}.demo-block__content{min-width:0}.demo-block--padding .demo-block__content{padding:0 16px}.demo-block__content>smart-cell,.demo-block__content>smart-button,.demo-block__content>smart-popup,.demo-block__content>smart-overlay,.demo-block__content>smart-progress,.demo-block__content>smart-notice-bar{margin-bottom:12px}.row,.line{display:flex;align-items:center;flex-wrap:wrap;gap:12px}.contain{width:100%}img{max-width:100%}[hidden]{display:none!important}
+.cascader-demo {
+  --bottom-sheet-padding: 0;
+}
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <main class="demo-page">
+    <header class="demo-header"><h1>Cascader 级联选择</h1><a href="./home.html">Home</a></header>
+<section class="demo-block"><h2>基础用法</h2><div class="demo-block__content">
+  <smart-field
+    value="" data-bind-value="baseState.result"
+    is-link
+    readonly
+    label="地区"
+    placeholder="" data-bind-placeholder="selectArea"
+    data-state-key="baseState"
+    bind:click="onClick"
+  ></smart-field>
+  <smart-bottom-sheet
+    show="" data-bind-show="baseState.show"
+    max-height="100%"
+   
+  >
+    <smart-cascader
+      value="" data-bind-value="baseState.value"
+      title="" data-bind-title="selectArea"
+      options="" data-bind-options="options"
+      data-state-key="baseState"
+      bind:close="onClose"
+      bind:finish="onFinish"
+    ></smart-cascader>
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block"><h2>自定义颜色</h2><div class="demo-block__content">
+  <smart-field
+    value="" data-bind-value="customColorState.result"
+    is-link
+    readonly
+    label="地区"
+    placeholder="" data-bind-placeholder="selectArea"
+    data-state-key="customColorState"
+    bind:click="onClick"
+  ></smart-field>
+  <smart-bottom-sheet
+    show="" data-bind-show="customColorState.show"
+    max-height="100%"
+   
+  >
+    <smart-cascader
+      value="" data-bind-value="customColorState.value"
+      title="" data-bind-title="selectArea"
+      options="" data-bind-options="options"
+      data-state-key="customColorState"
+      active-color="#ee0a24"
+      bind:close="onClose"
+      bind:finish="onFinish"
+    ></smart-cascader>
+  </smart-bottom-sheet>
+</div></section>
+
+<section class="demo-block"><h2>异步加载选项</h2><div class="demo-block__content">
+  <smart-field
+    value="" data-bind-value="asyncState.result"
+    is-link
+    readonly
+    label="地区"
+    placeholder="" data-bind-placeholder="selectArea"
+    data-state-key="asyncState"
+    bind:click="onClick"
+  ></smart-field>
+  <smart-bottom-sheet
+    show="" data-bind-show="asyncState.show"
+    max-height="100%"
+   
+  >
+    <smart-cascader
+      value="" data-bind-value="asyncState.value"
+      title="" data-bind-title="selectArea"
+      options="" data-bind-options="asyncState.options"
+      data-state-key="asyncState"
+      bind:close="onClose"
+      bind:change="loadDynamicOptions"
+      bind:finish="onFinish"
+    ></smart-cascader>
+  </smart-bottom-sheet>
+</div></section>
+
+
+  </main>
+<script>window.__demoState={
+  "area": "地区",
+  "options": [
+    {
+      "text": "浙江省",
+      "value": "330000",
+      "options": [
+        {
+          "text": "杭州",
+          "value": "330100",
+          "options": [
+            {
+              "text": "上城区",
+              "value": "330102"
+            },
+            {
+              "text": "下城区",
+              "value": "330103"
+            }
+          ]
+        },
+        {
+          "text": "宁波",
+          "value": "330200"
+        }
+      ]
+    },
+    {
+      "text": "江苏省",
+      "value": "320000",
+      "options": [
+        {
+          "text": "南京",
+          "value": "320100"
+        },
+        {
+          "text": "无锡",
+          "value": "320200"
+        }
+      ]
+    }
+  ],
+  "selectArea": "请选择地区",
+  "baseState": {
+    "show": false,
+    "value": "",
+    "result": ""
+  },
+  "customColorState": {
+    "show": false,
+    "value": "",
+    "result": ""
+  },
+  "asyncState": {
+    "show": false,
+    "result": "",
+    "options": [
+      {
+        "text": "浙江省",
+        "value": "330000",
+        "options": []
+      }
+    ]
+  }
+};window.__handlerMaps={
+  "toggle": {},
+  "setTrue": {},
+  "setFalse": {}
+};function __evalDemo(expr){try{return Function('state','computed','with(state){return ('+expr+')}')(window.__demoState,{pad:n=>String(n).padStart(2,'0'),formatDate(v){const d=new Date(Array.isArray(v)?v[0]:v);return Number.isNaN(d.getTime())?'':d.getFullYear()+'-'+this.pad(d.getMonth()+1)+'-'+this.pad(d.getDate())},formatFullDate(v){return this.formatDate(v)},formatRange(v){return Array.isArray(v)?v.map(x=>this.formatDate(x)).filter(Boolean).join(' ~ '):this.formatDate(v)}})}catch(e){return''}}function __attrValue(v){return v==null?'':typeof v==='object'?JSON.stringify(v):String(v)}function __applyBindings(){document.querySelectorAll('*').forEach(el=>{Array.from(el.attributes).forEach(a=>{if(!a.name.startsWith('data-bind-'))return;const real=a.name.slice(10),v=__evalDemo(a.value); if(typeof v==='boolean')el.setAttribute(real,String(v)); else if(v==null||v==='')el.removeAttribute(real); else el.setAttribute(real,__attrValue(v)); if(typeof v==='function'||Array.isArray(v)||(v!=null&&Object.getPrototypeOf(v)===Object.prototype)){const prop=real.replace(/-([a-z])/g,(_,c)=>c.toUpperCase());try{if(prop in el)el[prop]=v}catch(e){}}})})}function __path(p){if(!p)return null;const parts=String(p).split('.');let o=window.__demoState;for(let i=0;i<parts.length-1;i++){if(!o[parts[i]])o[parts[i]]={};o=o[parts[i]]}return [o,parts[parts.length-1]]}function __set(p,v){const r=__path(p);if(!r)return false;r[0][r[1]]=v;__applyBindings();return true}function __toggle(p){const r=__path(p);if(!r)return false;r[0][r[1]]=!r[0][r[1]];__applyBindings();return true}function __handle(h,e,el){if(h==='onFinish'&&e&&e.detail){const key=el.dataset&&el.dataset.stateKey;if(key&&window.__demoState[key]){window.__demoState[key].value=e.detail.value;window.__demoState[key].result=(e.detail.selectedOptions||[]).map(o=>o.text).join('/');window.__demoState[key].show=false;__applyBindings();return true}}if(h==='loadDynamicOptions'&&e&&e.detail){if(e.detail.value==='330000'){setTimeout(()=>{window.__demoState.asyncState.options[0].options=[{text:'杭州',value:'330100'},{text:'宁波',value:'330200'}];__applyBindings();},500)}return true}const m=window.__handlerMaps||{toggle:{},setTrue:{},setFalse:{}};if(m.toggle&&m.toggle[h])return __toggle(m.toggle[h]);if(h==='onClick'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',true);if(h==='onClose'&&el.dataset&&el.dataset.stateKey)return __set(el.dataset.stateKey+'.show',false);if(m.setTrue&&m.setTrue[h])return __set(m.setTrue[h],true);if(m.setFalse&&m.setFalse[h])return __set(m.setFalse[h],false);if(/toggle|show|open|close/i.test(h)){const s=el.closest('.demo-block')||document,t=s.querySelector('[data-bind-show]')||el.closest('[data-bind-show]');if(t)return __toggle(t.getAttribute('data-bind-show'))}if(/confirm|cancel|close/i.test(h)){const t=el.closest('[data-bind-show]')||el;if(t&&t.getAttribute('data-bind-show'))return __set(t.getAttribute('data-bind-show'),false)}if(/change|input/i.test(h)&&e&&e.detail!=null){const t=el.getAttribute('data-bind-value')||el.getAttribute('data-bind-checked')||el.getAttribute('data-bind-active-index');if(t)return __set(t,e.detail&&e.detail.value!==undefined?e.detail.value:e.detail)}return false}document.addEventListener('DOMContentLoaded', __applyBindings);
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "移除miot引用"
+  short_description: "在开源检测或脱敏交付前清理米家 MIOT SDK 引用"
+  default_prompt: "Use $remove-miot-references to remove MIOT SDK imports from the selected project."

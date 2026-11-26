@@ -1,0 +1,53 @@
+{
+  "skill": "integrating-tuya-ios-device-activator-ui",
+  "cases": [
+    {
+      "id": "integrating-tuya-ios-device-activator-ui-case-1",
+      "description": "业务场景：需要在 App 里加一个添加设备的",
+      "prompt": "我需要在 App 里加一个添加设备的入口，支持 Wi-Fi 和蓝牙配网。请帮我从 Podfile 依赖到代码调用完整走一遍。",
+      "expected_output": "应包含完整流程：1) Podfile 添加 ThingSmartActivatorBizBundle 及蓝牙扩展 pod（注意 SDK 5.8.0 以下和以上蓝牙依赖写法不同）；2) Info.plist 配置定位权限（Wi-Fi 配网需要）和蓝牙权限（蓝牙配网需要）；3) thing_custom_config.json 中添加 needBle、needQRCode、activator_auto_serach_capacity 等字段（注意 serach 是官方拼写）；4) 注册 ThingSmartHomeDataProtocol 服务实现 getCurrentHome 返回当前 ThingSmartHome 实例，必须在打开配网页面之前注册；5) 通过 ThingActivatorProtocol 注册配网完成回调 activatorCompletion:customJump:completionBlock:；6) 调用 [impl gotoCategoryViewController] 打开配网页面。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingSmartActivatorBizBundle"
+        },
+        {
+          "type": "contains",
+          "value": "ThingSmartHomeDataProtocol"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-device-activator-ui-case-2",
+      "description": "排错：添加了 ThingSmart",
+      "prompt": "配网页面打开后闪退了，控制台没有明显错误信息。我已经添加了 ThingSmartActivatorBizBundle pod 并且 BizBundle 框架层初始化也做了。",
+      "expected_output": "应排查：1) 是否注册了 ThingSmartHomeDataProtocol 服务并实现了 getCurrentHome 方法——未注册或返回 nil 时配网页面无法正常工作；2) getCurrentHome 中 ThingSmartHome homeWithHomeId: 接收 long long 类型，是否误传了 NSString；3) Info.plist 中是否配置了定位权限（NSLocationWhenInUseUsageDescription），缺少权限会导致 crash；4) 登录后是否调用了 [[ThingSmartBizCore sharedInstance] updateConfig]；5) thing_custom_config.json 中配置是否完整。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingSmartHomeDataProtocol"
+        },
+        {
+          "type": "contains",
+          "value": "getCurrentHome"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-device-activator-ui-case-3",
+      "description": "业务场景：需要拿到新添加的设备列表，然后自动",
+      "prompt": "配网完成后我需要拿到新添加的设备列表，然后自动跳转到设备控制面板，这个回调怎么写？",
+      "expected_output": "应说明通过 ThingActivatorProtocol 调用 activatorCompletion:customJump:completionBlock: 注册完成回调，completionBlock 中会收到新增设备列表（ThingSmartDeviceModel 数组）。在回调中可以取第一个设备的 devId，结合 integrating-tuya-ios-device-control-ui 的 ThingPanelProtocol 跳转设备控制面板。扫码配网入口使用 [impl gotoQRCodeViewControllerWithUserInfo:]。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingActivatorProtocol"
+        },
+        {
+          "type": "contains",
+          "value": "ThingPanelProtocol"
+        }
+      ]
+    }
+  ]
+}

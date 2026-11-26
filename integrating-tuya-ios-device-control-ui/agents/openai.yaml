@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Device Control UI"
+  short_description: "Integrate device control panel UI for iOS"
+  default_prompt: "Use $integrating-tuya-ios-device-control-ui to integrate the device control panel UI for an iOS Tuya app."

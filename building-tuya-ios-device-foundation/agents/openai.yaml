@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Device Foundation"
+  short_description: "Manage Tuya device operations and sharing for iOS"
+  default_prompt: "Use $building-tuya-ios-device-foundation to implement device info queries, status monitoring, and device sharing for an iOS Tuya app."

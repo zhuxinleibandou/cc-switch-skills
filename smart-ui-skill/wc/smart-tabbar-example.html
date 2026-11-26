@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tabbar 标签栏 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f6f7fb;
+      color: #1f2329;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .demo-page {
+      width: min(100%, 596px);
+      min-height: 100vh;
+      padding: 36px 0 40px;
+    }
+
+    .demo-block {
+      margin: 0 0 28px;
+    }
+
+    .demo-block h2 {
+      margin: 0 0 12px;
+      padding: 0 30px;
+      color: #5f6368;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 30px;
+    }
+
+    .demo-block h2::after {
+      content: "(点击聚焦文档)";
+      margin-left: 2px;
+      color: #8a8f99;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .tabbar-position {
+      position: relative !important;
+    }
+
+    .left-logo {
+      width: 40px;
+      height: 40px;
+      margin: 6px 10px;
+      object-fit: contain;
+    }
+
+    .custom-img {
+      width: 30px;
+      height: 18px;
+      object-fit: contain;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 28px;
+      z-index: 20;
+      min-width: 120px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.72);
+      color: #fff;
+      font-size: 14px;
+      text-align: center;
+      transform: translateX(-50%);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    .demo-home-link {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #3678e3;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 34px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(31, 35, 41, 0.12);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <a class="demo-home-link" href="./home.html" aria-label="返回 Home">Home</a>
+  <main class="demo-page">
+    <section class="demo-block">
+      <h2>基础用法</h2>
+      <smart-tabbar custom-class="tabbar-position" active="0" safe-area-inset-bottom="false">
+        <smart-tabbar-item data-demo-icon="tornado">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="timer">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="snow">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="connect">标签</smart-tabbar-item>
+      </smart-tabbar>
+    </section>
+
+    <section class="demo-block">
+      <h2>通过名称匹配</h2>
+      <smart-tabbar custom-class="tabbar-position" active="home" safe-area-inset-bottom="false">
+        <smart-tabbar-item name="home" data-demo-icon="tornado">标签</smart-tabbar-item>
+        <smart-tabbar-item name="search" data-demo-icon="timer">标签</smart-tabbar-item>
+        <smart-tabbar-item name="friends" data-demo-icon="snow">标签</smart-tabbar-item>
+        <smart-tabbar-item name="setting" data-demo-icon="connect">标签</smart-tabbar-item>
+      </smart-tabbar>
+    </section>
+
+    <section class="demo-block">
+      <h2>显示徽标</h2>
+      <smart-tabbar custom-class="tabbar-position" active="0" safe-area-inset-bottom="false">
+        <smart-tabbar-item data-demo-icon="tornado">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="timer" dot>标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="snow" info="5">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="connect" info="20">标签</smart-tabbar-item>
+      </smart-tabbar>
+    </section>
+
+    <section class="demo-block">
+      <h2>自定义图标</h2>
+      <smart-tabbar custom-class="tabbar-position" active="0" safe-area-inset-bottom="false">
+        <smart-tabbar-item info="3">
+          <img
+            class="custom-img"
+            slot="icon"
+            src="https://images.tuyacn.com/content-platform/hestia/1729664215ebd89f13e54.png"
+            alt=""
+          >
+          <img
+            class="custom-img"
+            slot="icon-active"
+            src="https://static1.tuyacn.com/static/tuya-miniapp-doc/_next/static/images/logo-small.png"
+            alt=""
+          >
+          自定义
+        </smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="timer">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="snow">标签</smart-tabbar-item>
+      </smart-tabbar>
+    </section>
+
+    <section class="demo-block">
+      <h2>自定义颜色</h2>
+      <smart-tabbar
+        custom-class="tabbar-position"
+        active="0"
+        active-color="#07c160"
+        inactive-color="var(--tabbar-item-text-color)"
+        safe-area-inset-bottom="false"
+      >
+        <smart-tabbar-item data-demo-icon="tornado">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="timer">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="snow">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="connect">标签</smart-tabbar-item>
+      </smart-tabbar>
+    </section>
+
+    <section class="demo-block">
+      <h2>切换标签事件</h2>
+      <smart-tabbar custom-class="tabbar-position" active="0" safe-area-inset-bottom="false" bind:change="showTabbarToast">
+        <smart-tabbar-item data-demo-icon="tornado">标签1</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="timer">标签2</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="snow">标签3</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="connect">标签4</smart-tabbar-item>
+      </smart-tabbar>
+    </section>
+
+    <section class="demo-block">
+      <h2>使用插槽</h2>
+      <smart-tabbar custom-class="tabbar-position" active="0" safe-area-inset-bottom="false">
+        <img
+          class="left-logo"
+          src="https://static1.tuyacn.com/static/tuya-miniapp-doc/_next/static/images/logo-small.png"
+          slot="left"
+          alt=""
+        >
+        <smart-tabbar-item>
+          <smart-icon data-demo-icon="tornado" slot="icon"></smart-icon>
+          <smart-icon data-demo-icon="tornado" color="red" slot="icon-active"></smart-icon>
+          标签1
+        </smart-tabbar-item>
+        <smart-tabbar-item>
+          <smart-icon data-demo-icon="timer" slot="icon"></smart-icon>
+          <smart-icon data-demo-icon="timer" color="red" slot="icon-active"></smart-icon>
+          标签2
+        </smart-tabbar-item>
+        <smart-tabbar-item>
+          <smart-icon data-demo-icon="snow" slot="icon"></smart-icon>
+          <smart-icon data-demo-icon="snow" color="red" slot="icon-active"></smart-icon>
+          标签3
+        </smart-tabbar-item>
+        <smart-tabbar-item>
+          <smart-icon data-demo-icon="connect" slot="icon"></smart-icon>
+          <smart-icon data-demo-icon="connect" color="red" slot="icon-active"></smart-icon>
+          标签4
+        </smart-tabbar-item>
+      </smart-tabbar>
+    </section>
+
+    <section class="demo-block">
+      <h2>上下颠倒</h2>
+      <smart-tabbar custom-class="tabbar-position" active="0" upside-down safe-area-inset-bottom="false">
+        <smart-tabbar-item data-demo-icon="tornado">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="timer">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="snow">标签</smart-tabbar-item>
+        <smart-tabbar-item data-demo-icon="connect">标签</smart-tabbar-item>
+      </smart-tabbar>
+    </section>
+  </main>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const iconMap = {
+      tornado: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M5 5h14c-.4 2.4-2.7 4-6.8 4H7.5c-.8 0-1.5-.7-1.5-1.5S4.7 6 5.5 6H16c.5 0 .9-.4.9-.9S16.5 4.2 16 4.2H5zM7 10h11c-.5 2.2-2.7 3.5-6.5 3.5H7.8c-.8 0-1.4-.6-1.4-1.4s.6-1.4 1.4-1.4h7.1c.5 0 .9-.4.9-.9s-.4-.9-.9-.9H7zM8.7 15h8.1c-.5 2-2.5 3.2-5.7 3.2H9.2c-.8 0-1.4-.6-1.4-1.4s.6-1.4 1.4-1.4h4.6c.5 0 .9-.4.9-.9s-.4-.9-.9-.9H8.7z'/></svg>",
+      timer: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M10.8 2h2.4v3h-2.4V2zm1.2 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm0 2.3a5.7 5.7 0 1 0 0 11.4 5.7 5.7 0 0 0 0-11.4zm.9 2.2v3.2l2.4 1.4-1 1.7-3.1-1.9v-4.4h1.7zM17.8 4.1l1.7 1.7-1.7 1.7-1.7-1.7 1.7-1.7z'/></svg>",
+      snow: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M11 2h2v4.1l2.7-2.7 1.4 1.4L13 8.9v2l1.8-1 5.1-3 1 1.8-3.6 2.1 3.6 2.1-1 1.8-5.1-3-1.8-1v2l4.1 4.1-1.4 1.4L13 15.9V22h-2v-6.1l-2.7 2.7-1.4-1.4 4.1-4.1v-2l-1.8 1-5.1 3-1-1.8 3.6-2.1-3.6-2.1 1-1.8 5.1 3 1.8 1v-2L6.9 4.8l1.4-1.4L11 6.1V2z'/></svg>",
+      connect: "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='currentColor' d='M8.5 7a4.5 4.5 0 0 1 0 9H6a4 4 0 0 1 0-8h1.2v2H6a2 2 0 0 0 0 4h2.5a2.5 2.5 0 0 0 0-5h-1V7h1zm7 0H18a4 4 0 0 1 0 8h-1.2v-2H18a2 2 0 0 0 0-4h-2.5a2.5 2.5 0 0 0 0 5h1v2h-1a4.5 4.5 0 0 1 0-9zM8 11h8v2H8v-2z'/></svg>"
+    };
+
+    document.querySelectorAll("[data-demo-icon]").forEach((el) => {
+      const iconSource = iconMap[el.dataset.demoIcon];
+      if (!iconSource) return;
+      const icon = `data:image/svg+xml;base64,${btoa(iconSource)}`;
+      if (el.tagName.toLowerCase() === "smart-tabbar-item") {
+        el.icon = icon;
+      } else {
+        el.name = icon;
+      }
+    });
+
+    document.querySelectorAll("smart-tabbar").forEach((tabbar) => {
+      tabbar.addEventListener("change", (event) => {
+        if (event.target === tabbar) tabbar.active = event.detail;
+      });
+    });
+
+    const toast = document.getElementById("toast");
+    let toastTimer = 0;
+    function showTabbarToast(detail) {
+      const index = Number(detail);
+      toast.textContent = `点击标签 ${Number.isFinite(index) ? index + 1 : detail}`;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove("show"), 1200);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+{
+  "skill": "lamp-matter-protocol-expert",
+  "cases": [
+    {
+      "id": "lamp-matter-001",
+      "description": "业务场景：从零搭建白光+彩光 Matter 面板",
+      "prompt": "我要从零开发一个同时支持白光和彩光的 Matter 照明面板，业务层应该直接发 Matter DP 吗？发布链路怎么组织？",
+      "expected_output": "业务层统一以标准 DP 为入口（switch_led / bright_value / temp_value / colour_data），由拦截器负责标准 DP 与 Matter DP 的双向转换；request.publishDps 中 dp-kit 拦截器在前、matter-kit 在后；使用 @ray-js/panel-sdk >= 1.15.0。",
+      "assertions": [
+        { "type": "contains_any", "value": ["标准 DP", "standard DP"] },
+        { "type": "contains", "value": "dp-kit" },
+        { "type": "contains", "value": "matter-kit" },
+        { "type": "contains_any", "value": ["publishDps", "拦截器"] }
+      ]
+    },
+    {
+      "id": "lamp-matter-002",
+      "description": "业务场景：3 路 Matter 面板白光 Tab 误展示",
+      "prompt": "3 路 Matter 灯的面板上白光 Tab 展示出来了，但点击没有效果，UI 也混乱。白光能力应该怎么判定？",
+      "expected_output": "先用 checkIsMatterPanel(dpSchema) 判断是否 Matter 面板，再用 checkIsMatterHasWhite(dpSchema) 判断白光能力；3 路 Matter 不含白光，应隐藏白光 Tab，不要强开。",
+      "assertions": [
+        { "type": "contains", "value": "checkIsMatterHasWhite" },
+        { "type": "contains_any", "value": ["checkIsMatterPanel", "isMatterPanel"] },
+        { "type": "contains_any", "value": ["隐藏", "hidden", "不展示"] }
+      ]
+    },
+    {
+      "id": "lamp-matter-003",
+      "description": "业务场景：情景页数据集按路数映射（3/4/5 路判定）",
+      "prompt": "Matter 面板的情景页数据集需要按路数切换，怎么准确判定 1/2/3/4/5 路？4 路和 3 路的区别是什么？",
+      "expected_output": "统一使用 matterDpKit.utils.getMatterRoad(dpSchema) 获取路数；4 路 = hs_color_set + brightness_control + bright_value，3 路 = hs_color_set + brightness_control（无 bright_value）；5 路对应白光+彩光场景、2 路白光、1 路亮度。",
+      "assertions": [
+        { "type": "contains", "value": "getMatterRoad" },
+        { "type": "contains", "value": "hs_color_set" },
+        { "type": "contains", "value": "brightness_control" }
+      ]
+    },
+    {
+      "id": "lamp-matter-004",
+      "description": "业务场景：彩光亮度与白光亮度不一致（HSV 的 V 来源）",
+      "prompt": "Matter 面板下彩光亮度和白光亮度对不上，切换彩/白光后亮度还会跳变，颜色数据应该怎么解析？",
+      "expected_output": "Matter 面板下标准 HSV 的 V 值来自 bright_value，H/S 来自 hs_color_set；优先使用 useColourData，或使用 resolveColorData 并传入 colourData、brightValue 与 devInfo（设备信息）。",
+      "assertions": [
+        { "type": "contains", "value": "bright_value" },
+        { "type": "contains_any", "value": ["useColourData", "resolveColorData"] },
+        { "type": "contains_any", "value": ["devInfo", "设备信息"] }
+      ]
+    },
+    {
+      "id": "lamp-matter-005",
+      "description": "业务场景：拖动亮度条 UI 卡顿与回环（乐观更新）",
+      "prompt": "拖动亮度条时 UI 卡顿、状态回跳，疑似设备回包二次驱动导致回环，怎么配置乐观更新？",
+      "expected_output": "为 dp-kit 开启 sendDpOption.immediate 乐观更新，并按需配置 whiteDpCodes 忽略白光相关回包（必须包含 brightness_control，保证调彩光亮度时白光亮度同步），避免彩/白光亮度循环触发；SDK 需 @ray-js/panel-sdk >= 1.15.0。",
+      "assertions": [
+        { "type": "contains", "value": "immediate" },
+        { "type": "contains", "value": "whiteDpCodes" },
+        { "type": "contains", "value": "brightness_control" }
+      ]
+    },
+    {
+      "id": "lamp-matter-006",
+      "description": "业务场景：色温滑动条精度丢失",
+      "prompt": "Matter 面板色温滑动条显示值和设备实际色温对不上，存在精度丢失，UI 展示应该用什么值？",
+      "expected_output": "色温基于开尔文值做非线性映射（color_temp_control 154-370 ↔ temp_value 0-1000），存在精度损失；UI 展示建议使用 hooks.useOriginMatterTemp() 获取原始 color_temp_control 值。",
+      "assertions": [
+        { "type": "contains_any", "value": ["useOriginMatterTemp", "OriginMatterTemp"] },
+        { "type": "contains_any", "value": ["color_temp_control", "temp_value"] }
+      ]
+    },
+    {
+      "id": "lamp-matter-007",
+      "description": "业务场景：群组混搭 Matter 与非 Matter 设备",
+      "prompt": "一个群组里同时有 Matter 灯和非 Matter 灯，能统一用一条链路控制吗？",
+      "expected_output": "群组设备不支持 Matter 与非 Matter 混合组合，建议拆分为两个群组分别管理；若群组内全部为 Matter 设备，路数与白光能力判定基于 matter schema（getMatterRoad / checkIsMatterHasWhite），发布仍以标准 DP 为入口并保持 dp-kit 在前、matter-kit 在后。",
+      "assertions": [
+        { "type": "contains_any", "value": ["拆分", "两个群组", "拆成"] },
+        { "type": "contains_any", "value": ["getMatterRoad", "checkIsMatterHasWhite", "matter schema"] }
+      ]
+    },
+    {
+      "id": "lamp-matter-008",
+      "description": "业务场景：亮度与色温 DP 区间映射换算",
+      "prompt": "标准 DP 的亮度 1-254、色温 154-370，换算到 Matter 的 bright_value 和 temp_value，映射关系是什么？",
+      "expected_output": "亮度采用线性映射：brightness_control(1-254) ↔ bright_value(10-1000)；色温基于开尔文值做非线性映射：color_temp_control(154-370) ↔ temp_value(0-1000)；转换交给拦截器完成，业务层只发标准 DP。",
+      "assertions": [
+        { "type": "contains", "value": "10-1000" },
+        { "type": "contains", "value": "1-254" },
+        { "type": "contains_any", "value": ["temp_value", "color_temp_control"] }
+      ]
+    }
+  ]
+}

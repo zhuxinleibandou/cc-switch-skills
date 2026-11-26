@@ -1,0 +1,45 @@
+{
+  "skill": "building-tuya-ios-home-foundation",
+  "cases": [
+    {
+      "id": "building-tuya-ios-home-foundation-case-1",
+      "description": "业务场景：需要查询他的家庭列表，如果没有家庭",
+      "prompt": "用户登录成功后，我需要查询他的家庭列表，如果没有家庭就自动创建一个默认家庭。请用 ObjC 帮我写这段逻辑。",
+      "expected_output": "应使用 [ThingSmartHomeManager new] 实例化全局家庭管理器，调用 getHomeListWithSuccess:failure: 获取家庭列表。判断列表为空时调用创建家庭方法（传入家庭名称、经纬度、房间列表等参数）。提及不要把 homeId 硬编码，通过 getHomeListWithSuccess: 动态获取。创建成功后通过返回的 homeId 调用 [ThingSmartHome homeWithHomeId:homeId] 获取单个家庭操作实例。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingSmartHomeManager"
+        },
+        {
+          "type": "contains",
+          "value": "getHomeListWithSuccess"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-ios-home-foundation-case-2",
+      "description": "场景：实现房间管理功能：添加房间、",
+      "prompt": "我想实现房间管理功能：添加房间、删除房间、房间排序。请问涂鸦 SDK 里用哪些类和方法？",
+      "expected_output": "应说明房间管理使用 ThingSmartHome 和 ThingSmartRoom 两个类。添加房间通过 ThingSmartHome 的添加房间方法；删除房间通过 [ThingSmartRoom roomWithRoomId:roomId homeId:homeId] 获取实例后调用删除方法；房间排序使用 sortRoomList:success:failure:（注意与设备排序 sortDeviceOrGroupWithOrderList:success:failure: 是不同接口，不要混用）；改名通过 ThingSmartRoom 实例方法。所有操作均为异步回调。提及操作前需先调用 getHomeDataWithSuccess: 确保缓存数据已加载。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "getHomeDataWithSuccess"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-ios-home-foundation-case-3",
+      "description": "业务场景：怎么避免用户误操作？",
+      "prompt": "调用 dismissHomeWithSuccess: 解散家庭后，发现之前绑定的设备全部离线了，这是正常的吗？怎么避免用户误操作？",
+      "expected_output": "应说明这是正常行为，dismissHomeWithSuccess: 解散家庭会重置所有设备。这是不可逆操作，因此在 UI 层必须添加二次确认弹窗（如 UIAlertController）。同时需要注册 ThingSmartHomeManagerDelegate 和 ThingSmartHomeDelegate 监听家庭变化，在 ViewController dealloc 或消失时将 delegate 置 nil 避免野指针。提醒 addHomeMemberWithAddMemeberRequestModel: 中 autoAccept=NO 时受邀者须调用 joinFamilyWithAccept:success:failure: 接受邀请。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "addHomeMemberWithAddMemeberRequestModel"
+        }
+      ]
+    }
+  ]
+}

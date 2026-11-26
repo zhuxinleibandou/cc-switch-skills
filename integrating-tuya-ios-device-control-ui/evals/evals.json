@@ -1,0 +1,53 @@
+{
+  "skill": "integrating-tuya-ios-device-control-ui",
+  "cases": [
+    {
+      "id": "integrating-tuya-ios-device-control-ui-case-1",
+      "description": "业务场景：怎么集成 ThingSmartPa",
+      "prompt": "设备列表页点击某个设备后，我想跳转到涂鸦提供的设备控制面板。请告诉我怎么集成 ThingSmartPanelBizBundle 并实现跳转。",
+      "expected_output": "应包含：1) Podfile 添加 ThingSmartPanelBizBundle；2) Info.plist 配置相机、麦克风、相册、定位、蓝牙等权限；3) 注册 ThingFamilyProtocol 服务实现 getCurrentHome 返回当前 ThingSmartHome 实例（若已在 home bizbundle 中注册过则无需重复）；4) 通过 ThingPanelProtocol 调用 getPanelViewControllerWithDeviceModel:initialProps:contextProps:completionHandler: 获取面板 VC；5) 在 completionHandler 中判断 error 是否为 nil 和 vc 是否为 nil 再 pushViewController，因为设备不支持或加载失败时 vc 可能为 nil。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingSmartPanelBizBundle"
+        },
+        {
+          "type": "contains",
+          "value": "ThingFamilyProtocol"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-device-control-ui-case-2",
+      "description": "场景：，error 也有值，",
+      "prompt": "调用 getPanelViewControllerWithDeviceModel 后 completionHandler 返回的 vc 是 nil，error 也有值，但是设备确实存在且在线，可能是什么原因？",
+      "expected_output": "应排查：1) 是否注册了 ThingFamilyProtocol 服务——面板内部依赖此协议获取当前家庭 ID，未注册时面板无法正确加载；2) getCurrentHome 中 homeId 类型是否正确（long long 不是 NSString）；3) 登录后是否调用了 [[ThingSmartBizCore sharedInstance] updateConfig]；4) ThingFamilyProtocol 如果已在 home bizbundle 中注册过，这里不要重复注册，后注册的实例会覆盖前一个；5) 检查 error 的具体信息确认是否为面板资源下载失败等网络问题。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingFamilyProtocol"
+        },
+        {
+          "type": "contains",
+          "value": "getCurrentHome"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-ios-device-control-ui-case-3",
+      "description": "场景：，群组面板用什么方法调用？",
+      "prompt": "我想同时支持设备面板和群组面板的跳转，群组面板用什么方法调用？",
+      "expected_output": "应说明设备面板使用 getPanelViewControllerWithDeviceModel:initialProps:contextProps:completionHandler:，群组面板使用 getPanelViewControllerWithGroupModel:initialProps:contextProps:completionHandler:（传入 ThingSmartGroupModel 而非 DeviceModel）。两者都通过 ThingPanelProtocol 调用。completionHandler 中都需要判断 vc 是否为 nil 再跳转。前置条件相同：需注册 ThingFamilyProtocol 和调用 updateConfig。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingPanelProtocol"
+        },
+        {
+          "type": "contains",
+          "value": "ThingFamilyProtocol"
+        }
+      ]
+    }
+  ]
+}

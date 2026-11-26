@@ -1,0 +1,49 @@
+{
+  "skill": "building-tuya-android-home-foundation",
+  "cases": [
+    {
+      "id": "building-tuya-android-home-foundation-case-1",
+      "description": "业务场景：需要实现家庭管理功能：查询家庭列表",
+      "prompt": "用户登录成功后，我需要实现家庭管理功能：查询家庭列表、创建家庭、获取家庭详情。用 ViewModel 结构帮我写出核心流程，包括 IThingHomeManager 和 IThingHome 的使用方式。",
+      "expected_output": "应指导登录后先调用 ThingHomeSdk.getHomeManagerInstance().queryHomeList 获取家庭列表；无家庭时引导用户创建（createHome）；选定家庭后通过 ThingHomeSdk.newHomeInstance(homeId).getHomeDetail 获取完整 HomeBean（含设备、群组、房间列表）；在 ViewModel init 块中注册 IThingHomeChangeListener 和 IThingHomeStatusListener，在 onCleared() 中注销；提醒 IThingHomeStatusListener 有 5 个抽象方法（含 onMeshAdded）不可遗漏。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingHomeSdk"
+        },
+        {
+          "type": "contains",
+          "value": "HomeBean"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-android-home-foundation-case-2",
+      "description": "排错：添加成员，调了 addMem",
+      "prompt": "我要给家庭添加成员，调了 addMember 设了 autoAccept=false，但受邀者那边一直没收到邀请。另外我想让普通成员也能删除管理员，API 为什么报权限不足？",
+      "expected_output": "应解释 autoAccept=false 时受邀者须调用 processInvitation 接受邀请才会真正加入家庭，需要检查受邀者端是否正确处理了邀请流程；角色权限有层级（拥有者 > 管理员 > 普通成员 > 自定义成员），普通成员无法操作管理员级别的用户，添加/删除成员时需校验当前用户角色是否有权限。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "检查受邀者端是否正确处理了邀请流程"
+        }
+      ]
+    },
+    {
+      "id": "building-tuya-android-home-foundation-case-3",
+      "description": "排错：，结果空指针崩溃了。",
+      "prompt": "我没调用 getHomeDetail 就直接用 ThingHomeSdk.getDataInstance() 去取设备列表，结果空指针崩溃了。另外房间排序我用了 sortDevInHome，排完发现设备顺序变了但房间顺序没变。",
+      "expected_output": "应指出两个问题：1) 必须先调用 getHomeDetail 或 getHomeLocalCache 后 ThingHomeSdk.getDataInstance() 的缓存才有数据，否则为空会导致 NPE；2) sortDevInHome 是给设备在家庭内排序的，房间排序应该使用 sortRoom 接口，两者不同不可混用。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingHomeSdk"
+        },
+        {
+          "type": "contains",
+          "value": "getHomeDetail"
+        }
+      ]
+    }
+  ]
+}

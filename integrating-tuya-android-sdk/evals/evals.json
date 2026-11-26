@@ -1,0 +1,45 @@
+{
+  "skill": "integrating-tuya-android-sdk",
+  "cases": [
+    {
+      "id": "integrating-tuya-android-sdk-case-1",
+      "description": "业务场景：配置、app/build.g",
+      "prompt": "我刚用 Android Studio 新建了一个 Kotlin 工程，settings.gradle.kts 里启用了 FAIL_ON_PROJECT_REPOS，帮我把涂鸦 Smart App SDK 接进来，包括 Maven 仓库配置、app/build.gradle.kts 依赖、security-algorithm.aar 放置、AndroidManifest.xml 的 AppKey/Secret 配置，还有 Application 初始化。",
+      "expected_output": "应在 settings.gradle.kts（而非 app/build.gradle.kts）的 dependencyResolutionManagement.repositories 中添加涂鸦 Maven 仓库；在 app/build.gradle.kts 中配置 abiFilters、packaging pickFirst libc++_shared.so、flatDir libs 目录、thingsmart 依赖及模块排除；指导将 security-algorithm.aar 放到 app/libs/；在 AndroidManifest.xml 的 <application> 下配置 THING_SMART_APPKEY 和 THING_SMART_SECRET meta-data；在 Application.onCreate() 中调用 ThingHomeSdk.init(this)，仅 debug 构建开启 setDebugMode(true)；提醒配置 proguard-rules.pro 混淆规则。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "ThingHomeSdk"
+        },
+        {
+          "type": "contains",
+          "value": "onCreate"
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-sdk-case-2",
+      "description": "排错：怎么排查？",
+      "prompt": "运行涂鸦 SDK 的 app 后报错 SING_VALIDATE_FALED，logcat 里还有 ILLEGAL_CLIENT_ID，怎么排查？",
+      "expected_output": "应分别解释两个错误：SING_VALIDATE_FALED 需检查 AndroidManifest.xml 中 THING_SMART_APPKEY 和 THING_SMART_SECRET 是否正确；ILLEGAL_CLIENT_ID 需检查工程 applicationId 与涂鸦开发者平台配置的包名是否一致，以及当前构建签名的 SHA256 是否已上传至涂鸦平台（Debug 和 Release 签名不同需分别上传）；提供 keytool 命令获取 debug 签名 SHA256 的方法。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "应分别解释两个错误：SING_VALIDATE_FALED "
+        }
+      ]
+    },
+    {
+      "id": "integrating-tuya-android-sdk-case-3",
+      "description": "排错：怎么写？另外 Manifest 合",
+      "prompt": "我的工程里 build.gradle 用的是 Groovy DSL，但看到涂鸦官方示例也是 Groovy 的。我想把整个工程迁移到 Kotlin DSL 后再接入涂鸦 SDK，涂鸦相关的 Gradle 配置用 KTS 怎么写？另外 Manifest 合并构建失败了，报 android:theme 冲突。",
+      "expected_output": "应提供完整的 KTS 语法版本的涂鸦 Gradle 配置（settings.gradle.kts 的 maven url 写法、app/build.gradle.kts 的 implementation 写法、flatDir 写法）；针对 Manifest 合并冲突，指导在 <application> 标签的 tools:replace 中追加 android:theme 来解决涂鸦 SDK 内部 AndroidManifest 声明的 theme 与应用自身 theme 冲突的问题。",
+      "assertions": [
+        {
+          "type": "contains",
+          "value": "用自身 theme 冲突的问题"
+        }
+      ]
+    }
+  ]
+}

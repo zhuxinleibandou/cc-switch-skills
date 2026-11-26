@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Button 按钮 - WC Demo</title>
+  <script src="./wc-dist/builtin-components/dist/next.js"></script>
+  <script src="./wc-dist/runtime/index.js"></script>
+  <script src="./wc-dist/smart-ui-wc.js"></script>
+  <script src="./demo-runtime.js"></script>
+  <style>
+    :root {
+      --app-B1: #fff;
+      --app-B1-N1: #1f2329;
+      --app-B3: #f6f7fb;
+      --app-B4: #fff;
+      --app-M1: #3678e3;
+      --app-M3: #5fd487;
+      --app-M4: #4089f5;
+      --app-M5: #f46036;
+      --button-default-height: 48px;
+      --button-large-height: 48px;
+      --button-border-radius: 10px;
+      --button-default-background-color: #fff;
+      --button-default-font-size: 16px;
+      --button-normal-font-size: 14px;
+      --button-small-height: 30px;
+      --button-small-font-size: 12px;
+      --button-small-min-width: 60px;
+      --button-mini-height: 22px;
+      --button-mini-font-size: 10px;
+      --button-mini-min-width: 50px;
+      --button-primary-background-color: #64d68d;
+      --button-primary-border-color: #64d68d;
+      --button-info-background-color: #4089f5;
+      --button-info-border-color: #4089f5;
+      --button-warning-background-color: #f46036;
+      --button-warning-border-color: #f46036;
+      --button-danger-background-color: #f0524f;
+      --button-danger-border-color: #f0524f;
+      --button-disabled-opacity: 0.38;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f6f7fb;
+      color: #1f2329;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .demo-page {
+      width: min(100%, 596px);
+      min-height: 100vh;
+      padding: 36px 30px 40px;
+    }
+
+    .demo-block {
+      margin: 0 0 34px;
+    }
+
+    .demo-block h2 {
+      margin: 0 0 18px;
+      color: #5f6368;
+      font-size: 22px;
+      font-weight: 600;
+      line-height: 30px;
+    }
+
+    .demo-block h2::after {
+      content: "(点击聚焦文档)";
+      margin-left: 2px;
+      color: #8a8f99;
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .button-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .button-row--loose {
+      gap: 20px;
+    }
+
+    .button-column {
+      display: grid;
+      gap: 20px;
+    }
+
+    .full-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .wide-button {
+      width: 100%;
+    }
+
+    .block-gap {
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .icon-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .icon-line:last-child {
+      margin-bottom: 0;
+    }
+
+    smart-button {
+      font-weight: 500;
+    }
+
+    smart-button[type="info"],
+    smart-button[type="primary"],
+    smart-button[type="danger"],
+    smart-button[type="warning"] {
+      color: #fff;
+    }
+
+    smart-button[block] {
+      width: 100%;
+    }
+
+    @media (max-width: 420px) {
+      .demo-page {
+        padding: 24px 20px 32px;
+      }
+
+      .demo-block h2 {
+        font-size: 20px;
+      }
+
+      .demo-block h2::after {
+        font-size: 16px;
+      }
+
+      .button-row,
+      .icon-line {
+        gap: 12px;
+      }
+    }
+
+    .demo-home-link {
+      position: fixed;
+      top: 14px;
+      right: 14px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #3678e3;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 34px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(31, 35, 41, 0.12);
+      backdrop-filter: blur(10px);
+    }
+  </style>
+  <link rel="stylesheet" href="./smart-common.css">
+</head>
+<body>
+  <a class="demo-home-link" href="./home.html" aria-label="返回 Home">Home</a>
+  <main class="demo-page">
+    <section class="demo-block">
+      <h2>按钮类型</h2>
+      <div class="button-row">
+        <smart-button type="info">信息按钮</smart-button>
+        <smart-button type="primary">主要按钮</smart-button>
+        <smart-button>默认按钮</smart-button>
+      </div>
+      <div class="button-row">
+        <smart-button type="danger">危险按钮</smart-button>
+        <smart-button type="warning">警告按钮</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>朴素按钮</h2>
+      <div class="button-row">
+        <smart-button plain>朴素按钮</smart-button>
+        <smart-button type="info" plain>朴素按钮</smart-button>
+        <smart-button type="primary" plain>朴素按钮</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>细边框</h2>
+      <div class="button-row">
+        <smart-button type="info" plain hairline>细边框按钮</smart-button>
+        <smart-button type="primary" plain hairline>细边框按钮</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>禁用状态</h2>
+      <div class="button-row">
+        <smart-button type="info" disabled>禁用状态</smart-button>
+        <smart-button type="primary" disabled>禁用状态</smart-button>
+        <smart-button disabled>默认按钮</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>加载状态</h2>
+      <div class="button-row">
+        <smart-button loading type="warning" loading-text="加载中..."></smart-button>
+        <smart-button loading type="warning"></smart-button>
+        <smart-button loading type="primary"></smart-button>
+        <smart-button loading type="primary" loading-type="spinner"></smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>按钮形状</h2>
+      <div class="button-row">
+        <smart-button type="info" square>方形按钮</smart-button>
+        <smart-button type="primary" round>圆形按钮</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>按钮充满</h2>
+      <div class="full-row">
+        <smart-button type="info" square custom-class="wide-button">Button</smart-button>
+        <smart-button type="primary" round custom-class="wide-button">Button</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>图标按钮</h2>
+      <div class="icon-line">
+        <smart-button type="info" icon="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM704 544H544v160h-64V544H320v-64h160V320h64v160h160v64z">Button 按钮</smart-button>
+        <smart-button type="info" icon="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM704 544H544v160h-64V544H320v-64h160V320h64v160h160v64z"></smart-button>
+      </div>
+      <div class="icon-line">
+        <smart-button type="primary" right-icon="M357.5 191.5 678 512 357.5 832.5 312 787l275-275-275-275z">Button 按钮</smart-button>
+      </div>
+      <div class="icon-line">
+        <smart-button plain type="primary" icon="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64zM704 544H544v160h-64V544H320v-64h160V320h64v160h160v64z">Button 按钮</smart-button>
+        <smart-button plain type="primary" icon="https://static1.tuyacn.com/static/tuya-miniapp-doc/_next/static/images/logo-small.png">Button 按钮</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>按钮尺寸</h2>
+      <smart-button type="info" size="large" block custom-class="block-gap">大号按钮</smart-button>
+      <div class="button-row">
+        <smart-button type="info">普通按钮</smart-button>
+        <smart-button type="info" size="small">小型按钮</smart-button>
+        <smart-button type="info" size="mini">迷你按钮</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>块级元素</h2>
+      <div class="button-column">
+        <smart-button type="primary">普通按钮</smart-button>
+        <smart-button type="primary" block>块级元素</smart-button>
+      </div>
+    </section>
+
+    <section class="demo-block">
+      <h2>自定义颜色</h2>
+      <div class="button-row">
+        <smart-button color="#54bde0">单色按钮</smart-button>
+        <smart-button color="#313cff" plain>单色按钮</smart-button>
+        <smart-button color="linear-gradient(180deg, #55b8f5 0%, #9adaf4 100%)">渐变色按钮</smart-button>
+      </div>
+      <smart-button color="linear-gradient(98deg, #4fb3f4 0%, #a7ddf4 100%)" block>对角渐变</smart-button>
+    </section>
+
+    <section class="demo-block">
+      <h2>投影</h2>
+      <smart-button color="#2f6fd7" custom-style="box-shadow: 0px 6px 15px 0px rgba(0, 110, 222, 0.2);" block>投影</smart-button>
+    </section>
+  </main>
+</body>
+</html>

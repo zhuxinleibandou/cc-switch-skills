@@ -1,0 +1,4 @@
+interface:
+  display_name: "Android Current Home Manager"
+  short_description: "Manage global home context and switching for Android"
+  default_prompt: "Use $managing-tuya-android-current-home to build the current home management middleware (home switching, listener registration, invitation handling) for an Android Tuya app."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "iOS Home Foundation"
+  short_description: "Implement home, room, and member management for iOS"
+  default_prompt: "Use $building-tuya-ios-home-foundation to implement home creation, room management, and member management for an iOS Tuya app."

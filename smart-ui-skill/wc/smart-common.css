@@ -1,0 +1,270 @@
+:root {
+  --smart-ui-overlay: rgba(0, 0, 0, 0.4);
+  --smart-ui-bottom-sheet-dragger-node-background: rgba(0, 0, 0, 0.3);
+  --smart-ui-dialog-background: var(--app-B4, #fff);
+  --smart-ui-border-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+  --smart-ui-battery-body-base-background: rgba(0, 0, 0, 0.25);
+  --smart-ui-battery-text-color: rgba(0, 0, 0, 0.6);
+  --smart-ui-battery-slash-border-color: #fff;
+  --smart-ui-toast-background: #5c5c5c;
+  --smart-ui-toast-border: 1px solid rgba(255, 255, 255, 0.05);
+  --smart-ui-toast-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 16px 32px rgba(0, 0, 0, 0.12);
+  --smart-ui-overlay-blur-background: rgba(40, 44, 53, 0.22);
+
+  --app-M1: #3678e3;
+  --app-M2: #f04c4c;
+  --app-M3: #2dda86;
+  --app-M4: #1989fa;
+  --app-M5: #ffa000;
+  --app-device-status-height: 0px;
+  --app-device-navbar-height: 46px;
+  --app-B1: #f6f7fb;
+  --app-B2: #fff;
+  --app-B3: #fff;
+  --app-B4: #fff;
+  --app-B5: #f6f7fb;
+  --app-B6: #fff;
+  --app-B1-N1: rgba(0, 0, 0, 0.9);
+  --app-B1-N2: rgba(0, 0, 0, 0.7);
+  --app-B1-N3: rgba(0, 0, 0, 0.5);
+  --app-B1-N4: rgba(0, 0, 0, 0.4);
+  --app-B1-N5: rgba(0, 0, 0, 0.3);
+  --app-B1-N6: rgba(0, 0, 0, 0.2);
+  --app-B1-N7: rgba(0, 0, 0, 0.1);
+  --app-B1-N8: rgba(0, 0, 0, 0.4);
+  --app-B1-N9: rgba(0, 0, 0, 0.05);
+  --app-B2-N1: rgba(0, 0, 0, 1);
+  --app-B2-N2: rgba(0, 0, 0, 0.7);
+  --app-B2-N3: rgba(0, 0, 0, 0.5);
+  --app-B2-N4: rgba(0, 0, 0, 0.4);
+  --app-B2-N5: rgba(0, 0, 0, 0.3);
+  --app-B2-N6: rgba(0, 0, 0, 0.2);
+  --app-B2-N7: rgba(0, 0, 0, 0.1);
+  --app-B2-N8: rgba(0, 0, 0, 0.4);
+  --app-B2-N9: rgba(0, 0, 0, 0.05);
+  --app-B4-N1: rgba(0, 0, 0, 1);
+  --app-B4-N2: rgba(0, 0, 0, 0.7);
+  --app-B4-N3: rgba(0, 0, 0, 0.5);
+  --app-B4-N4: rgba(0, 0, 0, 0.4);
+  --app-B4-N5: rgba(0, 0, 0, 0.3);
+  --app-B4-N6: rgba(0, 0, 0, 0.2);
+  --app-B4-N7: rgba(0, 0, 0, 0.08);
+  --app-B4-N8: rgba(0, 0, 0, 0.4);
+  --app-B4-N9: rgba(0, 0, 0, 0.05);
+  --app-B6-N1: rgba(0, 0, 0, 1);
+  --app-B6-N2: rgba(0, 0, 0, 0.7);
+  --app-B6-N3: rgba(0, 0, 0, 0.5);
+  --app-B6-N4: rgba(0, 0, 0, 0.4);
+  --app-B6-N5: rgba(0, 0, 0, 0.3);
+  --app-B6-N6: rgba(0, 0, 0, 0.2);
+  --app-B6-N7: rgba(0, 0, 0, 0.1);
+  --app-B6-N8: rgba(0, 0, 0, 0.4);
+  --app-B6-N9: rgba(0, 0, 0, 0.05);
+
+  --padding-base: 4px;
+  --padding-xs: 8px;
+  --padding-sm: 12px;
+  --padding-md: 16px;
+  --padding-lg: 24px;
+  --padding-xl: 32px;
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --border-radius-lg: 10px;
+  --border-radius-max: 999px;
+
+  --button-mini-height: 22px;
+  --button-mini-min-width: 50px;
+  --button-mini-font-size: 10px;
+  --button-small-height: 30px;
+  --button-small-min-width: 60px;
+  --button-small-font-size: 12px;
+  --button-normal-font-size: 14px;
+  --button-large-height: 48px;
+  --button-default-height: 48px;
+  --button-default-font-size: 16px;
+  --button-default-color: var(--app-B1-N1);
+  --button-default-background-color: var(--app-B3);
+  --button-default-border-color: var(--app-B6-N7);
+  --button-primary-color: #fff;
+  --button-primary-background-color: var(--app-M3);
+  --button-primary-border-color: var(--app-M3);
+  --button-info-color: #fff;
+  --button-info-background-color: var(--app-M4);
+  --button-info-border-color: var(--app-M4);
+  --button-danger-color: #fff;
+  --button-danger-background-color: var(--app-M2);
+  --button-danger-border-color: var(--app-M2);
+  --button-warning-color: #fff;
+  --button-warning-background-color: var(--app-M5);
+  --button-warning-border-color: var(--app-M5);
+  --button-line-height: 20px;
+  --button-border-width: 1px;
+  --button-border-radius: 10px;
+  --button-round-border-radius: 999px;
+  --button-plain-background-color: #fff;
+  --button-disabled-opacity: 0.3;
+  --button-font-weight: normal;
+  --button-primary-font-weight: 600;
+  --button-plain-color: rgba(0, 0, 0, 0.9);
+
+  --cell-font-size: 16px;
+  --cell-line-height: 24px;
+  --cell-vertical-padding: 16px;
+  --cell-horizontal-padding: 16px;
+  --cell-text-color: var(--app-B6-N1);
+  --cell-background-color: var(--app-B6);
+  --cell-active-color: var(--app-B1);
+  --cell-required-color: var(--app-M2);
+  --cell-label-color: var(--app-B6-N3);
+  --cell-label-font-size: 14px;
+  --cell-label-line-height: 18px;
+  --cell-label-margin-top: 3px;
+  --cell-value-color: var(--app-B6-N3);
+  --cell-icon-size: 24px;
+  --cell-right-icon-color: var(--app-B6-N6);
+  --cell-border-color: var(--app-B6-N7);
+  --cell-border-left-position: 16px;
+  --cell-border-right-position: 16px;
+  --cell-group-background-color: var(--app-B6);
+  --cell-group-title-color: var(--app-B6-N3);
+  --cell-group-title-padding: 16px 16px 8px;
+  --cell-group-title-font-size: 16px;
+  --cell-group-title-line-height: 16px;
+  --cell-group-inset-padding: 0 16px;
+  --cell-group-inset-border-radius: 16px;
+  --cell-group-inset-title-padding: 16px 16px 8px 32px;
+
+  --tabbar-height: 55px;
+  --tabbar-background-color: var(--app-B5);
+  --tabbar-border-color: var(--app-B6-N7);
+  --tabbar-item-font-size: 12px;
+  --tabbar-item-text-color: var(--app-B6-N5);
+  --tabbar-item-active-color: var(--app-M1);
+  --tabbar-item-line-height: 1;
+  --tabbar-item-icon-size: 22px;
+  --tabbar-item-margin-bottom: 4px;
+  --tabbar-item-disabled-opacity: 0.5;
+  --skeleton-row-background-color: var(--app-B4-N7);
+  --skeleton-avatar-background-color: var(--app-B4-N7);
+}
+
+:root[theme='dark'] {
+  --smart-ui-overlay: rgba(0, 0, 0, 0.7);
+  --smart-ui-bottom-sheet-dragger-node-background: rgba(255, 255, 255, 0.3);
+  --smart-ui-dialog-background: linear-gradient(0deg, var(--app-B4-N6), var(--app-B4-N6)), var(--app-B1);
+  --smart-ui-border-image: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  --smart-ui-battery-body-base-background: rgba(255, 255, 255, 0.4);
+  --smart-ui-battery-text-color: rgba(255, 255, 255, 1);
+  --smart-ui-battery-slash-border-color: #000;
+  --smart-ui-toast-background: #3c3c3c;
+  --smart-ui-toast-box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  --smart-ui-overlay-blur-background: rgba(0, 0, 0, 0.6);
+}
+
+.smart-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.smart-multi-ellipsis--l2 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.smart-clearfix::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+/* WC custom elements need display:block (miniapp components are block-level) */
+[relation-is] {
+  display: block;
+}
+
+/* Scoped utility classes: the WC compiler prefixes class names (e.g. smart-ellipsis
+   becomes c-HASH__smart-ellipsis), so the global rules above don't match. */
+[class*="__smart-ellipsis"] {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+[class*="__smart-multi-ellipsis--l2"] {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+[class*="__smart-multi-ellipsis--l3"] {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+[class*="__smart-clearfix"]::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+[class*="__smart-hairline"],
+[class*="__smart-hairline--top"],
+[class*="__smart-hairline--left"],
+[class*="__smart-hairline--right"],
+[class*="__smart-hairline--bottom"],
+[class*="__smart-hairline--top-bottom"],
+[class*="__smart-hairline--surround"] {
+  position: relative;
+}
+
+[class*="__smart-hairline"]::after,
+[class*="__smart-hairline--top"]::after,
+[class*="__smart-hairline--left"]::after,
+[class*="__smart-hairline--right"]::after,
+[class*="__smart-hairline--bottom"]::after,
+[class*="__smart-hairline--top-bottom"]::after,
+[class*="__smart-hairline--surround"]::after {
+  position: absolute;
+  box-sizing: border-box;
+  transform-origin: center;
+  content: ' ';
+  pointer-events: none;
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  border: 0 solid var(--hairline-color, var(--app-B4-N7, #ebedf0));
+  transform: scale(0.5);
+}
+
+[class*="__smart-hairline--top"]::after {
+  border-top-width: 1px;
+}
+
+[class*="__smart-hairline--bottom"]::after {
+  border-bottom-width: 1px;
+}
+
+[class*="__smart-hairline--left"]::after {
+  border-left-width: 1px;
+}
+
+[class*="__smart-hairline--right"]::after {
+  border-right-width: 1px;
+}
+
+[class*="__smart-hairline--top-bottom"]::after {
+  border-width: 1px 0;
+}
+
+[class*="__smart-hairline--surround"]::after {
+  border-width: 1px;
+}
